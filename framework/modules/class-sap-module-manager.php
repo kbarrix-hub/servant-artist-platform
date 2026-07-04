@@ -42,15 +42,15 @@ final class SAP_Module_Manager {
 	/**
 	 * Registered framework modules.
 	 *
-	 * @var array<class-string, object>
+	 * @var array<int, SAP_Module_Interface>
 	 */
 	private array $modules = [];
-
 
 	/**
 	 * Set the Framework Services container.
 	 *
 	 * @param SAP_Framework_Services $framework Framework services.
+	 *
 	 * @return void
 	 */
 	public function set_framework(
@@ -60,10 +60,12 @@ final class SAP_Module_Manager {
 		$this->framework = $framework;
 	}
 
-    /**
+	/**
 	 * Starts the Module Manager.
 	 *
 	 * Coordinates the complete SAP module lifecycle.
+	 *
+	 * @return void
 	 */
 	public function run(): void {
 
@@ -76,51 +78,67 @@ final class SAP_Module_Manager {
 		$this->dispatch_ready_event();
 	}
 
-    /**
+	/**
 	 * Discover available SAP modules.
 	 *
 	 * Locates all framework modules available for
 	 * registration.
+	 *
+	 * @return void
 	 */
 	private function discover_modules(): void {
 
+		// Future automatic module discovery.
 	}
 
-    /**
-     * Register discovered SAP modules.
-     *
-     * Registers all framework modules with the
-     * framework.
-     *
-     * @return void
-     */
-    private function register_modules(): void {
+	/**
+	 * Register discovered SAP modules.
+	 *
+	 * Creates all framework module instances.
+	 *
+	 * @return void
+	 */
+	private function register_modules(): void {
 
-	     $this->modules[] = new SAP_Settings_Module(
-		     $this->framework
-	     );
-	
+		$this->modules[] = new SAP_Settings_Module(
+			$this->framework
+		);
+
+		$this->modules[] = new SAP_Artists_Module(
+			$this->framework
+		);
 	}
 
-    /**
+	/**
 	 * Initialize registered SAP modules.
 	 *
-	 * Starts all registered modules and prepares
-	 * them for use by the framework.
+	 * Executes the module lifecycle by registering
+	 * and booting each module.
+	 *
+	 * @return void
 	 */
 	private function initialize_modules(): void {
-		
 
+		foreach ( $this->modules as $module ) {
+
+			$module->register();
+
+			$module->boot();
+		}
 	}
 
-    /**
+	/**
 	 * Dispatch the modules ready event.
 	 *
 	 * Notifies the framework that all SAP modules
 	 * have completed initialization.
+	 *
+	 * @return void
 	 */
 	private function dispatch_ready_event(): void {
 
+		// Framework ready event will be dispatched
+		// in a future milestone.
 	}
 
 }
