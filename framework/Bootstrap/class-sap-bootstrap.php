@@ -14,8 +14,8 @@ declare(strict_types=1);
  * Prepare the SAP Framework environment and launch the
  * framework startup sequence.
  *
- * Bootstrap is responsible for preparing the framework environment.
- * It does not contain business logic.
+ * Bootstrap is responsible for preparing the framework
+ * environment. It does not contain business logic.
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -34,7 +34,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class SAP_Bootstrap {
 
-    /**
+	/**
 	 * Singleton instance.
 	 *
 	 * @var SAP_Bootstrap|null
@@ -57,6 +57,7 @@ final class SAP_Bootstrap {
 	 * @throws \Exception Always.
 	 */
 	public function __wakeup(): void {
+
 		throw new \Exception(
 			'Cannot unserialize singleton ' . __CLASS__
 		);
@@ -64,9 +65,6 @@ final class SAP_Bootstrap {
 
 	/**
 	 * Returns the singleton Bootstrap instance.
-	 *
-	 * Creates the Bootstrap object on first request and
-	 * returns the existing instance thereafter.
 	 *
 	 * @return SAP_Bootstrap
 	 */
@@ -80,10 +78,23 @@ final class SAP_Bootstrap {
 	}
 
 	/**
+	 * Execute framework installation.
+	 *
+	 * Called during plugin activation.
+	 *
+	 * @return void
+	 */
+	public static function activate(): void {
+
+		require_once dirname( __DIR__ ) . '/install/class-sap-installer.php';
+
+		SAP_Installer::install();
+	}
+
+	/**
 	 * Starts the Servant Artist Platform Framework.
 	 *
-	 * Bootstrap is responsible for preparing the framework
-	 * environment before transferring control to the Loader.
+	 * @return void
 	 */
 	public function run(): void {
 
@@ -96,45 +107,50 @@ final class SAP_Bootstrap {
 		$this->load_loader();
 	}
 
-   /**
-    * Load framework requirements.
-    *
-    * Loads the framework requirements file and executes
-    * the environment validation pipeline.
-    */
-    private function load_requirements(): void {
+	/**
+	 * Load framework requirements.
+	 *
+	 * @return void
+	 */
+	private function load_requirements(): void {
 
-	    require_once __DIR__ . '/class-sap-requirements.php';
+		require_once __DIR__ . '/class-sap-requirements.php';
 
-	    sap_requirements_check();
+		sap_requirements_check();
 	}
-
 
 	/**
 	 * Load framework constants.
+	 *
+	 * @return void
 	 */
 	private function load_constants(): void {
-		// Section 4
+
+		// Future constants.
 	}
 
 	/**
 	 * Load bootstrap helper functions.
+	 *
+	 * @return void
 	 */
 	private function load_functions(): void {
-		// Section 4
+
+		// Future helper functions.
 	}
 
 	/**
-     * Load the SAP Loader.
-     */
-    private function load_loader(): void {
+	 * Load the SAP Loader.
+	 *
+	 * @return void
+	 */
+	private function load_loader(): void {
 
-	require_once __DIR__ . '/class-sap-loader.php';
+		require_once __DIR__ . '/class-sap-loader.php';
 
-	$loader = SAP_Loader::instance();
+		$loader = SAP_Loader::instance();
 
-	$loader->run();
-    }
+		$loader->run();
+	}
 
 }
-      

@@ -15,9 +15,7 @@ declare(strict_types=1);
  * Text Domain: servant-artist-platform
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * ============================================================
@@ -36,20 +34,32 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since   1.0.0
  * ============================================================
  */
- 
- /*
+
+/*
 |--------------------------------------------------------------------------
 | Framework Bootstrap
 |--------------------------------------------------------------------------
 |
 | The plugin entry point delegates framework startup to the Bootstrap
-| layer. From this point forward, Bootstrap assumes responsibility for
-| preparing the environment and launching the SAP Framework.
+| layer. Bootstrap assumes responsibility for both installation and
+| runtime initialization.
 |
 */
 
 require_once __DIR__ . '/framework/Bootstrap/class-sap-bootstrap.php';
 
-$bootstrap = SAP_Bootstrap::instance();
+/**
+ * Register plugin activation.
+ */
+register_activation_hook(
+	__FILE__,
+	array(
+		'SAP_Bootstrap',
+		'activate',
+	)
+);
 
-$bootstrap->run();
+/**
+ * Start the framework.
+ */
+SAP_Bootstrap::instance()->run();
