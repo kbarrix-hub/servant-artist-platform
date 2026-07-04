@@ -131,7 +131,7 @@ final class SAP_Artist {
 		string $email
 	) {
 
-		$this->uuid         = uniqid( 'artist_', true );
+		$this->uuid         = SAP_UUID::generate( 'artist_' );
 		$this->display_name = trim( $display_name );
 		$this->legal_name   = trim( $legal_name );
 		$this->stage_name   = trim( $stage_name );
