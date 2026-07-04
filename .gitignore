@@ -1,0 +1,54 @@
+# ============================================================
+# Servant Artist Platform
+# Git Ignore
+# ============================================================
+
+# macOS
+.DS_Store
+
+# Composer
+/vendor/
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+
+# Windows
+Thumbs.db
+Desktop.ini# ============================================================
+# Servant Artist Platform
+# Git Ignore
+# ============================================================
+
+# macOS
+.DS_Store
+
+# Composer
+/vendor/
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+
+# Windows
+Thumbs.db
+Desktop.ini
+
