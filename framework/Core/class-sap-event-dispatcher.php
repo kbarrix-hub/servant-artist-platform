@@ -140,4 +140,36 @@ final class SAP_Event_Dispatcher {
 		return isset( $this->listeners[ $event ] );
 	}
 
+
+	/**
+	 * Remove an event listener.
+	 *
+	 * Removes a previously registered listener for
+	 * the specified event.
+	 *
+	 * @param string   $event    Event name.
+	 * @param callable $listener Event listener.
+	 * @return void
+	 */
+	public function remove_listener(
+		string $event,
+		callable $listener
+	): void {
+
+		if ( ! isset( $this->listeners[ $event ] ) ) {
+			return;
+		}
+
+		foreach ( $this->listeners[ $event ] as $index => $registered_listener ) {
+
+			if ( $registered_listener === $listener ) {
+				unset( $this->listeners[ $event ][ $index ] );
+			}
+		}
+
+		if ( empty( $this->listeners[ $event ] ) ) {
+			unset( $this->listeners[ $event ] );
+		}
+	}
+
 }

@@ -131,6 +131,12 @@ final class SAP_Loader {
 		$this->load_module_manager();
 
 		$this->framework_ready();
+
+		$this->modules->set_framework(
+			$this->framework
+		);
+
+		$this->start_framework();
 	}
 
     /**
@@ -170,9 +176,7 @@ final class SAP_Loader {
 
 	     require_once dirname( __DIR__ ) . '/managers/class-sap-module-manager.php';
 
-	     $this->modules = SAP_Module_Manager::instance();
-
-	     $this->modules->run();
+	     $this->modules = new SAP_Module_Manager();
     }
 
     /**
@@ -189,12 +193,20 @@ final class SAP_Loader {
 	     $this->events = SAP_Event_Dispatcher::instance();
     }
 
-    /**
-	 * Finalize framework startup.
+    	/**
+	 * Start the SAP Framework.
 	 *
-	 * Executes any final startup tasks after all core
-	 * framework services have been initialized.
+	 * Executes the framework lifecycle after all
+	 * core services have been created.
+	 *
+	 * @return void
 	 */
+	private function start_framework(): void {
+
+		$this->modules->run();
+	}
+
+
 	private function framework_ready(): void {
 
 	     require_once dirname( __DIR__ ) . '/core/class-sap-framework-services.php';

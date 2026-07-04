@@ -33,11 +33,11 @@ defined( 'ABSPATH' ) || exit;
 final class SAP_Module_Manager {
 
 	/**
-	 * Singleton instance.
+	 * Framework Services container.
 	 *
-	 * @var SAP_Module_Manager|null
+	 * @var SAP_Framework_Services
 	 */
-	private static ?SAP_Module_Manager $instance = null;
+	private SAP_Framework_Services $framework;
 
 	/**
 	 * Registered framework modules.
@@ -46,42 +46,18 @@ final class SAP_Module_Manager {
 	 */
 	private array $modules = [];
 
-	/**
-	 * Prevent direct instantiation.
-	 */
-	private function __construct() {}
 
 	/**
-	 * Prevent cloning.
-	 */
-	private function __clone() {}
-
-	/**
-	 * Prevent unserialization.
+	 * Set the Framework Services container.
 	 *
-	 * @throws \Exception Always.
+	 * @param SAP_Framework_Services $framework Framework services.
+	 * @return void
 	 */
-	public function __wakeup(): void {
-		throw new \Exception(
-			'Cannot unserialize singleton ' . __CLASS__
-		);
-	}
+	public function set_framework(
+		SAP_Framework_Services $framework
+	): void {
 
-    /**
-	 * Returns the singleton Module Manager instance.
-	 *
-	 * Creates the Module Manager object on first request
-	 * and returns the existing instance thereafter.
-	 *
-	 * @return SAP_Module_Manager
-	 */
-	public static function instance(): SAP_Module_Manager {
-
-		if ( self::$instance === null ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
+		$this->framework = $framework;
 	}
 
     /**
@@ -120,7 +96,9 @@ final class SAP_Module_Manager {
      */
     private function register_modules(): void {
 
-	     $this->modules[] = new SAP_Settings_Module();
+	     $this->modules[] = new SAP_Settings_Module(
+		     $this->framework
+	     );
 	
 	}
 
@@ -131,6 +109,7 @@ final class SAP_Module_Manager {
 	 * them for use by the framework.
 	 */
 	private function initialize_modules(): void {
+		
 
 	}
 
