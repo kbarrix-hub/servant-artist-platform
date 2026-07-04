@@ -42,39 +42,39 @@ final class SAP_Loader {
 	private static ?SAP_Loader $instance = null;
 
 	/**
- * Framework Registry.
- *
- * @var SAP_Registry
- */
-private SAP_Registry $registry;
+     * Framework Registry.
+     *
+     * @var SAP_Registry
+     */
+    private SAP_Registry $registry;
 
-/**
- * Framework Asset Manager.
- *
- * @var SAP_Asset_Manager
- */
-private SAP_Asset_Manager $assets;
+    /**
+     * Framework Asset Manager.
+     *
+     * @var SAP_Asset_Manager
+     */
+    private SAP_Asset_Manager $assets;
 
-/**
- * Framework Module Manager.
- *
- * @var SAP_Module_Manager
- */
-private SAP_Module_Manager $modules;
+    /**
+     * Framework Module Manager.
+     *
+     * @var SAP_Module_Manager
+     */
+    private SAP_Module_Manager $modules;
 
-/**
- * Framework Event Dispatcher.
- *
- * @var SAP_Event_Dispatcher
- */
-private SAP_Event_Dispatcher $events;
+     /**
+      * Framework Event Dispatcher.
+      *
+      * @var SAP_Event_Dispatcher
+      */
+    private SAP_Event_Dispatcher $events;
 
-/**
- * Framework Services container.
- *
- * @var SAP_Framework_Services
- */
-private SAP_Framework_Services $framework;
+     /**
+     * Framework Services container.
+     *
+     * @var SAP_Framework_Services
+     */
+    private SAP_Framework_Services $framework;
 
 	/**
 	 * Prevent direct instantiation.
@@ -142,7 +142,7 @@ private SAP_Framework_Services $framework;
      */
     private function load_registry(): void {
 
-	     require_once dirname( __DIR__ ) . '/Core/class-sap-registry.php';
+	     require_once dirname( __DIR__ ) . '/core/class-sap-registry.php';
 
 	     $this->registry = SAP_Registry::instance();
     }
@@ -155,7 +155,7 @@ private SAP_Framework_Services $framework;
      */
     private function load_asset_manager(): void {
 
-	     require_once dirname( __DIR__ ) . '/Core/class-sap-asset-manager.php';
+	     require_once dirname( __DIR__ ) . '/core/class-sap-asset-manager.php';
 
 	     $this->assets = SAP_Asset_Manager::instance();
     }
@@ -166,11 +166,13 @@ private SAP_Framework_Services $framework;
      * Initializes the Module Manager responsible for
      * loading and managing SAP framework modules.
      */
-     private function load_module_manager(): void {
+    private function load_module_manager(): void {
 
-	     require_once dirname( __DIR__ ) . '/Core/class-sap-module-manager.php';
+	     require_once dirname( __DIR__ ) . '/managers/class-sap-module-manager.php';
 
 	     $this->modules = SAP_Module_Manager::instance();
+
+	     $this->modules->run();
     }
 
     /**
@@ -180,9 +182,9 @@ private SAP_Framework_Services $framework;
      * coordinating communication between framework
      * components.
      */
-     private function load_event_dispatcher(): void {
+    private function load_event_dispatcher(): void {
 
-	     require_once dirname( __DIR__ ) . '/Core/class-sap-event-dispatcher.php';
+	     require_once dirname( __DIR__ ) . '/core/class-sap-event-dispatcher.php';
 
 	     $this->events = SAP_Event_Dispatcher::instance();
     }
@@ -195,13 +197,13 @@ private SAP_Framework_Services $framework;
 	 */
 	private function framework_ready(): void {
 
-	require_once dirname( __DIR__ ) . '/Core/class-sap-framework-services.php';
+	     require_once dirname( __DIR__ ) . '/core/class-sap-framework-services.php';
 
-	$this->framework = new SAP_Framework_Services(
-		$this->registry,
-		$this->events,
-		$this->assets,
-		$this->modules
+	     $this->framework = new SAP_Framework_Services(
+		     $this->registry,
+		     $this->events,
+		     $this->assets,
+		     $this->modules
 	);
     }
 

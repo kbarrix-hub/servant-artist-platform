@@ -108,18 +108,20 @@ final class SAP_Module_Manager {
 	 */
 	private function discover_modules(): void {
 
-		// Section 6
 	}
 
     /**
-	 * Register discovered SAP modules.
-	 *
-	 * Registers all discovered modules with the
-	 * framework.
-	 */
-	private function register_modules(): void {
+     * Register discovered SAP modules.
+     *
+     * Registers all framework modules with the
+     * framework.
+     *
+     * @return void
+     */
+    private function register_modules(): void {
 
-		// Section 7
+	     $this->modules[] = new SAP_Settings_Module();
+	
 	}
 
     /**
@@ -130,7 +132,6 @@ final class SAP_Module_Manager {
 	 */
 	private function initialize_modules(): void {
 
-		// Section 8
 	}
 
     /**
@@ -141,7 +142,6 @@ final class SAP_Module_Manager {
 	 */
 	private function dispatch_ready_event(): void {
 
-		// Section 9
 	}
 
 }
