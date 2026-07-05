@@ -11,10 +11,11 @@ declare(strict_types=1);
  * SAP-005 Module Manager
  *
  * Responsibility:
- * Discover, register, initialize, and manage framework modules.
+ * Register, initialize, and manage framework modules.
  *
- * The Module Manager coordinates the SAP module lifecycle.
- * It does not contain module business logic.
+ * The Module Manager coordinates the SAP module
+ * lifecycle. It does not create modules or contain
+ * module business logic.
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -33,11 +34,11 @@ defined( 'ABSPATH' ) || exit;
 final class SAP_Module_Manager {
 
 	/**
-	 * Framework Services container.
+	 * Core framework services.
 	 *
-	 * @var SAP_Framework_Services
+	 * @var SAP_Core_Services
 	 */
-	private SAP_Framework_Services $framework;
+	private SAP_Core_Services $services;
 
 	/**
 	 * Registered framework modules.
@@ -47,63 +48,47 @@ final class SAP_Module_Manager {
 	private array $modules = [];
 
 	/**
-	 * Set the Framework Services container.
+	 * Create the Module Manager.
 	 *
-	 * @param SAP_Framework_Services $framework Framework services.
-	 *
-	 * @return void
+	 * @param SAP_Core_Services $services Core framework services.
 	 */
-	public function set_framework(
-		SAP_Framework_Services $framework
-	): void {
+	public function __construct(
+		SAP_Core_Services $services
+	) {
 
-		$this->framework = $framework;
+		$this->services = $services;
+
 	}
 
 	/**
-	 * Starts the Module Manager.
+	 * Register a framework module.
 	 *
-	 * Coordinates the complete SAP module lifecycle.
+	 * @param SAP_Module_Interface $module Framework module.
+	 *
+	 * @return void
+	 */
+	public function register(
+		SAP_Module_Interface $module
+	): void {
+
+		$this->modules[] = $module;
+
+	}
+
+	/**
+	 * Start the Module Manager.
+	 *
+	 * Executes the SAP module lifecycle.
 	 *
 	 * @return void
 	 */
 	public function run(): void {
-
-		$this->discover_modules();
-
-		$this->register_modules();
 
 		$this->register_navigation();
 
 		$this->initialize_modules();
 
 		$this->dispatch_ready_event();
-	}
-
-	/**
-	 * Discover available SAP modules.
-	 *
-	 * @return void
-	 */
-	private function discover_modules(): void {
-
-		// Future automatic module discovery.
-	}
-
-	/**
-	 * Register discovered SAP modules.
-	 *
-	 * @return void
-	 */
-	private function register_modules(): void {
-
-		$this->modules[] = new SAP_Settings_Module(
-			$this->framework
-		);
-
-		$this->modules[] = new SAP_Artists_Module(
-			$this->framework
-		);
 
 	}
 
@@ -118,8 +103,7 @@ final class SAP_Module_Manager {
 	 */
 	private function register_navigation(): void {
 
-		$navigation = $this->framework
-			->navigation();
+		$navigation = $this->services->navigation();
 
 		foreach ( $this->modules as $module ) {
 
@@ -130,12 +114,15 @@ final class SAP_Module_Manager {
 			$navigation->register_provider(
 				$module
 			);
+
 		}
 
 	}
 
 	/**
-	 * Initialize registered SAP modules.
+	 * Initialize registered framework modules.
+	 *
+	 * Executes each module lifecycle.
 	 *
 	 * @return void
 	 */
@@ -146,19 +133,23 @@ final class SAP_Module_Manager {
 			$module->register();
 
 			$module->boot();
+
+			$module->assets();
+
 		}
 
 	}
 
 	/**
-	 * Dispatch the modules ready event.
+	 * Dispatch the framework ready event.
+	 *
+	 * Reserved for future framework events.
 	 *
 	 * @return void
 	 */
 	private function dispatch_ready_event(): void {
 
-		// Framework ready event will be dispatched
-		// in a future milestone.
+		// Future milestone.
 
 	}
 

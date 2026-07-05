@@ -136,15 +136,17 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 	}
 
 	/**
-	 * Render the Artist Portal dashboard.
-	 *
-	 * @return void
-	 */
-	public function render_dashboard(): void {
+ * Render the Artist Portal dashboard.
+ *
+ * @return void
+ */
+public function render_dashboard(): void {
 
-		SAP_View::render( 'artist-dashboard' );
-
-	}
+	SAP_View::render(
+		 'artist-dashboard',
+		 $this->services
+	     );
+	} 
 
 	/**
 	 * Return the navigation items provided by this module.

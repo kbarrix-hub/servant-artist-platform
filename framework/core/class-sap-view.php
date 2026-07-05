@@ -41,11 +41,15 @@ final class SAP_View {
 	/**
 	 * Render a framework view.
 	 *
-	 * @param string $view View filename.
+	 * @param string            $view     View filename.
+	 * @param SAP_Core_Services $services Framework services.
 	 *
 	 * @return void
 	 */
-	public static function render( string $view ): void {
+	public static function render(
+		string $view,
+		SAP_Core_Services $services
+	): void {
 
 		/**
 		 * Resolve the requested view.
@@ -53,14 +57,9 @@ final class SAP_View {
 		$current_view = SAP_PLUGIN_DIR . 'admin/views/' . $view . '.php';
 
 		/**
-		 * Retrieve framework services.
-		 */
-		$framework = SAP_Framework::instance()->services();
-
-		/**
 		 * Retrieve navigation items.
 		 */
-		$navigation_items = $framework
+		$navigation_items = $services
 			->navigation()
 			->get_navigation_items();
 

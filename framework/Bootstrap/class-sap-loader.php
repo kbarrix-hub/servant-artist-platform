@@ -11,11 +11,13 @@ declare(strict_types=1);
  * SAP-001 Loader
  *
  * Responsibility:
- * Coordinate initialization of all core framework
- * components in the correct startup order.
+ * Bootstrap the Servant Artist Platform framework by
+ * loading the core services, creating the module
+ * manager, registering framework modules, and starting
+ * the framework lifecycle.
  *
- * The Loader assembles the SAP Framework.
- * It does not contain framework business logic.
+ * The Loader is the application's bootstrapper.
+ * It contains no business logic.
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -27,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class SAP_Loader
  *
- * Coordinates startup of all core SAP framework services.
+ * Coordinates startup of the Servant Artist Platform.
  *
  * @since 1.0.0
  */
@@ -48,20 +50,6 @@ final class SAP_Loader {
 	private SAP_Registry $registry;
 
 	/**
-	 * Framework Asset Manager.
-	 *
-	 * @var SAP_Asset_Manager
-	 */
-	private SAP_Asset_Manager $assets;
-
-	/**
-	 * Framework Module Manager.
-	 *
-	 * @var SAP_Module_Manager
-	 */
-	private SAP_Module_Manager $modules;
-
-	/**
 	 * Framework Event Dispatcher.
 	 *
 	 * @var SAP_Event_Dispatcher
@@ -69,11 +57,25 @@ final class SAP_Loader {
 	private SAP_Event_Dispatcher $events;
 
 	/**
-	 * Framework Services container.
+	 * Framework Asset Manager.
 	 *
-	 * @var SAP_Framework_Services
+	 * @var SAP_Asset_Manager
 	 */
-	private SAP_Framework_Services $framework;
+	private SAP_Asset_Manager $assets;
+
+	/**
+	 * Core Framework Services.
+	 *
+	 * @var SAP_Core_Services
+	 */
+	private SAP_Core_Services $services;
+
+	/**
+	 * Framework Module Manager.
+	 *
+	 * @var SAP_Module_Manager
+	 */
+	private SAP_Module_Manager $modules;
 
 	/**
 	 * Prevent direct instantiation.
@@ -95,13 +97,11 @@ final class SAP_Loader {
 		throw new \Exception(
 			'Cannot unserialize singleton ' . __CLASS__
 		);
+
 	}
 
 	/**
 	 * Returns the singleton Loader instance.
-	 *
-	 * Creates the Loader object on first request and
-	 * returns the existing instance thereafter.
 	 *
 	 * @return SAP_Loader
 	 */
@@ -112,13 +112,24 @@ final class SAP_Loader {
 		}
 
 		return self::$instance;
+
 	}
 
 	/**
-	 * Starts the SAP Framework loading sequence.
+	 * Boot the Servant Artist Platform framework.
 	 *
-	 * Coordinates initialization of all core framework
-	 * services in the correct startup order.
+	 * Executes the complete framework startup sequence.
+	 *
+	 * Startup Order:
+	 *
+	 * 1. Registry
+	 * 2. Event Dispatcher
+	 * 3. Asset Manager
+	 * 4. Module Classes
+	 * 5. Core Services
+	 * 6. Module Manager
+	 * 7. Register Modules
+	 * 8. Start Framework
 	 *
 	 * @return void
 	 */
@@ -132,13 +143,11 @@ final class SAP_Loader {
 
 		$this->load_module_classes();
 
-		$this->load_module_manager();
+		$this->create_services();
 
-		$this->framework_ready();
+		$this->create_module_manager();
 
-		$this->modules->set_framework(
-			$this->framework
-		);
+		$this->register_modules();
 
 		$this->start_framework();
 
@@ -148,8 +157,7 @@ final class SAP_Loader {
 	 * Load the SAP Registry.
 	 *
 	 * Initializes the Registry service responsible for
-	 * storing and providing access to core framework
-	 * components.
+	 * storing and providing access to framework objects.
 	 *
 	 * @return void
 	 */
@@ -162,74 +170,10 @@ final class SAP_Loader {
 	}
 
 	/**
-	 * Load the SAP Asset Manager.
-	 *
-	 * Initializes the Asset Manager responsible for
-	 * registering and loading framework assets.
-	 *
-	 * @return void
-	 */
-	private function load_asset_manager(): void {
-
-		require_once dirname( __DIR__ ) . '/core/class-sap-asset-manager.php';
-
-		$this->assets = SAP_Asset_Manager::instance();
-
-		$this->assets->run();
-
-	}
-
-	/**
-	 * Load framework module classes.
-	 *
-	 * Loads all framework class definitions before
-	 * the Module Manager instantiates them.
-	 *
-	 * @return void
-	 */
-	private function load_module_classes(): void {
-
-		require_once dirname( __DIR__ ) . '/modules/interface-sap-module.php';
-
-		require_once dirname( __DIR__ ) . '/abstracts/abstract-sap-module.php';
-
-		/*
-		 * Framework View Renderer.
-		 */
-		require_once dirname( __DIR__ ) . '/core/class-sap-view.php';
-
-		/*
-		 * Framework Modules.
-		 */
-		require_once dirname( __DIR__ ) . '/modules/settings/class-sap-settings-module.php';
-
-		require_once dirname( __DIR__ ) . '/modules/artists/class-sap-artists-module.php';
-
-
-	}
-
-	/**
-	 * Load the SAP Module Manager.
-	 *
-	 * Initializes the Module Manager responsible for
-	 * loading and managing SAP framework modules.
-	 *
-	 * @return void
-	 */
-	private function load_module_manager(): void {
-
-		require_once dirname( __DIR__ ) . '/managers/class-sap-module-manager.php';
-
-		$this->modules = new SAP_Module_Manager();
-
-	}
-
-	/**
 	 * Load the SAP Event Dispatcher.
 	 *
 	 * Initializes the Event Dispatcher responsible for
-	 * coordinating communication between framework
-	 * components.
+	 * communication between framework components.
 	 *
 	 * @return void
 	 */
@@ -242,10 +186,152 @@ final class SAP_Loader {
 	}
 
 	/**
-	 * Start the SAP Framework.
+	 * Load the SAP Asset Manager.
 	 *
-	 * Executes the framework lifecycle after all
-	 * core services have been created.
+	 * Initializes the Asset Manager responsible for
+	 * registering and loading framework assets.
+	 *
+	 * @return void
+	 */
+	 private function load_asset_manager(): void {
+
+		require_once dirname( __DIR__ ) . '/core/class-sap-asset-manager.php';
+
+		$this->assets = SAP_Asset_Manager::instance();
+
+		$this->assets->run();
+
+	}
+
+	/**
+     * Load framework class definitions.
+     *
+     * Loads all framework interfaces, abstract classes,
+     * managers, services, and module definitions before
+     * the framework begins execution.
+     *
+     * @return void
+     */
+     private function load_module_classes(): void {
+
+	/*
+	 * Framework Interfaces.
+	 */
+	require_once dirname( __DIR__ ) . '/modules/interface-sap-module.php';
+
+	require_once dirname( __DIR__ ) . '/interfaces/interface-sap-navigation-provider.php';
+
+	/*
+	 * Platform Navigation Manager.
+	 *
+	 * Currently resides in the plugin root.
+	 * SAP-014 will relocate it into the framework.
+	 */
+	require_once dirname( dirname( __DIR__ ) ) . '/class-sap-navigation-manager.php';
+
+	/*
+	 * Framework Abstracts.
+	 */
+	require_once dirname( __DIR__ ) . '/abstracts/abstract-sap-module.php';
+
+	/*
+	 * Core Services.
+	 */
+	require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
+
+	/*
+	 * Framework View.
+	 */
+	require_once dirname( __DIR__ ) . '/core/class-sap-view.php';
+
+	/*
+	 * Framework Module Manager.
+	 */
+	require_once dirname( __DIR__ ) . '/managers/class-sap-module-manager.php';
+
+	/*
+	 * Framework Modules.
+	 */
+	require_once dirname( __DIR__ ) . '/modules/settings/class-sap-settings-module.php';
+
+	require_once dirname( __DIR__ ) . '/modules/artists/class-sap-artists-module.php';
+
+	}
+
+	/**
+	 * Create the Core Services container.
+	 *
+	 * Builds the central dependency container used
+	 * throughout the Servant Artist Platform.
+	 *
+	 * @return void
+	 */
+	private function create_services(): void {
+
+		$this->services = new SAP_Core_Services(
+			$this->registry,
+			$this->events,
+			$this->assets
+		);
+
+	}
+
+	/**
+	 * Create the Module Manager.
+	 *
+	 * Instantiates the Module Manager and injects
+	 * the Core Services container.
+	 *
+	 * @return void
+	 */
+	private function create_module_manager(): void {
+
+		$this->modules = new SAP_Module_Manager(
+			$this->services
+		);
+
+	}
+
+	/**
+	 * Register framework modules.
+	 *
+	 * Registers every framework module that should
+	 * participate in the application lifecycle.
+	 *
+	 * @return void
+	 */
+	private function register_modules(): void {
+
+		$this->modules->register(
+			new SAP_Settings_Module(
+				$this->services
+			)
+		);
+
+		$this->modules->register(
+			new SAP_Artists_Module(
+				$this->services
+			)
+		);
+
+		/*
+		 * Future modules register here.
+		 *
+		 * Example:
+		 *
+		 * $this->modules->register(
+		 *     new SAP_Application_Shell_Module(
+		 *         $this->services
+		 *     )
+		 * );
+		 */
+
+	}
+
+	/**
+	 * Start the Servant Artist Platform.
+	 *
+	 * Begins execution of all registered modules.
 	 *
 	 * @return void
 	 */
@@ -255,22 +341,5 @@ final class SAP_Loader {
 
 	}
 
-	/**
-	 * Prepare the Framework Services container.
-	 *
-	 * @return void
-	 */
-	private function framework_ready(): void {
-
-		require_once dirname( __DIR__ ) . '/core/class-sap-framework-services.php';
-
-		$this->framework = new SAP_Framework_Services(
-			$this->registry,
-			$this->events,
-			$this->assets,
-			$this->modules
-		);
-
-	}
-
 }
+

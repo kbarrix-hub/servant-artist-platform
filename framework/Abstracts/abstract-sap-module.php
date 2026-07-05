@@ -24,30 +24,31 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class SAP_Abstract_Module
  *
- * Provides the common functionality shared by all
- * SAP framework modules.
+ * Base class shared by every SAP framework module.
  *
  * @since 1.0.0
  */
 abstract class SAP_Abstract_Module implements SAP_Module_Interface {
 
 	/**
-	 * Framework Services container.
+	 * Core framework services.
 	 *
-	 * @var SAP_Framework_Services
+	 * @var SAP_Core_Services
 	 */
-	protected SAP_Framework_Services $framework;
+	protected SAP_Core_Services $services;
 
 	/**
 	 * Create a new SAP module.
 	 *
-	 * @param SAP_Framework_Services $framework Framework services container.
+	 * @param SAP_Core_Services $services Core framework services.
 	 */
-	public function __construct( SAP_Framework_Services $framework ) {
+	public function __construct(
+		SAP_Core_Services $services
+	) {
 
-		$this->framework = $framework;
+		$this->services = $services;
+
 	}
-
 
 	/**
 	 * Register the module.
