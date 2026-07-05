@@ -40,15 +40,15 @@ final readonly class SAP_Framework_Services {
 	 * @param SAP_Registry           $registry   Framework Registry.
 	 * @param SAP_Event_Dispatcher   $events     Event Dispatcher.
 	 * @param SAP_Asset_Manager      $assets     Asset Manager.
-	 * @param SAP_Module_Manager     $modules    Module Manager.
 	 * @param SAP_Navigation_Manager $navigation Navigation Manager.
+	 * @param SAP_Router             $router     Framework Router.
 	 */
 	public function __construct(
 		private SAP_Registry $registry,
 		private SAP_Event_Dispatcher $events,
 		private SAP_Asset_Manager $assets,
-		private SAP_Module_Manager $modules,
 		private SAP_Navigation_Manager $navigation,
+		private SAP_Router $router,
 	) {}
 
 	/**
@@ -59,6 +59,7 @@ final readonly class SAP_Framework_Services {
 	public function registry(): SAP_Registry {
 
 		return $this->registry;
+
 	}
 
 	/**
@@ -69,6 +70,7 @@ final readonly class SAP_Framework_Services {
 	public function events(): SAP_Event_Dispatcher {
 
 		return $this->events;
+
 	}
 
 	/**
@@ -79,16 +81,7 @@ final readonly class SAP_Framework_Services {
 	public function assets(): SAP_Asset_Manager {
 
 		return $this->assets;
-	}
 
-	/**
-	 * Get the Module Manager.
-	 *
-	 * @return SAP_Module_Manager
-	 */
-	public function modules(): SAP_Module_Manager {
-
-		return $this->modules;
 	}
 
 	/**
@@ -99,6 +92,18 @@ final readonly class SAP_Framework_Services {
 	public function navigation(): SAP_Navigation_Manager {
 
 		return $this->navigation;
+
+	}
+
+	/**
+	 * Get the Framework Router.
+	 *
+	 * @return SAP_Router
+	 */
+	public function router(): SAP_Router {
+
+		return $this->router;
+
 	}
 
 }

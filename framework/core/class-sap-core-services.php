@@ -62,6 +62,13 @@ final class SAP_Core_Services {
 	private SAP_Navigation_Manager $navigation;
 
 	/**
+	 * Framework Router.
+	 *
+	 * @var SAP_Router
+	 */
+	private SAP_Router $router;
+
+	/**
 	 * Create the Core Services container.
 	 *
 	 * @param SAP_Registry         $registry Framework Registry.
@@ -75,12 +82,12 @@ final class SAP_Core_Services {
 	) {
 
 		$this->registry = $registry;
-
-		$this->events = $events;
-
-		$this->assets = $assets;
+		$this->events   = $events;
+		$this->assets   = $assets;
 
 		$this->navigation = new SAP_Navigation_Manager();
+
+		$this->router = new SAP_Router();
 
 	}
 
@@ -125,6 +132,17 @@ final class SAP_Core_Services {
 	public function navigation(): SAP_Navigation_Manager {
 
 		return $this->navigation;
+
+	}
+
+	/**
+	 * Return the Router.
+	 *
+	 * @return SAP_Router
+	 */
+	public function router(): SAP_Router {
+
+		return $this->router;
 
 	}
 

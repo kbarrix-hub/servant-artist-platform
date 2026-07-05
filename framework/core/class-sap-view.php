@@ -51,19 +51,29 @@ final class SAP_View {
 		SAP_Core_Services $services
 	): void {
 
-		/**
+		/*
 		 * Resolve the requested view.
 		 */
 		$current_view = SAP_PLUGIN_DIR . 'admin/views/' . $view . '.php';
 
-		/**
+		/*
 		 * Retrieve navigation items.
 		 */
 		$navigation_items = $services
 			->navigation()
 			->get_navigation_items();
 
-		/**
+		/*
+		 * Retrieve registered application routes.
+		 *
+		 * This will be consumed by the Application
+		 * Shell in a future SAP milestone.
+		 */
+		$routes = $services
+			->router()
+			->get_routes();
+
+		/*
 		 * Future shell data.
 		 */
 		$current_user = wp_get_current_user();
@@ -72,7 +82,7 @@ final class SAP_View {
 
 		$notifications = [];
 
-		/**
+		/*
 		 * Render the application shell.
 		 */
 		require SAP_PLUGIN_DIR . 'admin/shell/app.php';

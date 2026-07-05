@@ -57,6 +57,14 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 	 */
 	public function register(): void {
 
+		// Register the module's application routes.
+		$this->services
+			->router()
+			->register_route(
+				'artist-dashboard',
+				[ $this, 'render_dashboard' ]
+			);
+
 		add_action(
 			'admin_menu',
 			[ $this, 'register_admin_menu' ]
@@ -136,22 +144,21 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 	}
 
 	/**
- * Render the Artist Portal dashboard.
- *
- * @return void
- */
-public function render_dashboard(): void {
+	 * Render the Artist Portal dashboard.
+	 *
+	 * @return void
+	 */
+	public function render_dashboard(): void {
 
-	SAP_View::render(
-		 'artist-dashboard',
-		 $this->services
-	     );
-	} 
+		SAP_View::render(
+			'artist-dashboard',
+			$this->services
+		);
+
+	}
 
 	/**
 	 * Return the navigation items provided by this module.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */

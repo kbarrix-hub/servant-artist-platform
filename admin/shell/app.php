@@ -18,6 +18,15 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
+/*
+ * The Router is now available to the
+ * Application Shell through SAP_View.
+ *
+ * Future milestones will use the Router
+ * to determine which module view should
+ * be rendered inside the workspace.
+ */
+
 ?>
 
 <div class="sap-shell">
@@ -43,10 +52,19 @@ defined( 'ABSPATH' ) || exit;
 			<div class="sap-page">
 
 				<?php
-				/**
-				 * Render the requested module view.
+
+				/*
+				 * Current implementation:
+				 * Render the requested view.
+				 *
+				 * Future implementation:
+				 * The Router will determine the
+				 * active module view before this
+				 * template is rendered.
 				 */
+
 				require $current_view;
+
 				?>
 
 			</div>

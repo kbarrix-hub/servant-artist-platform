@@ -235,9 +235,14 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/abstracts/abstract-sap-module.php';
 
 	/*
-	 * Core Services.
-	 */
-	require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
+     * Framework Router.
+     */
+     require_once dirname( __DIR__ ) . '/core/class-sap-router.php';
+
+     /*
+     * Core Services.
+     */
+     require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
 
 	/*
 	 * Framework View.
