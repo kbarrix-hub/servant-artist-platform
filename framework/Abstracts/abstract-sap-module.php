@@ -47,4 +47,33 @@ abstract class SAP_Abstract_Module implements SAP_Module_Interface {
 
 		$this->framework = $framework;
 	}
+
+
+	/**
+	 * Register the module.
+	 *
+	 * Default implementation.
+	 *
+	 * @return void
+	 */
+	public function register(): void {}
+
+	/**
+	 * Boot the module.
+	 *
+	 * Default implementation.
+	 *
+	 * @return void
+	 */
+	public function boot(): void {}
+
+	/**
+	 * Register module assets.
+	 *
+	 * Default implementation.
+	 *
+	 * @return void
+	 */
+	public function assets(): void {}
+
 }

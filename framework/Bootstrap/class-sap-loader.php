@@ -128,6 +128,8 @@ final class SAP_Loader {
 
 		$this->load_asset_manager();
 
+		$this->load_module_classes();
+
 		$this->load_module_manager();
 
 		$this->framework_ready();
@@ -164,6 +166,25 @@ final class SAP_Loader {
 	     require_once dirname( __DIR__ ) . '/core/class-sap-asset-manager.php';
 
 	     $this->assets = SAP_Asset_Manager::instance();
+    }
+
+    /**
+     * Load framework module classes.
+     *
+     * Loads all framework module class definitions before
+     * the Module Manager instantiates them.
+     *
+     * @return void
+     */
+    private function load_module_classes(): void {
+
+         require_once dirname( __DIR__ ) . '/modules/interface-sap-module.php';
+
+         require_once dirname( __DIR__ ) . '/abstracts/abstract-sap-module.php';
+
+         require_once dirname( __DIR__ ) . '/modules/settings/class-sap-settings-module.php';
+
+         require_once dirname( __DIR__ ) . '/modules/artists/class-sap-artists-module.php';
     }
 
     /**

@@ -8,13 +8,14 @@ declare(strict_types=1);
  * ============================================================
  *
  * Framework Component:
- * SAP-005 Module Manager
+ * SAP-010 Artists Module
  *
  * Responsibility:
- * Discover, register, initialize, and manage framework modules.
+ * Register and manage artist functionality.
  *
- * The Module Manager coordinates the SAP module lifecycle.
- * It does not contain module business logic.
+ * This module serves as the foundation for all
+ * artist-related features within the Servant
+ * Artist Platform.
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -24,121 +25,68 @@ declare(strict_types=1);
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class SAP_Module_Manager
+ * Class SAP_Artists_Module
  *
- * Coordinates the lifecycle of SAP framework modules.
+ * Registers and manages artist functionality.
  *
  * @since 1.0.0
  */
-final class SAP_Module_Manager {
+final class SAP_Artists_Module extends SAP_Abstract_Module {
 
 	/**
-	 * Framework Services container.
+	 * Module identifier.
 	 *
-	 * @var SAP_Framework_Services
+	 * @var string
 	 */
-	private SAP_Framework_Services $framework;
+	protected string $id = 'artists';
 
 	/**
-	 * Registered framework modules.
+	 * Module display name.
 	 *
-	 * @var array<int, SAP_Module_Interface>
+	 * @var string
 	 */
-	private array $modules = [];
+	protected string $name = 'Artists';
 
 	/**
-	 * Set the Framework Services container.
+	 * Register the module.
 	 *
-	 * @param SAP_Framework_Services $framework Framework services.
+	 * Registers WordPress hooks, filters,
+	 * services, and integrations.
 	 *
 	 * @return void
 	 */
-	public function set_framework(
-		SAP_Framework_Services $framework
-	): void {
+	public function register(): void {
 
-		$this->framework = $framework;
+		// Future hooks will be registered here.
+
 	}
 
 	/**
-	 * Starts the Module Manager.
+	 * Boot the module.
 	 *
-	 * Coordinates the complete SAP module lifecycle.
+	 * Executes initialization logic after
+	 * all modules have been registered.
 	 *
 	 * @return void
 	 */
-	public function run(): void {
+	public function boot(): void {
 
-		$this->discover_modules();
+		// Future initialization will occur here.
 
-		$this->register_modules();
-
-		$this->initialize_modules();
-
-		$this->dispatch_ready_event();
 	}
 
 	/**
-	 * Discover available SAP modules.
+	 * Register module assets.
 	 *
-	 * Locates all framework modules available for
-	 * registration.
-	 *
-	 * @return void
-	 */
-	private function discover_modules(): void {
-
-		// Future module discovery.
-	}
-
-	/**
-	 * Register discovered SAP modules.
-	 *
-	 * Creates all framework module instances.
+	 * Registers scripts and styles required
+	 * by the Artists module.
 	 *
 	 * @return void
 	 */
-	private function register_modules(): void {
+	public function assets(): void {
 
-		$this->modules[] = new SAP_Settings_Module(
-			$this->framework
-		);
+		// Future assets will be registered here.
 
-		$this->modules[] = new SAP_Artists_Module(
-			$this->framework
-		);
-	}
-
-	/**
-	 * Initialize registered SAP modules.
-	 *
-	 * Executes the module lifecycle by registering
-	 * and booting each module.
-	 *
-	 * @return void
-	 */
-	private function initialize_modules(): void {
-
-		foreach ( $this->modules as $module ) {
-
-			$module->register();
-
-			$module->boot();
-		}
-	}
-
-	/**
-	 * Dispatch the modules ready event.
-	 *
-	 * Notifies the framework that all SAP modules
-	 * have completed initialization.
-	 *
-	 * @return void
-	 */
-	private function dispatch_ready_event(): void {
-
-		// Framework ready event will be dispatched
-		// in a future milestone.
 	}
 
 }

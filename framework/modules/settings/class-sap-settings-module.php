@@ -13,8 +13,6 @@ declare(strict_types=1);
  * Responsibility:
  * Register and manage framework settings.
  *
- * This is the first implementation of a SAP framework module.
- *
  * @package ServantArtistPlatform
  * @since   1.0.0
  * ============================================================
@@ -46,20 +44,36 @@ final class SAP_Settings_Module extends SAP_Abstract_Module {
 	protected string $name = 'Settings';
 
 	/**
-	 * Register WordPress hooks.
+	 * Register the module.
 	 *
 	 * @return void
 	 */
-	public function register_hooks(): void {
+	public function register(): void {
+
+		// Future settings hooks.
 
 	}
 
 	/**
-	 * Initialize the module.
+	 * Boot the module.
 	 *
 	 * @return void
 	 */
-	public function init(): void {
+	public function boot(): void {
+
+		// Future initialization.
 
 	}
+
+	/**
+	 * Register module assets.
+	 *
+	 * @return void
+	 */
+	public function assets(): void {
+
+		// Future assets.
+
+	}
+
 }

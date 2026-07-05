@@ -46,7 +46,7 @@ defined( 'ABSPATH' ) || exit;
 |
 */
 
-require_once __DIR__ . '/framework/Bootstrap/class-sap-bootstrap.php';
+require_once __DIR__ . '/framework/bootstrap/class-sap-bootstrap.php';
 
 /**
  * Register plugin activation.
