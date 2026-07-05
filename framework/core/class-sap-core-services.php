@@ -69,6 +69,24 @@ final class SAP_Core_Services {
 	private SAP_Router $router;
 
 	/**
+	 * Framework Module Manager.
+	 *
+	 * Registered after construction by the Loader.
+	 *
+	 * @var SAP_Module_Manager|null
+	 */
+	private ?SAP_Module_Manager $module_manager = null;
+
+	/**
+	 * Application Runtime.
+	 *
+	 * Registered after construction by the Loader.
+	 *
+	 * @var SAP_Runtime|null
+	 */
+	private ?SAP_Runtime $runtime = null;
+
+	/**
 	 * Create the Core Services container.
 	 *
 	 * @param SAP_Registry         $registry Framework Registry.
@@ -86,8 +104,7 @@ final class SAP_Core_Services {
 		$this->assets   = $assets;
 
 		$this->navigation = new SAP_Navigation_Manager();
-
-		$this->router = new SAP_Router();
+		$this->router     = new SAP_Router();
 
 	}
 
@@ -143,6 +160,58 @@ final class SAP_Core_Services {
 	public function router(): SAP_Router {
 
 		return $this->router;
+
+	}
+
+	/**
+	 * Register the Module Manager.
+	 *
+	 * @param SAP_Module_Manager $module_manager Module Manager.
+	 *
+	 * @return void
+	 */
+	public function register_module_manager(
+		SAP_Module_Manager $module_manager
+	): void {
+
+		$this->module_manager = $module_manager;
+
+	}
+
+	/**
+	 * Return the Module Manager.
+	 *
+	 * @return SAP_Module_Manager
+	 */
+	public function module_manager(): SAP_Module_Manager {
+
+		return $this->module_manager;
+
+	}
+
+	/**
+	 * Register the Application Runtime.
+	 *
+	 * @param SAP_Runtime $runtime Application Runtime.
+	 *
+	 * @return void
+	 */
+	public function register_runtime(
+		SAP_Runtime $runtime
+	): void {
+
+		$this->runtime = $runtime;
+
+	}
+
+	/**
+	 * Return the Application Runtime.
+	 *
+	 * @return SAP_Runtime
+	 */
+	public function runtime(): SAP_Runtime {
+
+		return $this->runtime;
 
 	}
 

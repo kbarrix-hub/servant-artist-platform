@@ -78,6 +78,13 @@ final class SAP_Loader {
 	private SAP_Module_Manager $modules;
 
 	/**
+	 * Application Runtime.
+	 *
+	 * @var SAP_Runtime
+	 */
+	private SAP_Runtime $runtime;
+
+	/**
 	 * Prevent direct instantiation.
 	 */
 	private function __construct() {}
@@ -120,7 +127,7 @@ final class SAP_Loader {
 	 *
 	 * Executes the complete framework startup sequence.
 	 *
-	 * Startup Order:
+	* Startup Order:
 	 *
 	 * 1. Registry
 	 * 2. Event Dispatcher
@@ -128,8 +135,9 @@ final class SAP_Loader {
 	 * 4. Module Classes
 	 * 5. Core Services
 	 * 6. Module Manager
-	 * 7. Register Modules
-	 * 8. Start Framework
+	 * 7. Application Runtime
+	 * 8. Register Modules
+	 * 9. Start Framework
 	 *
 	 * @return void
 	 */
@@ -146,6 +154,8 @@ final class SAP_Loader {
 		$this->create_services();
 
 		$this->create_module_manager();
+
+		$this->create_runtime();
 
 		$this->register_modules();
 
@@ -235,14 +245,19 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/abstracts/abstract-sap-module.php';
 
 	/*
-     * Framework Router.
-     */
-     require_once dirname( __DIR__ ) . '/core/class-sap-router.php';
+	 * Framework Router.
+	 */
+	require_once dirname( __DIR__ ) . '/core/class-sap-router.php';
 
-     /*
-     * Core Services.
-     */
-     require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
+	/*
+	 * Framework Runtime.
+	 */
+	require_once dirname( __DIR__ ) . '/runtime/class-sap-runtime.php';
+
+	/*
+	 * Core Services.
+	 */
+	require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
 
 	/*
 	 * Framework View.
@@ -294,6 +309,29 @@ final class SAP_Loader {
 		$this->modules = new SAP_Module_Manager(
 			$this->services
 		);
+
+	}
+
+	/**
+	 * Create the Application Runtime.
+	 *
+	 * Instantiates the Runtime, registers it with
+	 * the Core Services container, and initializes
+	 * the application lifecycle.
+	 *
+	 * @return void
+	 */
+	private function create_runtime(): void {
+
+		$this->runtime = new SAP_Runtime(
+			$this->services
+		);
+
+		$this->services->register_runtime(
+			$this->runtime
+		);
+
+		$this->runtime->initialize();
 
 	}
 
