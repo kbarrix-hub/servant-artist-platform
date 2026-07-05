@@ -57,7 +57,10 @@ final class SAP_Artists_Module extends SAP_Abstract_Module {
 	 */
 	public function register(): void {
 
-		// Future hooks will be registered here.
+		add_action(
+			'admin_menu',
+			[ $this, 'register_admin_menu' ]
+		);
 
 	}
 
@@ -87,6 +90,64 @@ final class SAP_Artists_Module extends SAP_Abstract_Module {
 
 		// Future assets will be registered here.
 
+	}
+
+	/**
+	 * Register the Artist Portal admin menu.
+	 *
+	 * @return void
+	 */
+	public function register_admin_menu(): void {
+
+		add_menu_page(
+			__( 'Artist Portal', 'servant-artist-platform' ),
+			__( 'Artist Portal', 'servant-artist-platform' ),
+			'manage_options',
+			'sap-artist-portal',
+			[ $this, 'render_dashboard' ],
+			'dashicons-groups',
+			30
+		);
+
+	}
+
+	/**
+	 * Render the Artist Portal dashboard.
+	 *
+	 * @return void
+	 */
+	public function render_dashboard(): void {
+		?>
+
+		<div class="wrap">
+
+			<h1><?php esc_html_e( 'Servant Artist Platform', 'servant-artist-platform' ); ?></h1>
+
+			<h2><?php esc_html_e( 'Artist Portal', 'servant-artist-platform' ); ?></h2>
+
+			<p>
+				<?php esc_html_e( 'Welcome to the new Artist Portal.', 'servant-artist-platform' ); ?>
+			</p>
+
+			<p>
+				<?php
+				esc_html_e(
+					'This dashboard will become the central location for managing artists, songs, releases, contracts, media, royalties, bookings, and communications.',
+					'servant-artist-platform'
+				);
+				?>
+			</p>
+
+			<hr>
+
+			<p>
+				<strong><?php esc_html_e( 'Version', 'servant-artist-platform' ); ?></strong>
+				1.0.0
+			</p>
+
+		</div>
+
+		<?php
 	}
 
 }
