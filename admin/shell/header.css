@@ -1,0 +1,304 @@
+/**
+ * ============================================================
+ * Servant Artist Platform
+ * ============================================================
+ *
+ * SAP-113.2
+ * Header Styles
+ *
+ * @package ServantArtistPlatform
+ * @since   1.0.0
+ * ============================================================
+ */
+
+/* ============================================================
+   Header
+============================================================ */
+
+.sap-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	gap: 32px;
+
+	height: 72px;
+
+	padding: 0 24px;
+
+	background: #ffffff;
+
+	border-bottom: 1px solid #e7eaf3;
+
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+
+	box-sizing: border-box;
+}
+
+/* ============================================================
+   Left
+============================================================ */
+
+.sap-header-left {
+	display: flex;
+	align-items: center;
+
+	flex-shrink: 0;
+}
+
+/* ============================================================
+   Brand
+============================================================ */
+
+.sap-brand {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.sap-brand-logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 46px;
+	height: 46px;
+
+	background: #6c5ce7;
+
+	color: #ffffff;
+
+	font-size: 18px;
+	font-weight: 700;
+
+	border-radius: 14px;
+
+	box-shadow: 0 8px 20px rgba(108, 92, 231, 0.25);
+}
+
+.sap-brand-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.sap-brand-text h1 {
+	margin: 0;
+
+	font-size: 18px;
+	font-weight: 600;
+
+	color: #2d3748;
+
+	line-height: 1.2;
+}
+
+.sap-brand-text span {
+	margin-top: 2px;
+
+	font-size: 13px;
+
+	color: #718096;
+}
+
+/* ============================================================
+   Center
+============================================================ */
+
+.sap-header-center {
+	flex: 1;
+
+	display: flex;
+	justify-content: center;
+}
+
+/* ============================================================
+   Search
+============================================================ */
+
+.sap-search {
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	max-width: 560px;
+
+	height: 46px;
+
+	padding: 0 16px;
+
+	background: #f7f8fc;
+
+	border: 1px solid #e7eaf3;
+
+	border-radius: 14px;
+
+	transition: all .20s ease;
+}
+
+.sap-search:hover {
+	background: #ffffff;
+}
+
+.sap-search:focus-within {
+	border-color: #6c5ce7;
+
+	box-shadow: 0 0 0 4px rgba(108, 92, 231, .12);
+}
+
+.sap-search-icon {
+	margin-right: 12px;
+
+	font-size: 16px;
+
+	opacity: .6;
+}
+
+.sap-search-input {
+	flex: 1;
+
+	border: none;
+	outline: none;
+
+	background: transparent;
+
+	font-size: 14px;
+
+	color: #2d3748;
+}
+
+.sap-search-input::placeholder {
+	color: #9aa5b1;
+}
+
+/* ============================================================
+   Right
+============================================================ */
+
+.sap-header-right {
+	display: flex;
+	align-items: center;
+
+	gap: 14px;
+
+	flex-shrink: 0;
+}
+
+/* ============================================================
+   Action Buttons
+============================================================ */
+
+.sap-header-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 42px;
+	height: 42px;
+
+	border: none;
+
+	background: #f7f8fc;
+
+	border-radius: 12px;
+
+	cursor: pointer;
+
+	font-size: 18px;
+
+	transition: all .20s ease;
+}
+
+.sap-header-button:hover {
+	background: #6c5ce7;
+
+	color: #ffffff;
+
+	transform: translateY(-2px);
+}
+
+/* ============================================================
+   User Menu
+============================================================ */
+
+.sap-user-menu {
+	display: flex;
+	align-items: center;
+
+	gap: 12px;
+
+	padding-left: 8px;
+}
+
+.sap-avatar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 42px;
+	height: 42px;
+
+	border-radius: 50%;
+
+	background: #6c5ce7;
+
+	color: #ffffff;
+
+	font-weight: 700;
+	font-size: 15px;
+}
+
+.sap-user-details {
+	display: flex;
+	flex-direction: column;
+}
+
+.sap-user-name {
+	font-size: 14px;
+
+	font-weight: 600;
+
+	color: #2d3748;
+}
+
+.sap-user-role {
+	font-size: 12px;
+
+	color: #718096;
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+
+@media (max-width: 992px) {
+
+	.sap-brand-text span,
+	.sap-user-role {
+		display: none;
+	}
+
+	.sap-search {
+		max-width: 340px;
+	}
+}
+
+@media (max-width: 768px) {
+
+	.sap-header {
+		gap: 16px;
+
+		padding: 0 16px;
+	}
+
+	.sap-header-center {
+		display: none;
+	}
+
+	.sap-brand-text {
+		display: none;
+	}
+
+	.sap-user-details {
+		display: none;
+	}
+}

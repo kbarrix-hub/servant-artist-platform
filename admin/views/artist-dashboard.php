@@ -12,8 +12,8 @@ declare(strict_types=1);
  * Responsibility:
  * Render the Artist Portal dashboard.
  *
- * This file contains presentation only.
- * No business logic should exist here.
+ * Presentation only.
+ * No business logic belongs in this file.
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -24,82 +24,130 @@ defined( 'ABSPATH' ) || exit;
 
 ?>
 
-<div class="wrap">
+<div class="wrap sap-app">
 
-	<h1><?php esc_html_e( 'Servant Artist Platform', 'servant-artist-platform' ); ?></h1>
+	<header class="sap-header">
 
-	<p>
-		<?php esc_html_e(
-			'Welcome to the Artist Portal. Manage your artists, music, releases, media, and communications from one central dashboard.',
-			'servant-artist-platform'
-		); ?>
-	</p>
+		<h1><?php esc_html_e( 'Servant Artist Platform', 'servant-artist-platform' ); ?></h1>
 
-	<hr>
+		<p class="sap-tagline">
 
-	<h2><?php esc_html_e( 'Dashboard', 'servant-artist-platform' ); ?></h2>
+			<?php
+			esc_html_e(
+				'Helping Artists Fulfill Their Calling',
+				'servant-artist-platform'
+			);
+			?>
 
-	<div class="sap-dashboard">
+		</p>
 
-		<div class="sap-card">
-			<h3><?php esc_html_e( 'Artists', 'servant-artist-platform' ); ?></h3>
-			<p><strong>0</strong></p>
+	</header>
+
+	<section class="sap-welcome">
+
+		<h2><?php esc_html_e( 'Welcome Back, Kenny', 'servant-artist-platform' ); ?></h2>
+
+		<p>
+
+			<?php
+			esc_html_e(
+				'Manage your artists, songs, releases, media, and communications from one central dashboard.',
+				'servant-artist-platform'
+			);
+			?>
+
+		</p>
+
+	</section>
+
+	<section>
+
+		<h2><?php esc_html_e( 'Dashboard', 'servant-artist-platform' ); ?></h2>
+
+		<div class="sap-dashboard">
+
+			<div class="sap-card">
+
+				<h3>👥 <?php esc_html_e( 'Artists', 'servant-artist-platform' ); ?></h3>
+
+				<p>0</p>
+
+				<span><?php esc_html_e( 'Active Artists', 'servant-artist-platform' ); ?></span>
+
+			</div>
+
+			<div class="sap-card">
+
+				<h3>🎵 <?php esc_html_e( 'Songs', 'servant-artist-platform' ); ?></h3>
+
+				<p>0</p>
+
+				<span><?php esc_html_e( 'Song Library', 'servant-artist-platform' ); ?></span>
+
+			</div>
+
+			<div class="sap-card">
+
+				<h3>💿 <?php esc_html_e( 'Releases', 'servant-artist-platform' ); ?></h3>
+
+				<p>0</p>
+
+				<span><?php esc_html_e( 'Published Releases', 'servant-artist-platform' ); ?></span>
+
+			</div>
+
+			<div class="sap-card">
+
+				<h3>💬 <?php esc_html_e( 'Messages', 'servant-artist-platform' ); ?></h3>
+
+				<p>0</p>
+
+				<span><?php esc_html_e( 'Unread Messages', 'servant-artist-platform' ); ?></span>
+
+			</div>
+
 		</div>
 
-		<div class="sap-card">
-			<h3><?php esc_html_e( 'Songs', 'servant-artist-platform' ); ?></h3>
-			<p><strong>0</strong></p>
-		</div>
+	</section>
 
-		<div class="sap-card">
-			<h3><?php esc_html_e( 'Releases', 'servant-artist-platform' ); ?></h3>
-			<p><strong>0</strong></p>
-		</div>
+	<section class="sap-panel">
 
-		<div class="sap-card">
-			<h3><?php esc_html_e( 'Messages', 'servant-artist-platform' ); ?></h3>
-			<p><strong>0</strong></p>
-		</div>
+		<h2><?php esc_html_e( 'Quick Actions', 'servant-artist-platform' ); ?></h2>
 
-	</div>
+		<ul>
 
-	<hr>
+			<li>➕ <?php esc_html_e( 'Add Artist', 'servant-artist-platform' ); ?></li>
 
-	<h2><?php esc_html_e( 'Quick Actions', 'servant-artist-platform' ); ?></h2>
+			<li>🎵 <?php esc_html_e( 'Upload Song', 'servant-artist-platform' ); ?></li>
 
-	<ul>
+			<li>💿 <?php esc_html_e( 'Create Release', 'servant-artist-platform' ); ?></li>
 
-		<li><?php esc_html_e( 'Add Artist', 'servant-artist-platform' ); ?></li>
+			<li>📁 <?php esc_html_e( 'Media Library', 'servant-artist-platform' ); ?></li>
 
-		<li><?php esc_html_e( 'Upload Song', 'servant-artist-platform' ); ?></li>
+		</ul>
 
-		<li><?php esc_html_e( 'Create Release', 'servant-artist-platform' ); ?></li>
+	</section>
 
-		<li><?php esc_html_e( 'Media Library', 'servant-artist-platform' ); ?></li>
+	<section class="sap-panel">
 
-	</ul>
+		<h2><?php esc_html_e( 'Recent Activity', 'servant-artist-platform' ); ?></h2>
 
-	<hr>
+		<ul>
 
-	<h2><?php esc_html_e( 'Recent Activity', 'servant-artist-platform' ); ?></h2>
+			<li>✅ <?php esc_html_e( 'Artist Portal initialized.', 'servant-artist-platform' ); ?></li>
 
-	<p>
+			<li>✅ <?php esc_html_e( 'Framework online.', 'servant-artist-platform' ); ?></li>
 
-		<?php esc_html_e(
-			'No recent activity.',
-			'servant-artist-platform'
-		); ?>
+			<li>✅ <?php esc_html_e( 'Asset pipeline verified.', 'servant-artist-platform' ); ?></li>
 
-	</p>
+		</ul>
 
-	<hr>
+	</section>
 
-	<p>
+	<footer class="sap-footer">
 
-		<strong><?php esc_html_e( 'Version', 'servant-artist-platform' ); ?></strong>
+		<strong>Version</strong> 1.0.0
 
-		1.0.0
-
-	</p>
+	</footer>
 
 </div>

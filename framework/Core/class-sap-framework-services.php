@@ -37,56 +37,68 @@ final readonly class SAP_Framework_Services {
 	/**
 	 * Create the Framework Services container.
 	 *
-	 * @param SAP_Registry         $registry Framework Registry.
-	 * @param SAP_Event_Dispatcher $events   Event Dispatcher.
-	 * @param SAP_Asset_Manager    $assets   Asset Manager.
-	 * @param SAP_Module_Manager   $modules  Module Manager.
+	 * @param SAP_Registry           $registry   Framework Registry.
+	 * @param SAP_Event_Dispatcher   $events     Event Dispatcher.
+	 * @param SAP_Asset_Manager      $assets     Asset Manager.
+	 * @param SAP_Module_Manager     $modules    Module Manager.
+	 * @param SAP_Navigation_Manager $navigation Navigation Manager.
 	 */
 	public function __construct(
 		private SAP_Registry $registry,
 		private SAP_Event_Dispatcher $events,
 		private SAP_Asset_Manager $assets,
 		private SAP_Module_Manager $modules,
+		private SAP_Navigation_Manager $navigation,
 	) {}
 
-    /**
-     * Get the Framework Registry.
-     *
-     * @return SAP_Registry
-     */
-     public function registry(): SAP_Registry {
+	/**
+	 * Get the Framework Registry.
+	 *
+	 * @return SAP_Registry
+	 */
+	public function registry(): SAP_Registry {
 
-	    return $this->registry;
-    }
+		return $this->registry;
+	}
 
-    /**
-     * Get the Event Dispatcher.
-     *
-     * @return SAP_Event_Dispatcher
-     */
-     public function events(): SAP_Event_Dispatcher {
+	/**
+	 * Get the Event Dispatcher.
+	 *
+	 * @return SAP_Event_Dispatcher
+	 */
+	public function events(): SAP_Event_Dispatcher {
 
-	     return $this->events;
-    }
+		return $this->events;
+	}
 
-    /**
-     * Get the Asset Manager.
-     *
-     * @return SAP_Asset_Manager
-     */
-     public function assets(): SAP_Asset_Manager {
+	/**
+	 * Get the Asset Manager.
+	 *
+	 * @return SAP_Asset_Manager
+	 */
+	public function assets(): SAP_Asset_Manager {
 
-	     return $this->assets;
-    }
+		return $this->assets;
+	}
 
-    /**
-     * Get the Module Manager.
-     *
-     * @return SAP_Module_Manager
-     */
-     public function modules(): SAP_Module_Manager {
+	/**
+	 * Get the Module Manager.
+	 *
+	 * @return SAP_Module_Manager
+	 */
+	public function modules(): SAP_Module_Manager {
 
-	 return $this->modules;
-    }
+		return $this->modules;
+	}
+
+	/**
+	 * Get the Navigation Manager.
+	 *
+	 * @return SAP_Navigation_Manager
+	 */
+	public function navigation(): SAP_Navigation_Manager {
+
+		return $this->navigation;
+	}
 
 }

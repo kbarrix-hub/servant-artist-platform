@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-final class SAP_Settings_Module extends SAP_Abstract_Module {
+final class SAP_Settings_Module extends SAP_Abstract_Module implements SAP_Navigation_Provider_Interface {
 
 	/**
 	 * Module identifier.
@@ -73,6 +73,27 @@ final class SAP_Settings_Module extends SAP_Abstract_Module {
 	public function assets(): void {
 
 		// Future assets.
+
+	}
+
+	/**
+	 * Return the navigation items provided by this module.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	public function get_navigation_items(): array {
+
+		return [
+			[
+				'slug'  => 'settings',
+				'title' => 'Settings',
+				'icon'  => 'settings',
+				'order' => 900,
+				'url'   => admin_url( 'admin.php?page=sap-settings' ),
+			],
+		];
 
 	}
 

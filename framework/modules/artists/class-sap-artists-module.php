@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-final class SAP_Artists_Module extends SAP_Abstract_Module {
+final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Navigation_Provider_Interface {
 
 	/**
 	 * Module identifier.
@@ -142,7 +142,28 @@ final class SAP_Artists_Module extends SAP_Abstract_Module {
 	 */
 	public function render_dashboard(): void {
 
-		require SAP_PLUGIN_DIR . 'admin/views/artist-dashboard.php';
+		SAP_View::render( 'artist-dashboard' );
+
+	}
+
+	/**
+	 * Return the navigation items provided by this module.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	public function get_navigation_items(): array {
+
+		return [
+			[
+				'slug'  => 'artists',
+				'title' => 'Artists',
+				'icon'  => 'users',
+				'order' => 20,
+				'url'   => admin_url( 'admin.php?page=sap-artist-portal' ),
+			],
+		];
 
 	}
 

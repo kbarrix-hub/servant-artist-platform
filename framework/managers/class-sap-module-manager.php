@@ -73,6 +73,8 @@ final class SAP_Module_Manager {
 
 		$this->register_modules();
 
+		$this->register_navigation();
+
 		$this->initialize_modules();
 
 		$this->dispatch_ready_event();
@@ -80,9 +82,6 @@ final class SAP_Module_Manager {
 
 	/**
 	 * Discover available SAP modules.
-	 *
-	 * Locates all framework modules available for
-	 * registration.
 	 *
 	 * @return void
 	 */
@@ -93,8 +92,6 @@ final class SAP_Module_Manager {
 
 	/**
 	 * Register discovered SAP modules.
-	 *
-	 * Creates all framework module instances.
 	 *
 	 * @return void
 	 */
@@ -107,13 +104,38 @@ final class SAP_Module_Manager {
 		$this->modules[] = new SAP_Artists_Module(
 			$this->framework
 		);
+
+	}
+
+	/**
+	 * Register navigation providers.
+	 *
+	 * Modules implementing the navigation provider
+	 * interface are automatically registered with
+	 * the Navigation Manager.
+	 *
+	 * @return void
+	 */
+	private function register_navigation(): void {
+
+		$navigation = $this->framework
+			->navigation();
+
+		foreach ( $this->modules as $module ) {
+
+			if ( ! $module instanceof SAP_Navigation_Provider_Interface ) {
+				continue;
+			}
+
+			$navigation->register_provider(
+				$module
+			);
+		}
+
 	}
 
 	/**
 	 * Initialize registered SAP modules.
-	 *
-	 * Executes the module lifecycle by registering
-	 * and booting each module.
 	 *
 	 * @return void
 	 */
@@ -125,13 +147,11 @@ final class SAP_Module_Manager {
 
 			$module->boot();
 		}
+
 	}
 
 	/**
 	 * Dispatch the modules ready event.
-	 *
-	 * Notifies the framework that all SAP modules
-	 * have completed initialization.
 	 *
 	 * @return void
 	 */
@@ -139,6 +159,7 @@ final class SAP_Module_Manager {
 
 		// Framework ready event will be dispatched
 		// in a future milestone.
+
 	}
 
 }

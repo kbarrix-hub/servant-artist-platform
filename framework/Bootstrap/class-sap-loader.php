@@ -182,7 +182,7 @@ final class SAP_Loader {
 	/**
 	 * Load framework module classes.
 	 *
-	 * Loads all framework module class definitions before
+	 * Loads all framework class definitions before
 	 * the Module Manager instantiates them.
 	 *
 	 * @return void
@@ -193,9 +193,18 @@ final class SAP_Loader {
 
 		require_once dirname( __DIR__ ) . '/abstracts/abstract-sap-module.php';
 
+		/*
+		 * Framework View Renderer.
+		 */
+		require_once dirname( __DIR__ ) . '/core/class-sap-view.php';
+
+		/*
+		 * Framework Modules.
+		 */
 		require_once dirname( __DIR__ ) . '/modules/settings/class-sap-settings-module.php';
 
 		require_once dirname( __DIR__ ) . '/modules/artists/class-sap-artists-module.php';
+
 
 	}
 
