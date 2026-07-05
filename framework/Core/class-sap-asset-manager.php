@@ -100,26 +100,43 @@ final class SAP_Asset_Manager {
 		$this->enqueue_scripts();
 	}
 
+
     /**
 	 * Register framework styles.
 	 *
 	 * Builds the internal catalog of framework styles
 	 * available for loading.
+	 *
+	 * @return void
 	 */
 	private function register_styles(): void {
 
-		// Section 6
+		$this->assets['styles'] = [
+
+			'artist-dashboard' => [
+				'handle'  => 'sap-artist-dashboard',
+				'src'     => SAP_PLUGIN_URL . 'assets/css/admin/artist-dashboard.css',
+				'deps'    => [],
+				'version' => SAP_VERSION,
+				'media'   => 'all',
+			],
+
+		];
+
 	}
 
-    /**
+	/**
 	 * Register framework scripts.
 	 *
 	 * Builds the internal catalog of framework scripts
 	 * available for loading.
+	 *
+	 * @return void
 	 */
 	private function register_scripts(): void {
 
 		// Section 7
+
 	}
 
     /**
