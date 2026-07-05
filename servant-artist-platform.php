@@ -35,6 +35,22 @@ defined( 'ABSPATH' ) || exit;
  * ============================================================
  */
 
+/**
+ * Framework constants.
+ */
+
+if ( ! defined( 'SAP_VERSION' ) ) {
+	define( 'SAP_VERSION', '1.0.0-dev' );
+}
+
+if ( ! defined( 'SAP_PLUGIN_DIR' ) ) {
+	define( 'SAP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
+
+if ( ! defined( 'SAP_PLUGIN_URL' ) ) {
+	define( 'SAP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
 /*
 |--------------------------------------------------------------------------
 | Framework Bootstrap

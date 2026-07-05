@@ -62,6 +62,11 @@ final class SAP_Artists_Module extends SAP_Abstract_Module {
 			[ $this, 'register_admin_menu' ]
 		);
 
+		add_action(
+			'admin_enqueue_scripts',
+			[ $this, 'enqueue_assets' ]
+		);
+
 	}
 
 	/**
@@ -112,6 +117,25 @@ final class SAP_Artists_Module extends SAP_Abstract_Module {
 	}
 
 	/**
+	 * Enqueue Artist Portal assets.
+	 *
+	 * @param string $hook_suffix Current admin page hook.
+	 *
+	 * @return void
+	 */
+	public function enqueue_assets( string $hook_suffix ): void {
+
+		if ( 'toplevel_page_sap-artist-portal' !== $hook_suffix ) {
+			return;
+		}
+
+		SAP_Asset_Manager::instance()->enqueue_style(
+			'artist-dashboard'
+		);
+
+	}
+
+	/**
 	 * Render the Artist Portal dashboard.
 	 *
 	 * @return void
@@ -119,6 +143,7 @@ final class SAP_Artists_Module extends SAP_Abstract_Module {
 	public function render_dashboard(): void {
 
 		require SAP_PLUGIN_DIR . 'admin/views/artist-dashboard.php';
+
 	}
 
 }

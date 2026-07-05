@@ -84,10 +84,12 @@ final class SAP_Asset_Manager {
 		return self::$instance;
 	}
 
-    /**
+    	/**
 	 * Starts the Asset Manager.
 	 *
-	 * Registers framework asset hooks with WordPress.
+	 * Registers the framework asset catalog.
+	 *
+	 * @return void
 	 */
 	public function run(): void {
 
@@ -95,12 +97,9 @@ final class SAP_Asset_Manager {
 
 		$this->register_scripts();
 
-		$this->enqueue_styles();
-
-		$this->enqueue_scripts();
 	}
-
-
+ 
+	
     /**
 	 * Register framework styles.
 	 *
@@ -136,6 +135,31 @@ final class SAP_Asset_Manager {
 	private function register_scripts(): void {
 
 		// Section 7
+
+	}
+
+		/**
+	 * Enqueue a registered style.
+	 *
+	 * @param string $asset Asset identifier.
+	 *
+	 * @return void
+	 */
+	public function enqueue_style( string $asset ): void {
+
+		if ( ! isset( $this->assets['styles'][ $asset ] ) ) {
+			return;
+		}
+
+		$style = $this->assets['styles'][ $asset ];
+
+		wp_enqueue_style(
+			$style['handle'],
+			$style['src'],
+			$style['deps'],
+			$style['version'],
+			$style['media']
+		);
 
 	}
 
