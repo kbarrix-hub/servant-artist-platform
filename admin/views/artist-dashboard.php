@@ -26,23 +26,6 @@ defined( 'ABSPATH' ) || exit;
 
 <div class="wrap sap-app">
 
-	<header class="sap-header">
-
-		<h1><?php esc_html_e( 'Servant Artist Platform', 'servant-artist-platform' ); ?></h1>
-
-		<p class="sap-tagline">
-
-			<?php
-			esc_html_e(
-				'Helping Artists Fulfill Their Calling',
-				'servant-artist-platform'
-			);
-			?>
-
-		</p>
-
-	</header>
-
 	<section class="sap-welcome">
 
 		<h2><?php esc_html_e( 'Welcome Back, Kenny', 'servant-artist-platform' ); ?></h2>
@@ -110,44 +93,42 @@ defined( 'ABSPATH' ) || exit;
 
 	</section>
 
-	<section class="sap-panel">
+	<div class="sap-dashboard-panels">
 
-		<h2><?php esc_html_e( 'Quick Actions', 'servant-artist-platform' ); ?></h2>
+		<section class="sap-panel">
 
-		<ul>
+			<h2><?php esc_html_e( 'Quick Actions', 'servant-artist-platform' ); ?></h2>
 
-			<li>➕ <?php esc_html_e( 'Add Artist', 'servant-artist-platform' ); ?></li>
+			<ul>
 
-			<li>🎵 <?php esc_html_e( 'Upload Song', 'servant-artist-platform' ); ?></li>
+				<li>➕ <?php esc_html_e( 'Add Artist', 'servant-artist-platform' ); ?></li>
 
-			<li>💿 <?php esc_html_e( 'Create Release', 'servant-artist-platform' ); ?></li>
+				<li>🎵 <?php esc_html_e( 'Upload Song', 'servant-artist-platform' ); ?></li>
 
-			<li>📁 <?php esc_html_e( 'Media Library', 'servant-artist-platform' ); ?></li>
+				<li>💿 <?php esc_html_e( 'Create Release', 'servant-artist-platform' ); ?></li>
 
-		</ul>
+				<li>📁 <?php esc_html_e( 'Media Library', 'servant-artist-platform' ); ?></li>
 
-	</section>
+			</ul>
 
-	<section class="sap-panel">
+		</section>
 
-		<h2><?php esc_html_e( 'Recent Activity', 'servant-artist-platform' ); ?></h2>
+		<section class="sap-panel">
 
-		<ul>
+			<h2><?php esc_html_e( 'Recent Activity', 'servant-artist-platform' ); ?></h2>
 
-			<li>✅ <?php esc_html_e( 'Artist Portal initialized.', 'servant-artist-platform' ); ?></li>
+			<ul>
 
-			<li>✅ <?php esc_html_e( 'Framework online.', 'servant-artist-platform' ); ?></li>
+				<li>✅ <?php esc_html_e( 'Artist Portal initialized.', 'servant-artist-platform' ); ?></li>
 
-			<li>✅ <?php esc_html_e( 'Asset pipeline verified.', 'servant-artist-platform' ); ?></li>
+				<li>✅ <?php esc_html_e( 'Framework online.', 'servant-artist-platform' ); ?></li>
 
-		</ul>
+				<li>✅ <?php esc_html_e( 'Asset pipeline verified.', 'servant-artist-platform' ); ?></li>
 
-	</section>
+			</ul>
 
-	<footer class="sap-footer">
+		</section>
 
-		<strong>Version</strong> 1.0.0
-
-	</footer>
+	</div>
 
 </div>
