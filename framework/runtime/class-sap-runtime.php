@@ -102,16 +102,58 @@ final class SAP_Runtime {
 	/**
 	 * Run the application runtime.
 	 *
-	 * Executes the framework lifecycle after
-	 * initialization has completed.
+	 * Executes the complete application lifecycle.
 	 *
 	 * @return void
 	 */
 	public function run(): void {
 
+		$this->boot();
+
 		$this->initialize();
 
+		$this->start();
+
+		$this->shutdown();
+
+	}
+
+	/**
+	 * Boot the application runtime.
+	 *
+	 * Prepare the framework before execution.
+	 *
+	 * @return void
+	 */
+	private function boot(): void {
+
+		// Future implementation.
+
+	}
+
+	/**
+	 * Start the application.
+	 *
+	 * Execute the framework.
+	 *
+	 * @return void
+	 */
+	private function start(): void {
+
 		$this->get_module_manager()->run();
+
+	}
+
+	/**
+	 * Shutdown the application runtime.
+	 *
+	 * Perform framework cleanup.
+	 *
+	 * @return void
+	 */
+	private function shutdown(): void {
+
+		// Future implementation.
 
 	}
 
