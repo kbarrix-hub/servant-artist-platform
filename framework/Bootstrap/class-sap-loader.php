@@ -255,6 +255,20 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/runtime/class-sap-runtime.php';
 
 	/*
+	 * UI Framework - Sections.
+	 */
+	require_once dirname( __DIR__ ) . '/ui/sections/interfaces/interface-sap-section.php';
+
+	require_once dirname( __DIR__ ) . '/ui/sections/abstracts/abstract-sap-section.php';
+
+	/*
+	 * UI Framework - Components.
+	 */
+	require_once dirname( __DIR__ ) . '/ui/components/interfaces/interface-sap-component.php';
+
+	require_once dirname( __DIR__ ) . '/ui/components/abstracts/abstract-sap-component.php';
+
+	/*
 	 * Core Services.
 	 */
 	require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
