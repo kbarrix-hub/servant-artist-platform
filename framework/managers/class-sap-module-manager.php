@@ -93,6 +93,28 @@ final class SAP_Module_Manager {
 	}
 
 	/**
+	 * Return the current framework page.
+	 *
+	 * Returns the first registered module capable
+	 * of providing a framework page.
+	 *
+	 * @return SAP_Page_Interface|null
+	 */
+	public function get_current_page(): ?SAP_Page_Interface {
+
+		foreach ( $this->modules as $module ) {
+
+			if ( method_exists( $module, 'get_page' ) ) {
+				return $module->get_page();
+			}
+
+		}
+
+		return null;
+
+	}
+
+	/**
 	 * Register navigation providers.
 	 *
 	 * Modules implementing the navigation provider

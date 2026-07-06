@@ -39,18 +39,18 @@ defined( 'ABSPATH' ) || exit;
 				 * SAP-017 Rendering Bridge
 				 * ------------------------------------------------------------
 				 *
-				 * If the Runtime has provided a framework page,
-				 * render it.
-				 *
-				 * Otherwise continue using the legacy view.
+				 * Render a framework page when available.
+				 * Otherwise fall back to the legacy view.
 				 */
 
 				if (
 					isset( $framework_page ) &&
-					$framework_page instanceof SAP_Page
+					$framework_page instanceof SAP_Page_Interface
 				) {
 
-					echo $framework_page->render();
+					$framework_page->initialize();
+
+					$framework_page->render();
 
 				} elseif (
 					isset( $current_view ) &&

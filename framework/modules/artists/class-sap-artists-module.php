@@ -158,6 +158,17 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 	}
 
 	/**
+	 * Return the module's framework page.
+	 *
+	 * @return SAP_Page_Interface
+	 */
+	public function get_page(): SAP_Page_Interface {
+
+		return new SAP_Artist_Home_Page();
+
+	}
+
+	/**
 	 * Return the navigation items provided by this module.
 	 *
 	 * @return array<int, array<string, mixed>>

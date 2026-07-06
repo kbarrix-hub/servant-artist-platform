@@ -255,9 +255,9 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/runtime/class-sap-runtime.php';
 
 	/*
-     * Application Shell.
-     */
-     require_once dirname( __DIR__ ) . '/runtime/class-sap-application-shell.php';
+	 * Application Shell.
+	 */
+	require_once dirname( __DIR__ ) . '/runtime/class-sap-application-shell.php';
 
 	/*
 	 * UI Framework - Sections.
@@ -273,41 +273,22 @@ final class SAP_Loader {
 
 	require_once dirname( __DIR__ ) . '/ui/components/abstracts/abstract-sap-component.php';
 
-    /*
-	 * UI Framework - Sections.
+	/*
+	 * UI Pages.
 	 */
-	require_once dirname( __DIR__ ) . '/ui/sections/interfaces/interface-sap-section.php';
+	require_once dirname( __DIR__ ) . '/ui/pages/interfaces/interface-sap-page.php';
 
-	require_once dirname( __DIR__ ) . '/ui/sections/abstracts/abstract-sap-section.php';
+	require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-home-page.php';
 
 	/*
-	 * UI Framework - Components.
+	 * UI Layouts.
 	 */
-	require_once dirname( __DIR__ ) . '/ui/components/interfaces/interface-sap-component.php';
-
-	require_once dirname( __DIR__ ) . '/ui/components/abstracts/abstract-sap-component.php';
-
-    /*
-     * UI Pages.
-     */
-     require_once dirname( __DIR__ ) . '/ui/pages/interfaces/interface-sap-page.php';
-
-     require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-home-page.php';
-
-    /*
-     * UI Layouts.
-     */
-     require_once dirname( __DIR__ ) . '/ui/layouts/artist/class-sap-artist-layout.php';
-
-    /*
-     * UI Sections.
-     */
-     require_once dirname( __DIR__ ) . '/ui/sections/hero/class-sap-hero-section.php';
+	require_once dirname( __DIR__ ) . '/ui/layouts/artist/class-sap-artist-layout.php';
 
 	/*
-	 * Core Services.
+	 * UI Sections.
 	 */
-	require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
+	require_once dirname( __DIR__ ) . '/ui/sections/hero/class-sap-hero-section.php';
 
 	/*
 	 * Core Services.
@@ -386,7 +367,6 @@ final class SAP_Loader {
 			$this->runtime
 		);
 
-		$this->runtime->initialize();
 
 	}
 

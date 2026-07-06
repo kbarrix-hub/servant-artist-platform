@@ -202,22 +202,14 @@ final class SAP_Runtime {
 	}
 
 	/**
-     * Resolve the active framework page.
-     *
-     * @return void
-     */
-    private function resolve_page(): void {
+	 * Resolve the active framework page.
+	 *
+	 * @return void
+	 */
+	private function resolve_page(): void {
 
-	    /*
-	     * SAP-017
-	     *
-	     * Temporary implementation.
-	     *
-	     * Until the Router performs full page resolution,
-	     * default to the Artist Home Page.
-	     */
-
-	    $this->current_page = new SAP_Artist_Home_Page();
+		$this->current_page =
+			$this->get_module_manager()->get_current_page();
     
 	}
 
