@@ -71,6 +71,13 @@ final class SAP_Runtime {
 	private array $runtime_state = [];
 
 	/**
+	 * Application Shell.
+	 *
+	 * @var SAP_Application_Shell
+	 */
+	private SAP_Application_Shell $shell;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param SAP_Core_Services $core_services Framework services.
@@ -79,6 +86,7 @@ final class SAP_Runtime {
 
 		$this->core_services = $core_services;
 		$this->router        = $core_services->router();
+		$this->shell = new SAP_Application_Shell();
 
 	}
 
@@ -141,6 +149,12 @@ final class SAP_Runtime {
 	private function start(): void {
 
 		$this->get_module_manager()->run();
+
+	    $this->shell->set_page(
+		     new SAP_Artist_Home_Page()
+	    );
+
+	     $this->shell->render();
 
 	}
 
