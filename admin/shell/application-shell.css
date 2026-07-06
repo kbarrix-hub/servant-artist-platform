@@ -30,7 +30,7 @@ body {
 
 .sap-shell {
 	display: grid;
-	grid-template-columns: 260px 1fr;
+	grid-template-columns: 230px 1fr;
 	grid-template-rows: 72px 1fr 48px;
 	grid-template-areas:
 		"header header"
@@ -74,7 +74,7 @@ body {
 	display: flex;
 	flex-direction: column;
 
-	width: 260px;
+	width: 230px;
 
 	background: #ffffff;
 
@@ -104,6 +104,31 @@ body {
 .sap-workspace {
 	width: 100%;
 	min-height: 100%;
+}
+
+/* ============================================================
+   Workspace Header
+============================================================ */
+
+.sap-workspace-header {
+	margin: 0;
+
+	padding: 24px 40px 20px;
+
+	background: #ffffff;
+
+	border-bottom: 1px solid #e7eaf3;
+}
+
+.sap-workspace-title {
+	margin: 0;
+
+	font-size: 28px;
+	font-weight: 700;
+
+	line-height: 1.2;
+
+	color: #1e293b;
 }
 
 /* ============================================================
