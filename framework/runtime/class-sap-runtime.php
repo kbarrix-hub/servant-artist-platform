@@ -158,11 +158,11 @@ final class SAP_Runtime {
 
 		$this->get_module_manager()->run();
 
-        $this->shell->set_page(
-            $this->get_current_page()
-	    );
+        $this->shell->set_context(
+			$this->get_render_context()
+		);
 
-	     $this->shell->render();
+		$this->shell->render();
 
 	}
 
@@ -211,6 +211,25 @@ final class SAP_Runtime {
 		$this->current_page =
 			$this->get_module_manager()->get_current_page();
     
+	}
+
+	/**
+	 * Build the Application Shell render context.
+	 *
+	 * Runtime owns the complete rendering state for
+	 * the current request.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function get_render_context(): array {
+
+		return [
+			'route'  => $this->current_route,
+			'module' => $this->current_module,
+			'page'   => $this->current_page,
+			'user'   => wp_get_current_user(),
+		];
+
 	}
 
 	/**
