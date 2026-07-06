@@ -75,6 +75,11 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 			[ $this, 'enqueue_assets' ]
 		);
 
+		add_action(
+			'in_admin_header',
+			[ $this, 'suppress_admin_notices' ]
+		);
+
 	}
 
 	/**
@@ -140,6 +145,28 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 		SAP_Asset_Manager::instance()->enqueue_style(
 			'artist-dashboard'
 		);
+
+	}
+
+	/**
+	 * Suppress WordPress admin notices inside the
+	 * SAP Application Shell.
+	 *
+	 * @return void
+	 */
+	public function suppress_admin_notices(): void {
+
+		if (
+			! isset( $_GET['page'] ) ||
+			'sap-artist-portal' !== sanitize_key(
+				(string) $_GET['page']
+			)
+		) {
+			return;
+		}
+
+		remove_all_actions( 'admin_notices' );
+		remove_all_actions( 'all_admin_notices' );
 
 	}
 
