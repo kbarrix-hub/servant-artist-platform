@@ -64,6 +64,13 @@ final class SAP_Runtime {
 	private string $current_module = '';
 
 	/**
+     * Current framework page.
+     *
+     * @var SAP_Page_Interface|null
+     */
+    private ?SAP_Page_Interface $current_page = null;
+
+	/**
 	 * Runtime state.
 	 *
 	 * @var array<string, mixed>
@@ -99,6 +106,7 @@ final class SAP_Runtime {
 
 		$this->resolve_route();
 		$this->resolve_module();
+		$this->resolve_page();
 
 		$this->runtime_state = [
 			'route'  => $this->current_route,
@@ -150,8 +158,8 @@ final class SAP_Runtime {
 
 		$this->get_module_manager()->run();
 
-	    $this->shell->set_page(
-		     new SAP_Artist_Home_Page()
+        $this->shell->set_page(
+            $this->get_current_page()
 	    );
 
 	     $this->shell->render();
@@ -191,6 +199,26 @@ final class SAP_Runtime {
 
 		$this->current_module = '';
 
+	}
+
+	/**
+     * Resolve the active framework page.
+     *
+     * @return void
+     */
+    private function resolve_page(): void {
+
+	    /*
+	     * SAP-017
+	     *
+	     * Temporary implementation.
+	     *
+	     * Until the Router performs full page resolution,
+	     * default to the Artist Home Page.
+	     */
+
+	    $this->current_page = new SAP_Artist_Home_Page();
+    
 	}
 
 	/**
@@ -234,6 +262,17 @@ final class SAP_Runtime {
 	public function get_current_module(): string {
 
 		return $this->current_module;
+
+	}
+
+	/**
+     * Return the current framework page.
+     *
+     * @return SAP_Page_Interface|null
+     */
+    public function get_current_page(): ?SAP_Page_Interface {
+
+	     return $this->current_page;
 
 	}
 

@@ -18,32 +18,13 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-/*
- * The Router is now available to the
- * Application Shell through SAP_View.
- *
- * Future milestones will use the Router
- * to determine which module view should
- * be rendered inside the workspace.
- */
-
 ?>
 
 <div class="sap-shell">
 
-	<?php
-	/**
-	 * Render the shared application header.
-	 */
-	require __DIR__ . '/header.php';
-	?>
+	<?php require __DIR__ . '/header.php'; ?>
 
-	<?php
-	/**
-	 * Render the shared application sidebar.
-	 */
-	require __DIR__ . '/sidebar.php';
-	?>
+	<?php require __DIR__ . '/sidebar.php'; ?>
 
 	<main class="sap-shell-content">
 
@@ -53,17 +34,33 @@ defined( 'ABSPATH' ) || exit;
 
 				<?php
 
-				/*
-				 * Current implementation:
-				 * Render the requested view.
+				/**
+				 * ------------------------------------------------------------
+				 * SAP-017 Rendering Bridge
+				 * ------------------------------------------------------------
 				 *
-				 * Future implementation:
-				 * The Router will determine the
-				 * active module view before this
-				 * template is rendered.
+				 * If the Runtime has provided a framework page,
+				 * render it.
+				 *
+				 * Otherwise continue using the legacy view.
 				 */
 
-				require $current_view;
+				if (
+					isset( $framework_page ) &&
+					$framework_page instanceof SAP_Page
+				) {
+
+					echo $framework_page->render();
+
+				} elseif (
+					isset( $current_view ) &&
+					is_string( $current_view ) &&
+					file_exists( $current_view )
+				) {
+
+					require $current_view;
+
+				}
 
 				?>
 
@@ -73,11 +70,6 @@ defined( 'ABSPATH' ) || exit;
 
 	</main>
 
-	<?php
-	/**
-	 * Render the shared application footer.
-	 */
-	require __DIR__ . '/footer.php';
-	?>
+	<?php require __DIR__ . '/footer.php'; ?>
 
 </div>
