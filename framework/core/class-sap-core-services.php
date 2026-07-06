@@ -62,20 +62,27 @@ final class SAP_Core_Services {
 	private SAP_Navigation_Manager $navigation;
 
 	/**
-	 * Framework Router.
-	 *
-	 * @var SAP_Router
-	 */
-	private SAP_Router $router;
+     * Framework Router.
+     *
+     * @var SAP_Router
+     */
+    private SAP_Router $router;
 
-	/**
-	 * Framework Module Manager.
-	 *
-	 * Registered after construction by the Loader.
-	 *
-	 * @var SAP_Module_Manager|null
-	 */
-	private ?SAP_Module_Manager $module_manager = null;
+     /**
+     * Framework User Service.
+     *
+     * @var SAP_User_Service
+     */
+    private SAP_User_Service $user;
+
+     /**
+     * Framework Module Manager.
+     *
+     * Registered after construction by the Loader.
+     *
+     * @var SAP_Module_Manager|null
+     */
+    private ?SAP_Module_Manager $module_manager = null;
 
 	/**
 	 * Application Runtime.
@@ -104,7 +111,8 @@ final class SAP_Core_Services {
 		$this->assets   = $assets;
 
 		$this->navigation = new SAP_Navigation_Manager();
-		$this->router     = new SAP_Router();
+        $this->router     = new SAP_Router();
+        $this->user       = new SAP_User_Service();
 
 	}
 
@@ -153,13 +161,24 @@ final class SAP_Core_Services {
 	}
 
 	/**
-	 * Return the Router.
-	 *
-	 * @return SAP_Router
-	 */
-	public function router(): SAP_Router {
+     * Return the Router.
+     *
+     * @return SAP_Router
+     */
+    public function router(): SAP_Router {
 
-		return $this->router;
+	     return $this->router;
+
+	}
+
+	/**
+	 * Return the User Service.
+	 *
+	 * @return SAP_User_Service
+	 */
+	public function user(): SAP_User_Service {
+
+	     return $this->user;
 
 	}
 

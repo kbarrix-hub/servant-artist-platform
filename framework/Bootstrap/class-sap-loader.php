@@ -296,14 +296,16 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/ui/sections/hero/class-sap-hero-section.php';
 
 	/*
-	 * Core Services.
-	 */
-	require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
+     * Core Services.
+     */
+    require_once dirname( __DIR__ ) . '/core/class-sap-user-service.php';
 
-	/*
-	 * Framework View.
-	 */
-	require_once dirname( __DIR__ ) . '/core/class-sap-view.php';
+    require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
+
+    /*
+     * Framework View.
+     */
+    require_once dirname( __DIR__ ) . '/core/class-sap-view.php';
 
 	/*
 	 * Framework Module Manager.

@@ -74,15 +74,15 @@ final class SAP_View {
 			->get_routes();
 
 		/*
-		 * Shared shell data.
-		 */
-		$current_user = wp_get_current_user();
+         * Shared shell data.
+         */
+         $user = $services->user();
 
-		$page_title = '';
+         $page_title = '';
 
-		$current_page = sanitize_key(
-			(string) ( $_GET['page'] ?? '' )
-		);
+         $current_page = sanitize_key(
+	     (string) ( $_GET['page'] ?? '' )
+        );
 
 		foreach ( $navigation_items as $index => $item ) {
 

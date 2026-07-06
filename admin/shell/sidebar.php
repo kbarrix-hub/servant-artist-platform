@@ -23,29 +23,30 @@ defined( 'ABSPATH' ) || exit;
 
 	<div class="sap-sidebar-profile">
 
-		<div class="sap-profile-avatar">
+	     <div class="sap-profile-avatar">
 
-			KB
+		     <?php echo esc_html( $user->initials() ); ?>
 
-		</div>
+	     </div>
 
-		<div class="sap-profile-details">
+	     <div class="sap-profile-details">
 
-			<h3 class="sap-profile-name">
+		     <h3 class="sap-profile-name">
 
-				Kenny Barrix
+			     <?php echo esc_html( $user->display_name() ); ?>
 
-			</h3>
+		     </h3>
 
-			<p class="sap-profile-role">
+		     <p class="sap-profile-role">
 
-				Producer • Songwriter
+			     <?php echo esc_html( $user->title() ); ?>
 
-			</p>
+		     </p>
 
-			<span class="sap-profile-company">
+		     <span class="sap-profile-company">
 
-				Servant Records
+			     <?php echo esc_html( $user->organization() ); ?>
+
 
 			</span>
 
