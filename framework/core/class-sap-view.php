@@ -80,6 +80,31 @@ final class SAP_View {
 
 		$page_title = '';
 
+		$current_page = sanitize_key(
+			(string) ( $_GET['page'] ?? '' )
+		);
+
+		foreach ( $navigation_items as $index => $item ) {
+
+			$is_active = false;
+
+			if (
+				isset( $item['url'], $item['title'] ) &&
+				false !== strpos(
+					(string) $item['url'],
+					'page=' . $current_page
+				)
+			) {
+
+				$page_title = (string) $item['title'];
+				$is_active  = true;
+
+			}
+
+			$navigation_items[ $index ]['active'] = $is_active;
+
+		}
+
 		$notifications = [];
 
 		/*

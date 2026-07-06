@@ -30,6 +30,20 @@ defined( 'ABSPATH' ) || exit;
 
 		<div class="sap-workspace">
 
+			<?php if ( ! empty( $page_title ) ) : ?>
+
+				<header class="sap-workspace-header">
+
+					<h2 class="sap-workspace-title">
+
+						<?php echo esc_html( $page_title ); ?>
+
+					</h2>
+
+				</header>
+
+			<?php endif; ?>
+
 			<div class="sap-page">
 
 				<?php

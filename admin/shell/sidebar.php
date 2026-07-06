@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) || exit;
 				<li class="sap-sidebar-item">
 
 					<a
-						class="sap-sidebar-link"
+						class="sap-sidebar-link<?php echo ! empty( $item['active'] ) ? ' is-active' : ''; ?>"
 						href="<?php echo esc_url( $item['url'] ); ?>"
 					>
 
