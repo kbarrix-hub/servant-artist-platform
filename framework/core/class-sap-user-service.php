@@ -129,47 +129,67 @@ final class SAP_User_Service {
 
 	}
 
-	/**
-	 * Return user initials.
-	 *
-	 * @return string
-	 */
-	public function initials(): string {
+     /**
+    * Return user initials.
+     *
+     * Examples:
+     *
+     * Kenny Barrix -> KB
+     * Mia Waddell  -> MW
+     * kbarrix      -> KB
+     * johnsmith    -> JO
+     * A            -> A
+     *
+     * @return string
+     */
+    public function initials(): string {
 
-		$name = trim(
-			$this->display_name()
-		);
+	     $name = trim( $this->display_name() );
 
-		if ( $name === '' ) {
-			return '?';
-		}
+	     if ( $name === '' ) {
+		return '?';
+	    }
 
-		$parts = preg_split(
-			'/\s+/',
-			$name
-		);
+	     $parts = preg_split( '/\s+/', $name );
 
-		$initials = '';
+	     /*
+	      * Multi-word names.
+	     */
+	    if ( count( $parts ) > 1 ) {
 
-		foreach ( $parts as $part ) {
+		     $initials = '';
 
-			$initials .= strtoupper(
-				substr(
-					(string) $part,
-					0,
-					1
-				)
-			);
+		     foreach ( $parts as $part ) {
 
-			if ( strlen( $initials ) >= 2 ) {
-				break;
-			}
+			    if ( $part === '' ) {
+				     continue;
+			    }
+
+			     $initials .= strtoupper(
+				substr( $part, 0, 1 )
+			    );
+
+			     if ( strlen( $initials ) >= 2 ) {
+				     break;
+			    }
 
 		}
 
 		return $initials;
 
 	}
+
+	/*
+	 * Single-word usernames.
+	 */
+	$word = strtoupper( $parts[0] );
+
+	if ( strlen( $word ) === 1 ) {
+		return $word;
+	}
+
+	return substr( $word, 0, 2 );
+}
 
 	/**
 	 * Return organization.
