@@ -30,7 +30,7 @@ body {
 
 .sap-shell {
 	display: grid;
-	grid-template-columns: 230px 1fr;
+	grid-template-columns: 250px 1fr;
 	grid-template-rows: 72px 1fr 48px;
 	grid-template-areas:
 		"header header"
@@ -74,7 +74,7 @@ body {
 	display: flex;
 	flex-direction: column;
 
-	width: 230px;
+	width: 250px;
 	height: 100%;
 
 	padding-top: 24px;
@@ -252,11 +252,11 @@ body {
 @media (max-width: 1199px) {
 
 	.sap-shell {
-		grid-template-columns: 220px 1fr;
+		grid-template-columns: 240px 1fr;
 	}
 
 	.sap-sidebar {
-		width: 220px;
+		width: 240px;
 	}
 
 	.sap-page {
