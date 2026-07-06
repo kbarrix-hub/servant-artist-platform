@@ -74,23 +74,11 @@ defined( 'ABSPATH' ) || exit;
 
 						<span class="sap-sidebar-icon">
 
-							<?php
-							/**
-							 * Temporary icon placeholder.
-							 *
-							 * SAP-114 will replace this with the
-							 * Lucide Icon Renderer.
-							 */
-							echo esc_html(
-								strtoupper(
-									substr(
-										(string) $item['icon'],
-										0,
-										2
-									)
-								)
-							);
-							?>
+	                         <?php
+	                        echo SAP_Icon_Manager::render(
+		                         (string) $item['icon']
+	                        );
+	                        ?>
 
 						</span>
 

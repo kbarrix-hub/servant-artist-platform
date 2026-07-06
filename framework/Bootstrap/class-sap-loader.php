@@ -286,6 +286,11 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/ui/layouts/artist/class-sap-artist-layout.php';
 
 	/*
+     * UI Icons.
+     */
+    require_once dirname( __DIR__ ) . '/ui/icons/class-sap-icon-manager.php';
+
+	/*
 	 * UI Sections.
 	 */
 	require_once dirname( __DIR__ ) . '/ui/sections/hero/class-sap-hero-section.php';
