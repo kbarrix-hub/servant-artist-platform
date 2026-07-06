@@ -99,7 +99,6 @@ final class SAP_Asset_Manager {
 
 	}
  
-	
     /**
 	 * Register framework styles.
 	 *
@@ -112,17 +111,41 @@ final class SAP_Asset_Manager {
 
 		$this->assets['styles'] = [
 
-			'artist-dashboard' => [
-				'handle'  => 'sap-artist-dashboard',
-				'src'     => SAP_PLUGIN_URL . 'assets/css/admin/artist-dashboard.css',
-				'deps'    => [],
-				'version' => SAP_VERSION,
-				'media'   => 'all',
-			],
+	'application-shell' => [
+		'handle'  => 'sap-application-shell',
+		'src'     => SAP_PLUGIN_URL . 'admin/shell/application-shell.css',
+		'deps'    => [],
+		'version' => SAP_VERSION,
+		'media'   => 'all',
+	],
 
-		];
+	'header' => [
+		'handle'  => 'sap-header',
+		'src'     => SAP_PLUGIN_URL . 'admin/shell/header.css',
+		'deps'    => [ 'sap-application-shell' ],
+		'version' => SAP_VERSION,
+		'media'   => 'all',
+	],
 
-	}
+	'sidebar' => [
+		'handle'  => 'sap-sidebar',
+		'src'     => SAP_PLUGIN_URL . 'admin/shell/sidebar.css',
+		'deps'    => [ 'sap-application-shell' ],
+		'version' => SAP_VERSION,
+		'media'   => 'all',
+	],
+
+	'artist-dashboard' => [
+		'handle'  => 'sap-artist-dashboard',
+		'src'     => SAP_PLUGIN_URL . 'assets/css/admin/artist-dashboard.css',
+		'deps'    => [ 'sap-application-shell' ],
+		'version' => SAP_VERSION,
+		'media'   => 'all',
+	],
+
+];
+
+}
 
 	/**
 	 * Register framework scripts.

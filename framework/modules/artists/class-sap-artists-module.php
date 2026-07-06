@@ -143,8 +143,20 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 		}
 
 		SAP_Asset_Manager::instance()->enqueue_style(
-			'artist-dashboard'
-		);
+	         'application-shell'
+        );
+
+         SAP_Asset_Manager::instance()->enqueue_style(
+	         'header'
+        );
+
+         SAP_Asset_Manager::instance()->enqueue_style(
+	         'sidebar'
+        );
+
+         SAP_Asset_Manager::instance()->enqueue_style(
+	         'artist-dashboard'
+        );
 
 	}
 

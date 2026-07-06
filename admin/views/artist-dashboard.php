@@ -24,8 +24,8 @@ defined( 'ABSPATH' ) || exit;
 
 ?>
 
-<div class="wrap sap-app">
-
+<<div class="sap-app">
+	
 	<section class="sap-welcome">
 
 		<h2><?php esc_html_e( 'Welcome Back, Kenny', 'servant-artist-platform' ); ?></h2>

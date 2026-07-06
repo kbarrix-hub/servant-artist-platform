@@ -1,0 +1,107 @@
+/**
+ * ============================================================
+ * Servant Artist Platform
+ * ============================================================
+ *
+ * Sidebar Styles
+ *
+ * @package ServantArtistPlatform
+ * @since   1.0.0
+ * ============================================================
+ */
+
+/* ============================================================
+   Artist Identity
+============================================================ */
+
+.sap-sidebar-profile {
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding: 24px 20px 28px;
+
+	border-bottom: 1px solid #eceff5;
+
+}
+
+.sap-profile-avatar {
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 64px;
+	height: 64px;
+
+	margin-bottom: 18px;
+
+	border-radius: 50%;
+
+	background: linear-gradient(
+		135deg,
+		#5b4cff,
+		#7c5cff
+	);
+
+	color: #ffffff;
+
+	font-size: 22px;
+	font-weight: 700;
+
+	box-shadow:
+		0 8px 20px rgba(91,76,255,.18);
+
+}
+
+.sap-profile-details {
+
+	text-align: center;
+
+}
+
+.sap-profile-name {
+
+	margin: 0;
+
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.2;
+
+	color: #1f2937;
+
+}
+
+.sap-profile-role {
+
+	margin: 10px 0 6px;
+
+	font-size: 14px;
+	font-weight: 500;
+
+	color: #6b7280;
+
+}
+
+.sap-profile-company {
+
+	display: block;
+
+	font-size: 13px;
+	font-weight: 600;
+
+	color: #5b4cff;
+	letter-spacing: .4px;
+	text-transform: uppercase;
+}
+
+/* ============================================================
+   Navigation
+============================================================ */
+
+.sap-sidebar-nav {
+	flex: 1;
+
+	padding-top: 20px;
+}

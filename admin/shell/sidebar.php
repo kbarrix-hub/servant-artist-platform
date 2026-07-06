@@ -21,6 +21,38 @@ defined( 'ABSPATH' ) || exit;
 
 <aside class="sap-sidebar">
 
+	<div class="sap-sidebar-profile">
+
+		<div class="sap-profile-avatar">
+
+			KB
+
+		</div>
+
+		<div class="sap-profile-details">
+
+			<h3 class="sap-profile-name">
+
+				Kenny Barrix
+
+			</h3>
+
+			<p class="sap-profile-role">
+
+				Producer • Songwriter
+
+			</p>
+
+			<span class="sap-profile-company">
+
+				Servant Records
+
+			</span>
+
+		</div>
+
+	</div>
+
 	<nav class="sap-sidebar-nav">
 
 		<ul class="sap-sidebar-menu">
