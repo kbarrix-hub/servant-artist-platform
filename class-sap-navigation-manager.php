@@ -63,17 +63,28 @@ final class SAP_Navigation_Manager {
 		$this->providers[] = $provider;
 	}
 
-	/**
+    /**
 	 * Return all navigation items.
-	 *
-	 * Items are merged from every registered provider
-	 * and sorted by menu order.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array<int,array<string,mixed>>
 	 */
 	public function get_navigation_items(): array {
+
+		return $this->get_provider_items();
+
+	}
+
+	/**
+	 * Return navigation items supplied by registered providers.
+	 *
+	 * Items are merged from every registered provider
+	 * and sorted by menu order.
+	 *
+	 * @return array<int,array<string,mixed>>
+	 */
+	private function get_provider_items(): array {
 
 		$items = [];
 
@@ -86,7 +97,9 @@ final class SAP_Navigation_Manager {
 				}
 
 				$items[] = $item;
+
 			}
+
 		}
 
 		usort(
@@ -94,11 +107,12 @@ final class SAP_Navigation_Manager {
 			static function ( array $a, array $b ): int {
 
 				return ( $a['order'] ?? 999 ) <=> ( $b['order'] ?? 999 );
+
 			}
 		);
 
 		return $items;
-	}
+    }
 
 	/**
 	 * Validate a navigation item.
