@@ -206,16 +206,28 @@ final class SAP_Runtime {
 	}
 
 	/**
-	 * Resolve the active framework page.
-	 *
-	 * @return void
-	 */
-	private function resolve_page(): void {
+     * Resolve the active framework page.
+     *
+     * @return void
+     */
+    private function resolve_page(): void {
 
-		$this->current_page =
-			$this->get_module_manager()->get_current_page();
+	     $page_slug = '';
+
+	     if ( isset( $_GET['sap_page'] ) ) {
+		$page_slug = sanitize_key( wp_unslash( $_GET['sap_page'] ) );
+	    }
+
+	     $this->current_page = null;
+
+	     if ( '' !== $page_slug ) {
+		    $this->current_page = $this->core_services
+			     ->pages()
+			     ->get_page( $page_slug );
     
-	}
+	    }
+
+    }
 
 	/**
 	 * Build the Application Shell render context.
