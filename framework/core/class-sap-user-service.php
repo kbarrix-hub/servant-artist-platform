@@ -205,15 +205,26 @@ final class SAP_User_Service {
 	}
 
 	/**
-	 * Return user title.
-	 *
-	 * Placeholder until SAP Profiles exist.
-	 *
-	 * @return string
-	 */
-	public function title(): string {
+     * Return user title.
+     *
+     * Placeholder until SAP Profiles exist.
+     *
+     * @return string
+     */
+     public function title(): string {
 
-		return 'Artist';
+	     return 'Artist';
+
+    }
+
+    /**
+      * Return the current SAP profile.
+     *
+     * @return SAP_Profile
+     */
+    public function profile(): SAP_Profile {
+
+	     return new SAP_Profile( $this );
 
 	}
 

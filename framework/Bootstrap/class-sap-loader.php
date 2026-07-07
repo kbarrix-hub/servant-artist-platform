@@ -298,6 +298,8 @@ final class SAP_Loader {
 	/*
      * Core Services.
      */
+    require_once dirname( __DIR__ ) . '/core/class-sap-profile.php';
+
     require_once dirname( __DIR__ ) . '/core/class-sap-user-service.php';
 
     require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
