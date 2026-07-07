@@ -130,11 +130,9 @@ final class SAP_Runtime {
 
 		$this->boot();
 
-		$this->initialize();
+	    $this->start();
 
-		$this->start();
-
-		$this->shutdown();
+	    $this->shutdown();
 
 	}
 
@@ -150,25 +148,41 @@ final class SAP_Runtime {
 		// Future implementation.
 
 	}
-
+	
 	/**
-	 * Start the application.
+     * Start the application.
+     *
+     * Execute the framework.
+     *
+     * @return void
+     */
+    private function start(): void {
+
+	/*
+	 * Register all framework modules.
 	 *
-	 * Execute the framework.
-	 *
-	 * @return void
+	 * Module registration populates the Navigation
+	 * Manager and Page Manager before the Runtime
+	 * resolves the active request.
 	 */
-	private function start(): void {
+	$this->get_module_manager()->run();
 
-		$this->get_module_manager()->run();
+	/*
+	 * Refresh the Runtime state now that the
+	 * framework registry has been populated.
+	 */
+	$this->initialize();
 
-        $this->shell->set_context(
-			$this->get_render_context()
-		);
+	/*
+	 * Render the resolved framework page.
+	 */
+	$this->shell->set_context(
+		$this->get_render_context()
+	);
 
-		$this->shell->render();
+	$this->shell->render();
 
-	}
+}
 
 	/**
 	 * Shutdown the application runtime.

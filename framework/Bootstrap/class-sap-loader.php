@@ -360,7 +360,11 @@ final class SAP_Loader {
 	private function create_module_manager(): void {
 
 		$this->modules = new SAP_Module_Manager(
-			$this->services
+		     $this->services
+	    );
+
+	    $this->services->register_module_manager(
+		$this->modules
 		);
 
 	}
