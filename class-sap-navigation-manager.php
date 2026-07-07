@@ -58,12 +58,14 @@ final class SAP_Navigation_Manager {
 			if ( $registered === $provider ) {
 				return;
 			}
+
 		}
 
 		$this->providers[] = $provider;
+
 	}
 
-    /**
+	/**
 	 * Return all navigation items.
 	 *
 	 * @since 1.0.0
@@ -112,7 +114,8 @@ final class SAP_Navigation_Manager {
 		);
 
 		return $items;
-    }
+
+	}
 
 	/**
 	 * Validate a navigation item.
@@ -140,9 +143,11 @@ final class SAP_Navigation_Manager {
 			if ( ! array_key_exists( $key, $item ) ) {
 				return false;
 			}
+
 		}
 
 		return true;
+
 	}
 
 	/**
@@ -157,5 +162,7 @@ final class SAP_Navigation_Manager {
 	public function get_providers(): array {
 
 		return $this->providers;
+
 	}
+
 }
