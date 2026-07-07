@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Navigation_Provider_Interface {
+final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Navigation_Provider_Interface, SAP_Page_Provider_Interface {
 
 	/**
 	 * Module identifier.
@@ -197,30 +197,44 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 	}
 
 	/**
-	 * Return the module's framework page.
-	 *
-	 * @return SAP_Page_Interface
-	 */
-	public function get_page(): SAP_Page_Interface {
+     * Return the module's framework page.
+     *
+     * @return SAP_Page_Interface
+     */
+    public function get_page(): SAP_Page_Interface {
 
-		return new SAP_Artist_Home_Page();
+	     return new SAP_Artist_Home_Page();
 
-	}
+}
 
 	/**
-	 * Return the navigation items provided by this module.
-	 *
-	 * @return array<int, array<string, mixed>>
-	 */
-	public function get_navigation_items(): array {
+     * Return the framework pages provided by the module.
+     *
+     * @return array<int, SAP_Page_Interface>
+     */
+    public function get_pages(): array {
 
-		return [
-			[
-				'slug'  => 'artists',
-				'title' => 'Artists',
-				'icon'  => 'users',
-				'order' => 20,
-				'url'   => admin_url( 'admin.php?page=sap-artist-portal' ),
+	     return [
+		     new SAP_Artist_Home_Page(),
+		     new SAP_Artist_Profile_Page(),
+	];
+
+}
+
+    /**
+     * Return the navigation items provided by this module.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function get_navigation_items(): array {
+
+	     return [
+		     [
+			     'slug'  => 'artists',
+			     'title' => 'Artists',
+			     'icon'  => 'users',
+			     'order' => 20,
+			     'url'   => admin_url( 'admin.php?page=sap-artist-portal' ),
 			],
 		];
 

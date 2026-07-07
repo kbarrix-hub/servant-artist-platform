@@ -231,6 +231,8 @@ final class SAP_Loader {
 
 	require_once dirname( __DIR__ ) . '/interfaces/interface-sap-navigation-provider.php';
 
+	require_once dirname( __DIR__ ) . '/interfaces/interface-sap-page-provider.php';
+
 	/*
 	 * Platform Navigation Manager.
 	 *
@@ -280,6 +282,8 @@ final class SAP_Loader {
 
 	require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-home-page.php';
 
+	require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-profile-page.php';
+
 	/*
 	 * UI Layouts.
 	 */
@@ -295,6 +299,13 @@ final class SAP_Loader {
 	 */
 	require_once dirname( __DIR__ ) . '/ui/sections/hero/class-sap-hero-section.php';
 
+	require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-section.php';
+
+    /*
+     * Framework Managers.
+     */
+    require_once dirname( __DIR__ ) . '/managers/class-sap-page-manager.php';
+
 	/*
      * Core Services.
      */
@@ -303,11 +314,6 @@ final class SAP_Loader {
     require_once dirname( __DIR__ ) . '/core/class-sap-user-service.php';
 
     require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
-
-    /*
-     * Framework View.
-     */
-    require_once dirname( __DIR__ ) . '/core/class-sap-view.php';
 
 	/*
 	 * Framework Module Manager.

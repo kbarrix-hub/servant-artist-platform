@@ -75,6 +75,13 @@ final class SAP_Core_Services {
      */
     private SAP_User_Service $user;
 
+	/**
+	 * Framework Page Manager.
+	 *
+	 * @var SAP_Page_Manager
+	 */
+	private SAP_Page_Manager $pages;
+
      /**
      * Framework Module Manager.
      *
@@ -113,6 +120,7 @@ final class SAP_Core_Services {
 		$this->navigation = new SAP_Navigation_Manager();
         $this->router     = new SAP_Router();
         $this->user       = new SAP_User_Service();
+		$this->pages      = new SAP_Page_Manager();
 
 	}
 
@@ -179,6 +187,17 @@ final class SAP_Core_Services {
 	public function user(): SAP_User_Service {
 
 	     return $this->user;
+
+	}
+
+	/**
+	 * Return the Page Manager.
+	 *
+	 * @return SAP_Page_Manager
+	 */
+	public function pages(): SAP_Page_Manager {
+
+		return $this->pages;
 
 	}
 

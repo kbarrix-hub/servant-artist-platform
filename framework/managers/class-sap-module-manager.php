@@ -84,11 +84,13 @@ final class SAP_Module_Manager {
 	 */
 	public function run(): void {
 
-		$this->register_navigation();
+		 $this->register_navigation();
 
-		$this->initialize_modules();
+	     $this->register_pages();
 
-		$this->dispatch_ready_event();
+	     $this->initialize_modules();
+
+	     $this->dispatch_ready_event();
 
 	}
 
@@ -140,6 +142,35 @@ final class SAP_Module_Manager {
 		}
 
 	}
+
+	/**
+     * Register framework pages.
+     *
+     * Modules implementing the Page Provider
+     * interface automatically register their
+     * framework pages with the Page Manager.
+     *
+     * @return void
+     */
+    private function register_pages(): void {
+
+	     $pages = $this->services->pages();
+
+	     foreach ( $this->modules as $module ) {
+
+		     if ( ! $module instanceof SAP_Page_Provider_Interface ) {
+			     continue;
+		    }
+
+		     foreach ( $module->get_pages() as $page ) {
+
+			    $pages->register( $page );
+
+		}
+
+	}
+
+}
 
 	/**
 	 * Initialize registered framework modules.
