@@ -7,10 +7,8 @@ declare(strict_types=1);
  * Servant Artist Platform
  * ============================================================
  *
- * SAP-016.3
- * Hero Section
- *
- * First UI section implementation.
+ * SAP-039.1
+ * Artist Dashboard Hero Section
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -21,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 
 final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section_Definition {
 
-    /**
+	/**
 	 * Return the Builder definition.
 	 *
 	 * @return array<string,mixed>
@@ -68,6 +66,7 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 		];
 
 	}
+
 	/**
 	 * Render the Hero section.
 	 *
@@ -75,10 +74,40 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 	 */
 	public function render(): void {
 
-		echo '
+		?>
+
 		<section class="sap-hero">
-			<h1>Hero Section</h1>
-		</section>';
+
+			<div class="sap-hero-card">
+
+				<h1>Welcome back, Kenny 👋</h1>
+
+				<p>
+					Manage your artists, music, releases,
+					bookings, and ministry from one place.
+				</p>
+
+				<div class="sap-hero-actions">
+
+					<button class="button button-primary">
+						Upload Song
+					</button>
+
+					<button class="button">
+						New Release
+					</button>
+
+					<button class="button">
+						View Profile
+					</button>
+
+				</div>
+
+			</div>
+
+		</section>
+
+		<?php
 
 	}
 
