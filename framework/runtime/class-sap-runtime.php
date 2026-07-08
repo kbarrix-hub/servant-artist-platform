@@ -226,22 +226,19 @@ final class SAP_Runtime {
      */
     private function resolve_page(): void {
 
-	     $page_slug = '';
+	     $page_slug = 'artist-home';
 
 	     if ( isset( $_GET['sap_page'] ) ) {
-		$page_slug = sanitize_key( wp_unslash( $_GET['sap_page'] ) );
-	    }
+		     $page_slug = sanitize_key(
+			     wp_unslash( $_GET['sap_page'] )
+		);
+	}
 
-	     $this->current_page = null;
-
-	     if ( '' !== $page_slug ) {
-		    $this->current_page = $this->core_services
-			     ->pages()
-			     ->get_page( $page_slug );
+	$this->current_page = $this->core_services
+		->pages()
+		->get_page( $page_slug );
     
-	    }
-
-    }
+	}
 
 	/**
 	 * Build the Application Shell render context.

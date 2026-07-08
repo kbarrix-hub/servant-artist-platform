@@ -239,7 +239,9 @@ final class SAP_Loader {
 	 * Currently resides in the plugin root.
 	 * SAP-014 will relocate it into the framework.
 	 */
-	require_once dirname( dirname( __DIR__ ) ) . '/class-sap-navigation-manager.php';
+	$navigation_file = dirname( dirname( __DIR__ ) ) . '/class-sap-navigation-manager.php';
+
+    require_once $navigation_file;
 
 	/*
 	 * Framework Abstracts.
@@ -280,9 +282,11 @@ final class SAP_Loader {
 	 */
 	require_once dirname( __DIR__ ) . '/ui/pages/interfaces/interface-sap-page.php';
 
-	require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-home-page.php';
+    require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-home-page.php';
 
-	require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-profile-page.php';
+    require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-profile-page.php';
+
+    require_once dirname( __DIR__ ) . '/ui/pages/portal/class-sap-portal-builder-page.php';
 
 	/*
 	 * UI Layouts.
@@ -294,6 +298,20 @@ final class SAP_Loader {
      */
     require_once dirname( __DIR__ ) . '/ui/icons/class-sap-icon-manager.php';
 
+	/*
+     * Portal Framework.
+     */
+    require_once dirname( __DIR__ ) . '/ui/portal/interfaces/interface-sap-section-definition.php';
+
+    if ( ! interface_exists( 'SAP_Section_Definition', false ) ) {
+	     die( 'SAP_Section_Definition was NOT loaded.' );
+
+    }
+
+	require_once dirname( __DIR__ ) . '/ui/portal/registry/class-sap-section-registry.php';
+
+    require_once dirname( __DIR__ ) . '/ui/portal/builders/class-sap-portal-builder-controller.php';
+	
 	/*
 	 * UI Sections.
 	 */

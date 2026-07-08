@@ -91,11 +91,11 @@ final class SAP_Page_Manager {
 	 *
 	 * @return SAP_Page_Interface|null
 	 */
-	public function get(
-		string $slug
-	): ?SAP_Page_Interface {
+	public function get_page(
+	string $slug
+    ): ?SAP_Page_Interface {
 
-		return $this->pages[ $slug ] ?? null;
+	     return $this->pages[ $slug ] ?? null;
 
 	}
 

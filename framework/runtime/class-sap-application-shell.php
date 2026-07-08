@@ -77,15 +77,27 @@ final class SAP_Application_Shell {
 	 */
 	public function render(): void {
 
-		$page = $this->get_page();
+	     error_log( 'SAP: ApplicationShell::render() entered.' );
 
-		if ( $page === null ) {
-			return;
-		}
+	    $page = $this->get_page();
 
-		$page->initialize();
+	     if ( $page === null ) {
 
-		$page->render();
+		    error_log( 'SAP: No page found in Application Shell context.' );
+
+		     return;
+
+	    }
+
+	     error_log(
+		     'SAP: Rendering page ' . get_class( $page )
+	    );
+
+	     $page->initialize();
+
+	     $page->render();
+
+	     error_log( 'SAP: ApplicationShell::render() exited.' );
 
 	}
 

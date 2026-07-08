@@ -118,13 +118,13 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 	public function register_admin_menu(): void {
 
 		add_menu_page(
-			__( 'Artist Portal', 'servant-artist-platform' ),
-			__( 'Artist Portal', 'servant-artist-platform' ),
-			'manage_options',
-			'sap-artist-portal',
-			[ $this, 'render_dashboard' ],
-			'dashicons-groups',
-			30
+		     __( 'Artist Portal', 'servant-artist-platform' ),
+		     __( 'Artist Portal', 'servant-artist-platform' ),
+		     'manage_options',
+		     'sap-artist-portal',
+		     [ $this, 'render_application_shell' ],
+		     'dashicons-groups',
+		     30
 		);
 
 	}
@@ -197,6 +197,23 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 	}
 
 	/**
+     * Render the SAP Application Shell.
+     *
+     * @return void
+     */
+    public function render_application_shell(): void {
+
+	     error_log( 'SAP: Entered render_application_shell()' );
+
+	    $this->services
+		     ->runtime()
+		     ->run();
+
+	    error_log( 'SAP: Exited render_application_shell()' );
+
+    }
+
+	/**
      * Return the module's framework page.
      *
      * @return SAP_Page_Interface
@@ -217,6 +234,7 @@ final class SAP_Artists_Module extends SAP_Abstract_Module implements SAP_Naviga
 	     return [
 		     new SAP_Artist_Home_Page(),
 		     new SAP_Artist_Profile_Page(),
+		     new SAP_Portal_Builder_Page(),
 	];
 
 }
