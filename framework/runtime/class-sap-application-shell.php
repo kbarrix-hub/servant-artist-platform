@@ -71,33 +71,39 @@ final class SAP_Application_Shell {
 	}
 
 	/**
-	 * Render the active page.
+	 * Render the active page inside the SAP Application Shell.
 	 *
 	 * @return void
 	 */
 	public function render(): void {
 
-	     error_log( 'SAP: ApplicationShell::render() entered.' );
+		error_log( 'SAP: ApplicationShell::render() entered.' );
 
-	    $page = $this->get_page();
+		$framework_page = $this->get_page();
 
-	     if ( $page === null ) {
+		if ( ! $framework_page instanceof SAP_Page_Interface ) {
 
-		    error_log( 'SAP: No page found in Application Shell context.' );
+			error_log( 'SAP: No page found in Application Shell context.' );
 
-		     return;
+			return;
 
-	    }
+		}
 
-	     error_log(
-		     'SAP: Rendering page ' . get_class( $page )
-	    );
+		error_log(
+			'SAP: Rendering page ' . get_class( $framework_page )
+		);
 
-	     $page->initialize();
+		$page_title   = $framework_page->get_title();
+        $current_view = null;
 
-	     $page->render();
+    /*
+     * Expose the Runtime render context
+     * to the shell template.
+     */
+    $user = $this->context['user'] ?? null;
+    $navigation_items = $this->context['navigation_items'] ?? [];
 
-	     error_log( 'SAP: ApplicationShell::render() exited.' );
+    require SAP_PLUGIN_DIR . 'admin/shell/app.php';
 
 	}
 

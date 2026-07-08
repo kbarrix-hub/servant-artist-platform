@@ -109,12 +109,12 @@ final class SAP_Runtime {
 		$this->resolve_page();
 
 		$this->runtime_state = [
-			'route'    => $this->current_route,
-			'module'   => $this->current_module,
-			'page'     => $this->current_page,
-			'user'     => wp_get_current_user(),
-			'request'  => $_REQUEST,
-			'is_admin' => is_admin(),
+			 'route'    => $this->current_route,
+	         'module'   => $this->current_module,
+	         'page'     => $this->current_page,
+	         'user'     => $this->core_services->user(),
+	         'request'  => $_REQUEST,
+	         'is_admin' => is_admin(),
 		];
 
 	}
@@ -251,10 +251,13 @@ final class SAP_Runtime {
 	private function get_render_context(): array {
 
 		return [
-			'route'  => $this->runtime_state['route'],
-			'module' => $this->runtime_state['module'],
-			'page'   => $this->runtime_state['page'],
-			'user'   => $this->runtime_state['user'],
+			 'route'            => $this->runtime_state['route'],
+	         'module'           => $this->runtime_state['module'],
+	         'page'             => $this->runtime_state['page'],
+	         'user'             => $this->runtime_state['user'],
+	         'navigation_items' => $this->core_services
+		         ->navigation()
+		        ->get_navigation_items(),
 		];
 
 	}
