@@ -1,0 +1,75 @@
+/**
+ * ============================================================
+ * Servant Artist Platform
+ * Portal UI Kit
+ * ============================================================
+ *
+ * Shared dashboard components used throughout
+ * the Servant Artist Platform.
+ */
+
+/* ------------------------------------------------------------
+ * Section Headers
+ * ------------------------------------------------------------ */
+
+.sap-section {
+	margin-top: 2rem;
+}
+
+.sap-section-title {
+	margin: 0 0 1rem;
+	font-size: 1.35rem;
+	font-weight: 600;
+	color: #222;
+}
+
+/* ------------------------------------------------------------
+ * Dashboard Grid
+ * ------------------------------------------------------------ */
+
+.sap-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1.5rem;
+}
+
+/* ------------------------------------------------------------
+ * Cards
+ * ------------------------------------------------------------ */
+
+.sap-card {
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+/* ------------------------------------------------------------
+ * Statistic Cards
+ * ------------------------------------------------------------ */
+
+.sap-stat-card h3 {
+	margin: 0;
+	font-size: .9rem;
+	font-weight: 600;
+	color: #666;
+}
+
+.sap-stat-card p {
+	margin: .75rem 0 0;
+	font-size: 2.25rem;
+	font-weight: 700;
+	color: #4f46e5;
+}
+
+/* ------------------------------------------------------------
+ * Button Groups
+ * ------------------------------------------------------------ */
+
+.sap-button-group {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+	margin-top: 1.5rem;
+}

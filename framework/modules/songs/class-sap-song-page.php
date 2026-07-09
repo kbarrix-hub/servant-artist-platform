@@ -50,6 +50,10 @@ final class SAP_Song_Page extends SAP_Abstract_Page {
 		$this->layout->register_section(
 	        new SAP_Song_Hero_Section()
 		);
+		
+		$this->layout->register_section(
+	        new SAP_Song_Statistics_Section()
+        );
 
 	}
 

@@ -321,6 +321,10 @@ final class SAP_Loader {
 
     require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-song-hero-section.php';
 
+	require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-song-statistics-section.php';
+
+	require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-song-actions-section.php';
+
     require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-section.php';
 
     /*

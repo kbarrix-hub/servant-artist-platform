@@ -135,6 +135,14 @@ final class SAP_Asset_Manager {
 		'media'   => 'all',
 	],
 
+	'portal-ui' => [
+	    'handle'  => 'sap-portal-ui',
+	    'src'     => SAP_PLUGIN_URL . 'assets/css/admin/portal-ui.css',
+	    'deps'    => [ 'sap-application-shell' ],
+	    'version' => SAP_VERSION,
+	    'media'   => 'all',
+    ],
+
 	'artist-dashboard' => [
 		'handle'  => 'sap-artist-dashboard',
 		'src'     => SAP_PLUGIN_URL . 'assets/css/admin/artist-dashboard.css',

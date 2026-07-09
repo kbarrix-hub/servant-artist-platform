@@ -1,0 +1,61 @@
+/**
+ * ============================================================
+ * Servant Artist Platform
+ * Song Dashboard
+ * ============================================================
+ */
+
+.sap-song-hero {
+	margin-bottom: 2rem;
+}
+
+.sap-song-hero h2 {
+	margin: 0 0 .5rem;
+	font-size: 2rem;
+	font-weight: 700;
+	color: #222;
+}
+
+.sap-song-hero p {
+	margin: 0;
+	font-size: 1rem;
+	color: #666;
+}
+
+.sap-song-statistics {
+	margin-top: 2rem;
+}
+
+.sap-song-statistics h2 {
+	margin-bottom: 1rem;
+	font-size: 1.35rem;
+	font-weight: 600;
+}
+
+.sap-stat-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(180px, 1fr));
+	gap: 1.5rem;
+}
+
+.sap-stat-card {
+	background: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 2px 10px rgba(0,0,0,.04);
+}
+
+.sap-stat-card h3 {
+	margin: 0;
+	font-size: .9rem;
+	color: #666;
+	font-weight: 600;
+}
+
+.sap-stat-card p {
+	margin: .75rem 0 0;
+	font-size: 2.25rem;
+	font-weight: 700;
+	color: #4f46e5;
+}
