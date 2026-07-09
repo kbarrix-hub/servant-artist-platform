@@ -229,9 +229,11 @@ final class SAP_Loader {
 	 */
 	require_once dirname( __DIR__ ) . '/modules/interface-sap-module.php';
 
-	require_once dirname( __DIR__ ) . '/interfaces/interface-sap-navigation-provider.php';
+    require_once dirname( __DIR__ ) . '/interfaces/interface-sap-navigation-provider.php';
 
-	require_once dirname( __DIR__ ) . '/interfaces/interface-sap-page-provider.php';
+    require_once dirname( __DIR__ ) . '/interfaces/interface-sap-page-provider.php';
+
+    require_once dirname( __DIR__ ) . '/interfaces/interface-sap-context-provider.php';
 
 	/*
 	 * Platform Navigation Manager.
@@ -325,6 +327,10 @@ final class SAP_Loader {
 
 	require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-song-actions-section.php';
 
+	require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-song-library-section.php';
+
+	require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-new-song-section.php';
+
     require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-section.php';
 
     /*
@@ -343,6 +349,8 @@ final class SAP_Loader {
 
 	require_once dirname( __DIR__ ) . '/core/class-sap-dashboard-service.php';
 
+	require_once dirname( __DIR__ ) . '/core/class-sap-song-service.php';
+
     require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
 
 	/*
@@ -358,6 +366,10 @@ final class SAP_Loader {
     require_once dirname( __DIR__ ) . '/modules/artists/class-sap-artists-module.php';
 
     require_once dirname( __DIR__ ) . '/modules/songs/class-sap-song-page.php';
+
+	require_once dirname( __DIR__ ) . '/modules/songs/class-sap-song-library-page.php';
+
+	require_once dirname( __DIR__ ) . '/modules/songs/class-sap-new-song-page.php';
 
     require_once dirname( __DIR__ ) . '/modules/songs/class-sap-songs-module.php';
 	

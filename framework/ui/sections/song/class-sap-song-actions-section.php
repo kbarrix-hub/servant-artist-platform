@@ -45,17 +45,23 @@ final class SAP_Song_Actions_Section extends SAP_Abstract_Section {
 
 			<div class="sap-button-group">
 
-				<button class="button button-primary">
-					New Song
-				</button>
+				<a
+	                 class="button button-primary"
+	                 href="<?php echo esc_url( admin_url( 'admin.php?page=sap-artist-portal&sap_page=new-song' ) ); ?>"
+                >
+	                 New Song
+                </a>
 
 				<button class="button">
 					Import Songs
 				</button>
 
-				<button class="button">
-					Song Library
-				</button>
+				<a
+	                 class="button"
+	                 href="<?php echo esc_url( admin_url( 'admin.php?page=sap-artist-portal&sap_page=song-library' ) ); ?>"
+                >
+	                 Song Library
+                </a>
 
 			</div>
 

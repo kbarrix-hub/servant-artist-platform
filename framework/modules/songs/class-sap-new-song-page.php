@@ -8,10 +8,10 @@ declare(strict_types=1);
  * ============================================================
  *
  * Framework Component:
- * SAP-046.1 Song Page
+ * SAP-050.1 New Song Page
  *
  * Responsibility:
- * Represents the Song Manager homepage.
+ * Display the New Song editor.
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -21,21 +21,21 @@ declare(strict_types=1);
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class SAP_Song_Page
+ * Class SAP_New_Song_Page
  *
- * Song Manager homepage implementation.
+ * Displays the New Song editor.
  *
  * @since 1.0.0
  */
-final class SAP_Song_Page extends SAP_Abstract_Page {
+final class SAP_New_Song_Page extends SAP_Abstract_Page {
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
 
-		$this->title  = 'Songs';
-		$this->slug   = 'songs';
+		$this->title  = 'New Song';
+		$this->slug   = 'new-song';
 		$this->layout = new SAP_Artist_Layout();
 
 	}
@@ -48,15 +48,7 @@ final class SAP_Song_Page extends SAP_Abstract_Page {
 	public function initialize(): void {
 
 		$this->layout->register_section(
-			new SAP_Song_Hero_Section()
-		);
-
-		$this->layout->register_section(
-			new SAP_Song_Statistics_Section()
-		);
-
-		$this->layout->register_section(
-			new SAP_Song_Actions_Section()
+			new SAP_New_Song_Section()
 		);
 
 	}

@@ -83,6 +83,13 @@ final class SAP_Core_Services {
 	private SAP_Dashboard_Service $dashboard;
 
 	/**
+     * Framework Song Service.
+     *
+     * @var SAP_Song_Service
+     */
+    private SAP_Song_Service $songs;
+
+	/**
 	 * Framework Page Manager.
 	 *
 	 * @var SAP_Page_Manager
@@ -128,7 +135,8 @@ final class SAP_Core_Services {
         $this->router     = new SAP_Router();
         $this->user       = new SAP_User_Service();
         $this->dashboard  = new SAP_Dashboard_Service();
-        $this->pages      = new SAP_Page_Manager();
+        $this->songs      = new SAP_Song_Service();
+        $this->pages      = new SAP_Page_Manager(); 
 
 	}
 
@@ -142,6 +150,17 @@ final class SAP_Core_Services {
 		return $this->dashboard;
 
 	}
+
+	/**
+     * Return the Song Service.
+     *
+     * @return SAP_Song_Service
+     */
+    public function songs(): SAP_Song_Service {
+
+	     return $this->songs;
+
+    }
 
 	/**
 	 * Return the Registry.

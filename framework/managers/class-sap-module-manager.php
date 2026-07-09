@@ -76,6 +76,21 @@ final class SAP_Module_Manager {
 	}
 
 	/**
+	 * Return all registered framework modules.
+	 *
+	 * Exposes the registered module collection to
+	 * framework components that need to inspect
+	 * module capabilities.
+	 *
+	 * @return array<int, SAP_Module_Interface>
+	 */
+	public function get_modules(): array {
+
+		return $this->modules;
+
+	}
+
+	/**
 	 * Start the Module Manager.
 	 *
 	 * Executes the SAP module lifecycle.

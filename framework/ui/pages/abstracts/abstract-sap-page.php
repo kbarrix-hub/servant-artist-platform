@@ -122,4 +122,38 @@ abstract class SAP_Abstract_Page implements SAP_Page_Interface {
 
 	}
 
+	/**
+	 * Store a value in the page context.
+	 *
+	 * @param string $key   Context key.
+	 * @param mixed  $value Context value.
+	 *
+	 * @return void
+	 */
+	protected function set_context_value(
+		string $key,
+		mixed $value
+	): void {
+
+		$this->context[ $key ] = $value;
+
+	}
+
+	/**
+	 * Retrieve a value from the page context.
+	 *
+	 * @param string $key     Context key.
+	 * @param mixed  $default Default value.
+	 *
+	 * @return mixed
+	 */
+	protected function get_context_value(
+		string $key,
+		mixed $default = null
+	): mixed {
+
+		return $this->context[ $key ] ?? $default;
+
+	}
+
 }
