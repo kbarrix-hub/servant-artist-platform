@@ -282,6 +282,8 @@ final class SAP_Loader {
 	 */
 	require_once dirname( __DIR__ ) . '/ui/pages/interfaces/interface-sap-page.php';
 
+    require_once dirname( __DIR__ ) . '/ui/pages/abstracts/abstract-sap-page.php';
+
     require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-home-page.php';
 
     require_once dirname( __DIR__ ) . '/ui/pages/artist/class-sap-artist-profile-page.php';
@@ -332,6 +334,8 @@ final class SAP_Loader {
     require_once dirname( __DIR__ ) . '/core/class-sap-profile.php';
 
     require_once dirname( __DIR__ ) . '/core/class-sap-user-service.php';
+
+	require_once dirname( __DIR__ ) . '/core/class-sap-dashboard-service.php';
 
     require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
 
