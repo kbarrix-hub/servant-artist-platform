@@ -109,12 +109,15 @@ final class SAP_Runtime {
 		$this->resolve_page();
 
 		$this->runtime_state = [
-			 'route'    => $this->current_route,
-	         'module'   => $this->current_module,
-	         'page'     => $this->current_page,
-	         'user'     => $this->core_services->user(),
-	         'request'  => $_REQUEST,
-	         'is_admin' => is_admin(),
+	         'route'     => $this->current_route,
+	         'module'    => $this->current_module,
+	         'page'      => $this->current_page,
+	         'user'      => $this->core_services->user(),
+	         'dashboard' => $this->core_services
+		         ->dashboard()
+		         ->get_dashboard(),
+	         'request'   => $_REQUEST,
+	         'is_admin'  => is_admin(),
 		];
 
 	}
@@ -250,14 +253,16 @@ final class SAP_Runtime {
 	 */
 	private function get_render_context(): array {
 
-		return [
+		return [  
+
 			 'route'            => $this->runtime_state['route'],
 	         'module'           => $this->runtime_state['module'],
 	         'page'             => $this->runtime_state['page'],
 	         'user'             => $this->runtime_state['user'],
+	         'dashboard'        => $this->runtime_state['dashboard'],
 	         'navigation_items' => $this->core_services
 		         ->navigation()
-		        ->get_navigation_items(),
+		         ->get_navigation_items()
 		];
 
 	}

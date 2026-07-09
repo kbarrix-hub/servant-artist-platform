@@ -76,6 +76,13 @@ final class SAP_Core_Services {
     private SAP_User_Service $user;
 
 	/**
+	 * Framework Dashboard Service.
+	 *
+	 * @var SAP_Dashboard_Service
+	 */
+	private SAP_Dashboard_Service $dashboard;
+
+	/**
 	 * Framework Page Manager.
 	 *
 	 * @var SAP_Page_Manager
@@ -120,7 +127,19 @@ final class SAP_Core_Services {
 		$this->navigation = new SAP_Navigation_Manager();
         $this->router     = new SAP_Router();
         $this->user       = new SAP_User_Service();
-		$this->pages      = new SAP_Page_Manager();
+        $this->dashboard  = new SAP_Dashboard_Service();
+        $this->pages      = new SAP_Page_Manager();
+
+	}
+
+	/**
+	 * Return the Dashboard Service.
+	 *
+	 * @return SAP_Dashboard_Service
+	 */
+	public function dashboard(): SAP_Dashboard_Service {
+
+		return $this->dashboard;
 
 	}
 

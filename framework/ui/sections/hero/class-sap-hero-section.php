@@ -76,38 +76,120 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 
 		?>
 
-		<section class="sap-hero">
+		<section class="sap-welcome">
 
-			<div class="sap-hero-card">
+		<h2>Welcome back, Kenny 👋</h2>
 
-				<h1>Welcome back, Kenny 👋</h1>
+		<p>
+			Manage your artists, music, releases,
+			bookings, and ministry from one place.
+		</p>
 
-				<p>
-					Manage your artists, music, releases,
-					bookings, and ministry from one place.
-				</p>
+		<div class="sap-hero-actions">
 
-				<div class="sap-hero-actions">
+			<a href="#" class="sap-btn sap-btn-primary">
+				Upload Song
+			</a>
 
-					<button class="button button-primary">
-						Upload Song
-					</button>
+			<a href="#" class="sap-btn sap-btn-secondary">
+				New Release
+			</a>
 
-					<button class="button">
-						New Release
-					</button>
+			<a href="#" class="sap-btn sap-btn-secondary">
+				View Profile
+			</a>
 
-					<button class="button">
-						View Profile
-					</button>
+		</div>
 
-				</div>
+	</section>
 
-			</div>
+	<div class="sap-dashboard">
 
-		</section>
+		<div class="sap-card">
 
-		<?php
+			<h3>Songs</h3>
+
+			<p>12</p>
+
+			<span>Total songs in your catalog</span>
+
+		</div>
+
+		<div class="sap-card">
+
+			<h3>Releases</h3>
+
+			<p>2</p>
+
+			<span>Published releases</span>
+
+		</div>
+
+		<div class="sap-card">
+
+			<h3>Events</h3>
+
+			<p>3</p>
+
+			<span>Upcoming events</span>
+
+		</div>
+
+		<div class="sap-card">
+
+			<h3>Messages</h3>
+
+			<p>5</p>
+
+			<span>Unread conversations</span>
+
+		</div>
+
+	</div>
+
+	<div class="sap-dashboard-panels">
+
+		<div class="sap-panel">
+
+			<h2>Recent Activity</h2>
+
+			<ul>
+
+				<li>🎵 Uploaded "Good Dirt"</li>
+
+				<li>💿 New release created</li>
+
+				<li>👤 Artist profile updated</li>
+
+				<li>📅 Booking request received</li>
+
+			</ul>
+
+		</div>
+
+		<div class="sap-panel">
+
+			<h2>Upcoming Events</h2>
+
+			<ul>
+
+				<li>July 12 — Mia Waddell</li>
+
+				<li>July 18 — Studio Session</li>
+
+				<li>August 2 — Live Performance</li>
+
+				<li>August 15 — Album Release</li>
+
+			</ul>
+
+		</div>
+		
+	</div>
+
+	<?php
+
+		
 
 	}
 

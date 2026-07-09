@@ -101,9 +101,12 @@ final class SAP_Application_Shell {
      * to the shell template.
      */
     $user = $this->context['user'] ?? null;
-    $navigation_items = $this->context['navigation_items'] ?? [];
 
-    require SAP_PLUGIN_DIR . 'admin/shell/app.php';
+     $dashboard = $this->context['dashboard'] ?? [];
+
+     $navigation_items = $this->context['navigation_items'] ?? [];
+
+     require SAP_PLUGIN_DIR . 'admin/shell/app.php';
 
 	}
 
