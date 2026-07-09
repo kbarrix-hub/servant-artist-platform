@@ -319,7 +319,9 @@ final class SAP_Loader {
 	 */
 	require_once dirname( __DIR__ ) . '/ui/sections/hero/class-sap-hero-section.php';
 
-	require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-section.php';
+    require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-song-hero-section.php';
+
+    require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-section.php';
 
     /*
      * Framework Managers.
@@ -349,8 +351,12 @@ final class SAP_Loader {
 	 */
 	require_once dirname( __DIR__ ) . '/modules/settings/class-sap-settings-module.php';
 
-	require_once dirname( __DIR__ ) . '/modules/artists/class-sap-artists-module.php';
+    require_once dirname( __DIR__ ) . '/modules/artists/class-sap-artists-module.php';
 
+    require_once dirname( __DIR__ ) . '/modules/songs/class-sap-song-page.php';
+
+    require_once dirname( __DIR__ ) . '/modules/songs/class-sap-songs-module.php';
+	
 	}
 
 	/**
@@ -434,7 +440,13 @@ final class SAP_Loader {
 				$this->services
 			)
 		);
-
+		
+		$this->modules->register(
+	        new SAP_Songs_Module(
+		        $this->services
+	        )
+        );
+		
 		/*
 		 * Future modules register here.
 		 *
