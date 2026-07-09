@@ -60,6 +60,10 @@ final class SAP_Artist_Home_Page extends SAP_Abstract_Page {
 	 */
 	public function render(): void {
 
+		$this->layout->set_context(
+			$this->get_context()
+		);
+
 		$this->layout->render();
 
 	}

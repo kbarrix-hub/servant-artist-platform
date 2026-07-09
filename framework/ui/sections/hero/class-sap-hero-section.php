@@ -74,6 +74,13 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 	 */
 	public function render(): void {
 
+	$dashboard = $this->get_context()['dashboard'] ?? [
+	     'songs'    => 0,
+	     'releases' => 0,
+	     'events'   => 0,
+	     'messages' => 0,
+     ];
+
 		?>
 
 		<section class="sap-welcome">
@@ -109,7 +116,7 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 
 			<h3>Songs</h3>
 
-			<p>12</p>
+			<p><?php echo esc_html( (string) $dashboard['songs'] ); ?></p>
 
 			<span>Total songs in your catalog</span>
 
@@ -119,7 +126,7 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 
 			<h3>Releases</h3>
 
-			<p>2</p>
+			<p><?php echo esc_html( (string) $dashboard['releases'] ); ?></p>
 
 			<span>Published releases</span>
 
@@ -129,7 +136,7 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 
 			<h3>Events</h3>
 
-			<p>3</p>
+			<p><?php echo esc_html( (string) $dashboard['events'] ); ?></p>
 
 			<span>Upcoming events</span>
 
@@ -139,7 +146,7 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 
 			<h3>Messages</h3>
 
-			<p>5</p>
+			<p><?php echo esc_html( (string) $dashboard['messages'] ); ?></p>
 
 			<span>Unread conversations</span>
 

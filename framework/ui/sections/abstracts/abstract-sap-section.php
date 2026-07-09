@@ -14,10 +14,6 @@ declare(strict_types=1);
  * Provide the common functionality shared by all
  * SAP UI Sections.
  *
- * Sections coordinate one or more UI Components
- * that together render a logical portion of an
- * application page.
- *
  * @package ServantArtistPlatform
  * @since   1.0.0
  * ============================================================
@@ -56,11 +52,42 @@ abstract class SAP_Abstract_Section implements SAP_Section_Interface {
 	protected array $components = [];
 
 	/**
+	 * Runtime render context.
+	 *
+	 * @var array<string, mixed>
+	 */
+	protected array $context = [];
+
+	/**
 	 * Whether the Section is visible.
 	 *
 	 * @var bool
 	 */
 	protected bool $visible = true;
+
+	/**
+	 * Assign the Runtime render context.
+	 *
+	 * @param array<string, mixed> $context Runtime context.
+	 *
+	 * @return void
+	 */
+	public function set_context( array $context ): void {
+
+		$this->context = $context;
+
+	}
+
+	/**
+	 * Return the Runtime render context.
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function get_context(): array {
+
+		return $this->context;
+
+	}
 
 	/**
 	 * Initialize the Section.
@@ -117,9 +144,6 @@ abstract class SAP_Abstract_Section implements SAP_Section_Interface {
 
 	/**
 	 * Render the Section.
-	 *
-	 * Concrete Sections must implement their own
-	 * rendering behavior.
 	 *
 	 * @return void
 	 */

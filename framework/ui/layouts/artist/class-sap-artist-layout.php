@@ -14,10 +14,6 @@ declare(strict_types=1);
  * Coordinate the UI Sections that compose the
  * Artist Portal experience.
  *
- * The Layout is responsible for orchestrating
- * Sections. It does not contain presentation
- * logic or business logic.
- *
  * @package ServantArtistPlatform
  * @since   1.0.0
  * ============================================================
@@ -42,6 +38,13 @@ final class SAP_Artist_Layout {
 	private array $sections = [];
 
 	/**
+	 * Runtime render context.
+	 *
+	 * @var array<string, mixed>
+	 */
+	private array $context = [];
+
+	/**
 	 * Register a Section with the Layout.
 	 *
 	 * @param SAP_Section_Interface $section Section instance.
@@ -57,6 +60,19 @@ final class SAP_Artist_Layout {
 	}
 
 	/**
+	 * Assign the Runtime render context.
+	 *
+	 * @param array<string, mixed> $context Runtime context.
+	 *
+	 * @return void
+	 */
+	public function set_context( array $context ): void {
+
+		$this->context = $context;
+
+	}
+
+	/**
 	 * Render the Layout.
 	 *
 	 * Executes each registered Section.
@@ -67,8 +83,16 @@ final class SAP_Artist_Layout {
 
 		foreach ( $this->sections as $section ) {
 
+			if ( method_exists( $section, 'set_context' ) ) {
+
+				$section->set_context( $this->context );
+
+			}
+
 			if ( $section->is_visible() ) {
+
 				$section->render();
+
 			}
 
 		}

@@ -89,6 +89,12 @@ final class SAP_Application_Shell {
 
 		}
 
+		if ( method_exists( $framework_page, 'set_context' ) ) {
+
+	         $framework_page->set_context( $this->context );
+
+        }
+
 		error_log(
 			'SAP: Rendering page ' . get_class( $framework_page )
 		);
