@@ -94,17 +94,26 @@ final class SAP_Hero_Section extends SAP_Abstract_Section implements SAP_Section
 
 		<div class="sap-hero-actions">
 
-			<a href="#" class="sap-btn sap-btn-primary">
-				Upload Song
-			</a>
+			<a
+	             class="sap-btn sap-btn-primary"
+	             href="<?php echo esc_url( admin_url( 'admin.php?page=sap-artist-portal&sap_page=new-song' ) ); ?>"
+            >
+	             Upload Song
+            </a>
 
-			<a href="#" class="sap-btn sap-btn-secondary">
-				New Release
-			</a>
+			<a
+	             class="sap-btn sap-btn-secondary"
+	             href="<?php echo esc_url( admin_url( 'admin.php?page=sap-artist-portal&sap_page=song-library' ) ); ?>"
+            >
+	             New Release
+            </a>
 
-			<a href="#" class="sap-btn sap-btn-secondary">
-				View Profile
-			</a>
+			<a
+	             class="sap-btn sap-btn-secondary"
+	             href="<?php echo esc_url( admin_url( 'admin.php?page=sap-artist-portal&sap_page=artist-profile' ) ); ?>"
+            >
+	             View Profile
+            </a>
 
 		</div>
 

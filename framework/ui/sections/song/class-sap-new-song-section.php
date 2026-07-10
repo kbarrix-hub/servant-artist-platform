@@ -49,6 +49,14 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 
 			<form method="post">
 
+				<input
+					type="hidden"
+					name="sap_action"
+					value="create_song"
+				/>
+
+				<?php wp_nonce_field( 'sap_create_song' ); ?>
+
 				<table class="form-table">
 
 					<tr>

@@ -151,6 +151,19 @@ final class SAP_Runtime {
 		// Future implementation.
 
 	}
+
+	/**
+     * Process incoming framework requests.
+     *
+     * @return void
+     */
+    private function process_requests(): void {
+
+	     $this->core_services
+		     ->song_form_handler()
+		     ->handle();
+
+    }
 	
 	/**
      * Start the application.

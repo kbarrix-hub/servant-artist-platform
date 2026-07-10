@@ -88,4 +88,23 @@ final class SAP_Song_Service {
 
 	}
 
+	/**
+	 * Create a new song.
+	 *
+	 * @param array<string, mixed> $data Song data.
+	 * @return array<string, mixed>
+	 */
+	public function create_song( array $data ): array {
+
+		// Database implementation will be added
+		// during SAP-051.5.
+
+		return [
+			'success' => false,
+			'song_id' => 0,
+			'message' => 'Song save engine not implemented.',
+		];
+
+    }
+
 }

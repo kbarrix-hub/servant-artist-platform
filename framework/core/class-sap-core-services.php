@@ -90,6 +90,13 @@ final class SAP_Core_Services {
     private SAP_Song_Service $songs;
 
 	/**
+	 * Framework Song Form Handler.
+	 *
+	 * @var SAP_Song_Form_Handler
+	 */
+	private SAP_Song_Form_Handler $song_form_handler;
+
+	/**
 	 * Framework Page Manager.
 	 *
 	 * @var SAP_Page_Manager
@@ -136,6 +143,9 @@ final class SAP_Core_Services {
         $this->user       = new SAP_User_Service();
         $this->dashboard  = new SAP_Dashboard_Service();
         $this->songs      = new SAP_Song_Service();
+		$this->song_form_handler = new SAP_Song_Form_Handler(
+			$this->songs
+			);
         $this->pages      = new SAP_Page_Manager(); 
 
 	}
@@ -161,6 +171,17 @@ final class SAP_Core_Services {
 	     return $this->songs;
 
     }
+
+	/**
+	 * Return the Song Form Handler.
+	 *
+	 * @return SAP_Song_Form_Handler
+	 */
+	public function song_form_handler(): SAP_Song_Form_Handler {
+
+		return $this->song_form_handler;
+
+	}
 
 	/**
 	 * Return the Registry.

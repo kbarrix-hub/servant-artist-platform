@@ -351,6 +351,8 @@ final class SAP_Loader {
 
 	require_once dirname( __DIR__ ) . '/core/class-sap-song-service.php';
 
+	require_once dirname( __DIR__ ) . '/core/class-sap-song-form-handler.php';
+
     require_once dirname( __DIR__ ) . '/core/class-sap-core-services.php';
 
 	/*
