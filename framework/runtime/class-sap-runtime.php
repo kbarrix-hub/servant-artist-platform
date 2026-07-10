@@ -148,7 +148,7 @@ final class SAP_Runtime {
 	 */
 	private function boot(): void {
 
-		// Future implementation.
+	     $this->process_requests();
 
 	}
 

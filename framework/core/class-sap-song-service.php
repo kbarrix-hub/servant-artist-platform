@@ -96,13 +96,46 @@ final class SAP_Song_Service {
 	 */
 	public function create_song( array $data ): array {
 
-		// Database implementation will be added
-		// during SAP-051.5.
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'sap_songs';
+
+		$uuid = wp_generate_uuid4();
+
+		$result = $wpdb->insert(
+			$table,
+			[
+				'uuid'        => $uuid,
+				'song_title'  => $data['song_title'],
+				'artist_name' => $data['artist_name'],
+				'song_key'    => $data['song_key'],
+				'song_bpm'    => $data['song_bpm'],
+				'song_status' => $data['song_status'],
+			],
+			[
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%d',
+				'%s',
+			]
+		);
+
+		if ( false === $result ) {
+
+	         return [
+		         'success' => false,
+		         'song_id' => 0,
+		        'message' => 'Unable to save song.',
+	        ];
+
+	    }
 
 		return [
-			'success' => false,
-			'song_id' => 0,
-			'message' => 'Song save engine not implemented.',
+			'success' => true,
+			'song_id' => (int) $wpdb->insert_id,
+			'message' => 'Song saved successfully.',
 		];
 
     }

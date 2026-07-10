@@ -46,7 +46,8 @@ final class SAP_Schema {
 	public static function all(): array {
 
 		return array(
-			self::artists(),
+		     self::artists(),
+		     self::songs(),
 		);
 	}
 
@@ -90,6 +91,39 @@ final class SAP_Schema {
 			KEY artist_type (artist_type)
 		) {$charset};
 		";
+	}
+
+	/**
+	 * Songs table schema.
+	 *
+	 * @return string
+	 */
+	public static function songs(): string {
+
+		global $wpdb;
+
+		$table   = $wpdb->prefix . 'sap_songs';
+		$charset = $wpdb->get_charset_collate();
+
+		return "
+		CREATE TABLE {$table} (
+			id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+			uuid CHAR(36) NOT NULL,
+			song_title VARCHAR(255) NOT NULL,
+			artist_name VARCHAR(255) DEFAULT '',
+			song_key VARCHAR(20) DEFAULT '',
+			song_bpm INT UNSIGNED DEFAULT 0,
+			song_status VARCHAR(50) NOT NULL DEFAULT 'draft',
+			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (id),
+			UNIQUE KEY uuid (uuid),
+			KEY song_title (song_title),
+			KEY artist_name (artist_name),
+			KEY song_status (song_status)
+		) {$charset};
+		";
+
 	}
 
 }

@@ -38,7 +38,46 @@ final class SAP_Song_Form_Handler {
 	 */
 	public function handle(): void {
 
-		// Implementation added in SAP-051.3.
+		if (
+			! isset( $_SERVER['REQUEST_METHOD'] ) ||
+			'POST' !== $_SERVER['REQUEST_METHOD']
+		) {
+			return;
+		}
+
+		if ( ! isset( $_POST['sap_action'] ) ) {
+			return;
+		}
+
+		$action = sanitize_key(
+			wp_unslash( $_POST['sap_action'] )
+		);
+
+		if ( 'create_song' !== $action ) {
+			return;
+		}
+
+		check_admin_referer( 'sap_create_song' );
+
+		$data = [
+			'song_title'  => sanitize_text_field(
+				wp_unslash( $_POST['song_title'] ?? '' )
+			),
+			'artist_name' => sanitize_text_field(
+				wp_unslash( $_POST['artist_name'] ?? '' )
+			),
+			'song_key'    => sanitize_text_field(
+				wp_unslash( $_POST['song_key'] ?? '' )
+			),
+			'song_bpm'    => absint(
+				$_POST['song_bpm'] ?? 0
+			),
+			'song_status' => sanitize_key(
+				wp_unslash( $_POST['song_status'] ?? 'draft' )
+			),
+		];
+
+		$this->song_service->create_song( $data );
 
 	}
 
