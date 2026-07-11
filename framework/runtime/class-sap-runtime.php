@@ -266,16 +266,33 @@ final class SAP_Runtime {
 	 */
 	private function get_render_context(): array {
 
-		return [  
+	$song_id = isset( $_GET['song_id'] )
+		? absint( $_GET['song_id'] )
+		: 0;
 
-			 'route'            => $this->runtime_state['route'],
-	         'module'           => $this->runtime_state['module'],
-	         'page'             => $this->runtime_state['page'],
-	         'user'             => $this->runtime_state['user'],
-	         'dashboard'        => $this->runtime_state['dashboard'],
-	         'navigation_items' => $this->core_services
-		         ->navigation()
-		         ->get_navigation_items()
+	$song = [];
+
+	if ( $song_id > 0 ) {
+		$song = $this->core_services
+			->songs()
+			->get_song( $song_id );
+	}
+
+	return [
+
+		'route'            => $this->runtime_state['route'],
+		'module'           => $this->runtime_state['module'],
+		'page'             => $this->runtime_state['page'],
+		'user'             => $this->runtime_state['user'],
+		'dashboard'        => $this->runtime_state['dashboard'],
+		'songs'            => $this->core_services
+			->songs()
+			->get_recent_songs(),
+		'song'             => $song,
+		'navigation_items' => $this->core_services
+			->navigation()
+			->get_navigation_items(),
+
 		];
 
 	}

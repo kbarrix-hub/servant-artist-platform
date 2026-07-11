@@ -11,7 +11,7 @@ declare(strict_types=1);
  * SAP-050.2 New Song Section
  *
  * Responsibility:
- * Display the New Song editor.
+ * Display the Song editor.
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class SAP_New_Song_Section
  *
- * New Song editor.
+ * Song editor.
  *
  * @since 1.0.0
  */
@@ -35,27 +35,54 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 	 * @return void
 	 */
 	public function render(): void {
+
+		$context = $this->get_context();
+		$song    = $context['song'] ?? [];
+
+		$is_edit = ! empty( $song );
+
+		$title       = $song['song_title'] ?? '';
+		$artist_name = $song['artist_name'] ?? '';
+		$song_key    = $song['song_key'] ?? '';
+		$song_bpm    = $song['song_bpm'] ?? '';
+		$song_status = $song['song_status'] ?? 'draft';
 		?>
 
 		<section class="sap-section">
 
 			<h2 class="sap-section-title">
-				New Song
+				<?php echo esc_html( $is_edit ? 'Edit Song' : 'New Song' ); ?>
 			</h2>
 
 			<p class="description">
-				Create a new song in your catalog.
+				<?php
+				echo esc_html(
+					$is_edit
+						? 'Edit the selected song in your catalog.'
+						: 'Create a new song in your catalog.'
+				);
+				?>
 			</p>
 
 			<form method="post">
 
 				<input
-					type="hidden"
-					name="sap_action"
-					value="create_song"
-				/>
+	                 type="hidden"
+	                 name="sap_action"
+	                 value="<?php echo esc_attr( $is_edit ? 'update_song' : 'create_song' ); ?>"
+                />
 
-				<?php wp_nonce_field( 'sap_create_song' ); ?>
+                <?php if ( $is_edit ) : ?>
+
+	                <input
+		                 type="hidden"
+		                 name="song_id"
+		                 value="<?php echo esc_attr( (string) $song['id'] ); ?>"
+	                />
+
+                <?php endif; ?>
+
+                <?php wp_nonce_field( 'sap_save_song' ); ?>
 
 				<table class="form-table">
 
@@ -67,6 +94,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 								id="song_title"
 								name="song_title"
 								class="regular-text"
+								value="<?php echo esc_attr( $title ); ?>"
 							/>
 						</td>
 					</tr>
@@ -79,6 +107,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 								id="artist_name"
 								name="artist_name"
 								class="regular-text"
+								value="<?php echo esc_attr( $artist_name ); ?>"
 							/>
 						</td>
 					</tr>
@@ -91,6 +120,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 								id="song_key"
 								name="song_key"
 								class="small-text"
+								value="<?php echo esc_attr( $song_key ); ?>"
 							/>
 						</td>
 					</tr>
@@ -103,6 +133,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 								id="song_bpm"
 								name="song_bpm"
 								class="small-text"
+								value="<?php echo esc_attr( (string) $song_bpm ); ?>"
 							/>
 						</td>
 					</tr>
@@ -111,9 +142,9 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 						<th><label for="song_status">Status</label></th>
 						<td>
 							<select id="song_status" name="song_status">
-								<option value="draft">Draft</option>
-								<option value="active">Active</option>
-								<option value="published">Published</option>
+								<option value="draft" <?php selected( $song_status, 'draft' ); ?>>Draft</option>
+								<option value="active" <?php selected( $song_status, 'active' ); ?>>Active</option>
+								<option value="published" <?php selected( $song_status, 'published' ); ?>>Published</option>
 							</select>
 						</td>
 					</tr>
@@ -126,7 +157,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 						type="submit"
 						class="button button-primary"
 					>
-						Save Song
+						<?php echo esc_html( $is_edit ? 'Update Song' : 'Save Song' ); ?>
 					</button>
 
 				</p>
@@ -136,6 +167,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 		</section>
 
 		<?php
+
 	}
 
 }

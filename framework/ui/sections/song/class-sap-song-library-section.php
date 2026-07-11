@@ -35,6 +35,10 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 	 * @return void
 	 */
 	public function render(): void {
+
+		 $context = $this->get_context();
+
+         $songs = $context['songs'] ?? [];
 		?>
 
 		<section class="sap-section">
@@ -85,6 +89,8 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 
 				<tbody>
 
+				<?php if ( empty( $songs ) ) : ?>
+
 					<tr>
 
 						<td colspan="6" style="text-align:center;padding:40px;">
@@ -99,6 +105,43 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 
 					</tr>
 
+				<?php else : ?>
+
+					<?php foreach ( $songs as $song ) : ?>
+
+						<tr>
+
+							<td><?php echo esc_html( $song['song_title'] ); ?></td>
+
+							<td><?php echo esc_html( $song['artist_name'] ); ?></td>
+
+							<td><?php echo esc_html( $song['song_key'] ); ?></td>
+
+							<td><?php echo esc_html( (string) $song['song_bpm'] ); ?></td>
+
+							<td><?php echo esc_html( ucfirst( $song['song_status'] ) ); ?></td>
+
+							<td>
+
+								<a
+	                                 href="<?php echo esc_url(
+		                                 admin_url(
+			                                 'admin.php?page=sap-artist-portal&sap_page=edit-song&song_id=' .
+			                                 (int) $song['id']
+		                                 )
+	                                 ); ?>"
+                                >
+	                                 Edit
+                                </a>
+
+							</td>
+
+						</tr>
+
+					<?php endforeach; ?>
+
+				<?php endif; ?>
+
 				</tbody>
 
 			</table>
@@ -106,6 +149,7 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 		</section>
 
 		<?php
-	   }
-	
+
 	}
+
+}

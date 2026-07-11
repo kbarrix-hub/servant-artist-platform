@@ -78,12 +78,14 @@ final class SAP_Songs_Module extends SAP_Abstract_Module implements
 	public function get_pages(): array {
 
 		return [
-			new SAP_Song_Page( $this->services ),
+			 new SAP_Song_Page( $this->services ),
 
-			new SAP_Song_Library_Page(),
+	         new SAP_Song_Library_Page(),
 
-			new SAP_New_Song_Page(),
-		];
+	         new SAP_New_Song_Page(),
+
+	         new SAP_Edit_Song_Page(),
+		    ];
 
 	}
 

@@ -53,11 +53,14 @@ final class SAP_Song_Form_Handler {
 			wp_unslash( $_POST['sap_action'] )
 		);
 
-		if ( 'create_song' !== $action ) {
+		if (
+			'create_song' !== $action &&
+			'update_song' !== $action
+		) {
 			return;
 		}
 
-		check_admin_referer( 'sap_create_song' );
+		check_admin_referer( 'sap_save_song' );
 
 		$data = [
 			'song_title'  => sanitize_text_field(
@@ -77,7 +80,26 @@ final class SAP_Song_Form_Handler {
 			),
 		];
 
-		$this->song_service->create_song( $data );
+		if ( 'create_song' === $action ) {
+
+			$this->song_service->create_song( $data );
+
+			return;
+
+		}
+
+		$song_id = absint(
+			$_POST['song_id'] ?? 0
+		);
+
+		if ( $song_id <= 0 ) {
+			return;
+		}
+
+		$this->song_service->update_song(
+			$song_id,
+			$data
+		);
 
 	}
 
