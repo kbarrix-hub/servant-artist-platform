@@ -50,12 +50,80 @@ final class SAP_Database_Installer {
 		foreach ( SAP_Schema::all() as $schema ) {
 
 			dbDelta( $schema );
+
+		}
+
+		self::repair_song_schema();
+
+		if ( ! self::song_schema_is_current() ) {
+			return;
 		}
 
 		update_option(
 			self::OPTION_NAME,
 			SAP_Schema::VERSION
 		);
+
+	}
+
+	/**
+	 * Repair the Song Manager schema.
+	 *
+	 * @return void
+	 */
+	private static function repair_song_schema(): void {
+
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'sap_songs';
+
+		$column = $wpdb->get_var(
+			$wpdb->prepare(
+				"
+				SHOW COLUMNS FROM {$table}
+				LIKE %s
+				",
+				'audio_attachment_id'
+			)
+		);
+
+		if ( 'audio_attachment_id' === $column ) {
+			return;
+		}
+
+		$wpdb->query(
+			"
+			ALTER TABLE {$table}
+			ADD audio_attachment_id BIGINT UNSIGNED DEFAULT NULL
+			AFTER song_status
+			"
+		);
+
+	}
+
+	/**
+	 * Determine whether the Song Manager schema is current.
+	 *
+	 * @return bool
+	 */
+	private static function song_schema_is_current(): bool {
+
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'sap_songs';
+
+		$column = $wpdb->get_var(
+			$wpdb->prepare(
+				"
+				SHOW COLUMNS FROM {$table}
+				LIKE %s
+				",
+				'audio_attachment_id'
+			)
+		);
+
+		return 'audio_attachment_id' === $column;
+
 	}
 
 	/**
@@ -69,6 +137,7 @@ final class SAP_Database_Installer {
 			self::OPTION_NAME,
 			''
 		);
+
 	}
 
 	/**
@@ -84,6 +153,7 @@ final class SAP_Database_Installer {
 			SAP_Schema::VERSION,
 			'<'
 		);
+
 	}
 
 }

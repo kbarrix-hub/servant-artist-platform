@@ -36,7 +36,7 @@ final class SAP_Schema {
 	/**
 	 * Database schema version.
 	 */
-	public const VERSION = '1.0.0';
+	public const VERSION = '1.1.2';
 
 	/**
 	 * Return all schema definitions.
@@ -114,7 +114,8 @@ final class SAP_Schema {
 			song_key VARCHAR(20) DEFAULT '',
 			song_bpm INT UNSIGNED DEFAULT 0,
 			song_status VARCHAR(50) NOT NULL DEFAULT 'draft',
-			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            audio_attachment_id BIGINT UNSIGNED DEFAULT NULL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			PRIMARY KEY (id),
 			UNIQUE KEY uuid (uuid),

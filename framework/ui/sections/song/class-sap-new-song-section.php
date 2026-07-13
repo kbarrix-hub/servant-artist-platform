@@ -64,7 +64,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 				?>
 			</p>
 
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 
 				<input
 	                 type="hidden"
@@ -96,6 +96,27 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 								class="regular-text"
 								value="<?php echo esc_attr( $title ); ?>"
 							/>
+						</td>
+					</tr>
+
+					<tr>
+						<th>
+							<label for="song_audio">
+								Audio File
+							</label>
+						</th>
+
+						<td>
+							<input
+								type="file"
+								id="song_audio"
+								name="song_audio"
+								accept="audio/*"
+							/>
+
+							<p class="description">
+								Upload the audio file for this song.
+							</p>
 						</td>
 					</tr>
 

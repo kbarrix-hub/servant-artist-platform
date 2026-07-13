@@ -96,7 +96,8 @@ final class SAP_Song_Service {
 				artist_name,
 				song_key,
 				song_bpm,
-				song_status
+				song_status,
+				audio_attachment_id
 			FROM {$table}
 			ORDER BY created_at DESC
 			",
@@ -138,6 +139,7 @@ final class SAP_Song_Service {
 					song_key,
 					song_bpm,
 					song_status,
+					audio_attachment_id,
 					created_at,
 					updated_at
 				FROM {$table}
@@ -180,26 +182,38 @@ final class SAP_Song_Service {
 		}
 
 		$table = $wpdb->prefix . 'sap_songs';
+        $update_data = [
+			'song_title'  => $data['song_title'],
+			'artist_name' => $data['artist_name'],
+			'song_key'    => $data['song_key'],
+			'song_bpm'    => $data['song_bpm'],
+			'song_status' => $data['song_status'],
+		];
+
+		$update_format = [
+			'%s',
+			'%s',
+			'%s',
+			'%d',
+			'%s',
+		];
+
+		if ( ! empty( $data['audio_attachment_id'] ) ) {
+
+			$update_data['audio_attachment_id'] =
+				(int) $data['audio_attachment_id'];
+
+			$update_format[] = '%d';
+
+		}
 
 		$result = $wpdb->update(
 			$table,
-			[
-				'song_title'  => $data['song_title'],
-				'artist_name' => $data['artist_name'],
-				'song_key'    => $data['song_key'],
-				'song_bpm'    => $data['song_bpm'],
-				'song_status' => $data['song_status'],
-			],
+			$update_data,
 			[
 				'id' => $song_id,
 			],
-			[
-				'%s',
-				'%s',
-				'%s',
-				'%d',
-				'%s',
-			],
+			$update_format,
 			[
 				'%d',
 			]
@@ -244,6 +258,7 @@ final class SAP_Song_Service {
 				'song_key'    => $data['song_key'],
 				'song_bpm'    => $data['song_bpm'],
 				'song_status' => $data['song_status'],
+				'audio_attachment_id' => $data['audio_attachment_id'],
 			],
 			[
 				'%s',
@@ -252,6 +267,7 @@ final class SAP_Song_Service {
 				'%s',
 				'%d',
 				'%s',
+				'%d',
 			]
 		);
 
@@ -272,5 +288,59 @@ final class SAP_Song_Service {
 		];
 
 	}
+
+	/**
+	 * Delete an existing song.
+	 *
+	 * @param int $song_id Song ID.
+	 * @return array<string, mixed>
+	 */
+	public function delete_song( int $song_id ): array {
+
+		global $wpdb;
+
+		if ( $song_id <= 0 ) {
+			return [
+				'success' => false,
+				'song_id' => 0,
+				'message' => 'Invalid song ID.',
+			];
+		}
+
+		$table = $wpdb->prefix . 'sap_songs';
+
+		$result = $wpdb->delete(
+			$table,
+			[
+				'id' => $song_id,
+			],
+			[
+				'%d',
+			]
+		);
+
+		if ( false === $result ) {
+			return [
+				'success' => false,
+				'song_id' => $song_id,
+				'message' => 'Unable to delete song.',
+			];
+		}
+
+		if ( 0 === $result ) {
+			return [
+				'success' => false,
+				'song_id' => $song_id,
+				'message' => 'Song not found.',
+			];
+		}
+
+		return [
+			'success' => true,
+			'song_id' => $song_id,
+			'message' => 'Song deleted successfully.',
+		];
+
+    }
 
 }

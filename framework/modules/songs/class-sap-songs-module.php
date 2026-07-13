@@ -85,6 +85,8 @@ final class SAP_Songs_Module extends SAP_Abstract_Module implements
 	         new SAP_New_Song_Page(),
 
 	         new SAP_Edit_Song_Page(),
+
+			 new SAP_Delete_Song_Page(),
 		    ];
 
 	}

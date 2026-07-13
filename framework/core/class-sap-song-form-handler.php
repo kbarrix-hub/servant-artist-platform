@@ -53,6 +53,14 @@ final class SAP_Song_Form_Handler {
 			wp_unslash( $_POST['sap_action'] )
 		);
 
+		if ( 'delete_song' === $action ) {
+
+			$this->handle_delete_song();
+
+			return;
+
+		}
+
 		if (
 			'create_song' !== $action &&
 			'update_song' !== $action
@@ -62,27 +70,40 @@ final class SAP_Song_Form_Handler {
 
 		check_admin_referer( 'sap_save_song' );
 
+		$audio_attachment_id = $this->handle_audio_upload();
+
 		$data = [
-			'song_title'  => sanitize_text_field(
+			'song_title' => sanitize_text_field(
 				wp_unslash( $_POST['song_title'] ?? '' )
 			),
 			'artist_name' => sanitize_text_field(
 				wp_unslash( $_POST['artist_name'] ?? '' )
 			),
-			'song_key'    => sanitize_text_field(
+			'song_key' => sanitize_text_field(
 				wp_unslash( $_POST['song_key'] ?? '' )
 			),
-			'song_bpm'    => absint(
+			'song_bpm' => absint(
 				$_POST['song_bpm'] ?? 0
 			),
 			'song_status' => sanitize_key(
 				wp_unslash( $_POST['song_status'] ?? 'draft' )
 			),
+			'audio_attachment_id' => $audio_attachment_id,
 		];
 
 		if ( 'create_song' === $action ) {
 
-			$this->song_service->create_song( $data );
+			$result = $this->song_service->create_song(
+				$data
+			);
+
+			if ( empty( $result['success'] ) ) {
+				return;
+			}
+
+			$_GET['sap_page'] = 'song-library';
+
+			$_REQUEST['sap_page'] = 'song-library';
 
 			return;
 
@@ -100,6 +121,70 @@ final class SAP_Song_Form_Handler {
 			$song_id,
 			$data
 		);
+
+	}
+
+	/**
+	 * Handle an uploaded song audio file.
+	 *
+	 * @return int
+	 */
+	private function handle_audio_upload(): int {
+
+		if (
+			! isset( $_FILES['song_audio'] ) ||
+			empty( $_FILES['song_audio']['name'] )
+		) {
+			return 0;
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		$attachment_id = media_handle_upload(
+			'song_audio',
+			0
+		);
+
+		if ( is_wp_error( $attachment_id ) ) {
+			return 0;
+		}
+
+		return (int) $attachment_id;
+
+	}
+
+	/**
+	 * Handle a Delete Song request.
+	 *
+	 * @return void
+	 */
+	private function handle_delete_song(): void {
+
+		check_admin_referer( 'sap_delete_song' );
+
+		$song_id = absint(
+			$_POST['song_id'] ?? 0
+		);
+
+		if ( $song_id <= 0 ) {
+			return;
+		}
+
+		$result = $this->song_service->delete_song(
+			$song_id
+		);
+
+		if ( empty( $result['success'] ) ) {
+			return;
+		}
+
+		$_GET['sap_page'] = 'song-library';
+
+		$_REQUEST['sap_page'] = 'song-library';
 
 	}
 

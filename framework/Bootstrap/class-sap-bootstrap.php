@@ -89,6 +89,7 @@ final class SAP_Bootstrap {
 		require_once dirname( __DIR__ ) . '/install/class-sap-installer.php';
 
 		SAP_Installer::install();
+
 	}
 
 	/**
@@ -104,7 +105,10 @@ final class SAP_Bootstrap {
 
 		$this->load_functions();
 
+		$this->check_database_upgrade();
+
 		$this->load_loader();
+
 	}
 
 	/**
@@ -117,6 +121,7 @@ final class SAP_Bootstrap {
 		require_once __DIR__ . '/class-sap-requirements.php';
 
 		sap_requirements_check();
+
 	}
 
 	/**
@@ -127,6 +132,7 @@ final class SAP_Bootstrap {
 	private function load_constants(): void {
 
 		// Future constants.
+
 	}
 
 	/**
@@ -137,6 +143,28 @@ final class SAP_Bootstrap {
 	private function load_functions(): void {
 
 		// Future helper functions.
+
+	}
+
+	/**
+	 * Check for database schema upgrades.
+	 *
+	 * @return void
+	 */
+	private function check_database_upgrade(): void {
+
+		require_once dirname( __DIR__ ) . '/install/class-sap-installer.php';
+
+		require_once dirname( __DIR__ ) . '/database/class-sap-schema.php';
+
+		require_once dirname( __DIR__ ) . '/database/class-sap-database-installer.php';
+
+		if ( ! SAP_Database_Installer::requires_upgrade() ) {
+			return;
+		}
+
+		SAP_Installer::install();
+
 	}
 
 	/**
@@ -151,6 +179,7 @@ final class SAP_Bootstrap {
 		$loader = SAP_Loader::instance();
 
 		$loader->run();
+
 	}
 
 }

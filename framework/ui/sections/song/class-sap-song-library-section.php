@@ -8,10 +8,10 @@ declare(strict_types=1);
  * ============================================================
  *
  * Framework Component:
- * SAP-048.2 Song Library Section
+ * SAP-052.1 Song Library Delete Action
  *
  * Responsibility:
- * Display the Song Library.
+ * Display and manage the Song Library.
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -36,9 +36,9 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 	 */
 	public function render(): void {
 
-		 $context = $this->get_context();
+		$context = $this->get_context();
 
-         $songs = $context['songs'] ?? [];
+		$songs = $context['songs'] ?? [];
 		?>
 
 		<section class="sap-section">
@@ -81,7 +81,8 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 						<th>Artist</th>
 						<th>Key</th>
 						<th>BPM</th>
-						<th>Status</th>
+                        <th style="width:300px;">Audio</th>
+                        <th>Status</th>
 						<th style="width:140px;">Actions</th>
 					</tr>
 
@@ -93,7 +94,7 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 
 					<tr>
 
-						<td colspan="6" style="text-align:center;padding:40px;">
+						<td colspan="7" style="text-align:center;padding:40px;">
 
 							<strong>No songs found.</strong>
 
@@ -119,20 +120,61 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 
 							<td><?php echo esc_html( (string) $song['song_bpm'] ); ?></td>
 
-							<td><?php echo esc_html( ucfirst( $song['song_status'] ) ); ?></td>
-
 							<td>
 
+							    <?php
+
+	                            $audio_attachment_id = (int) (
+		                             $song['audio_attachment_id'] ?? 0
+	                            );
+
+	                            $audio_url = $audio_attachment_id > 0
+		                             ? wp_get_attachment_url( $audio_attachment_id )
+		                             : false;
+
+	                            if ( $audio_url ) :
+		                           ?>
+
+		                            <audio controls preload="metadata" style="width:100%;">
+			                             <source src="<?php echo esc_url( $audio_url ); ?>">
+		                            </audio>
+
+	                            <?php else : ?>
+
+		                             <span>No audio</span>
+
+	                            <?php endif; ?>
+
+                            </td>
+
+                            <td><?php echo esc_html( ucfirst( $song['song_status'] ) ); ?></td>
+
+                            <td>
+
+	                            <a
+									href="<?php echo esc_url(
+										admin_url(
+											'admin.php?page=sap-artist-portal&sap_page=edit-song&song_id=' .
+											(int) $song['id']
+										)
+									); ?>"
+								>
+									Edit
+								</a>
+
+								<span aria-hidden="true"> | </span>
+
 								<a
-	                                 href="<?php echo esc_url(
-		                                 admin_url(
-			                                 'admin.php?page=sap-artist-portal&sap_page=edit-song&song_id=' .
-			                                 (int) $song['id']
-		                                 )
-	                                 ); ?>"
-                                >
-	                                 Edit
-                                </a>
+									href="<?php echo esc_url(
+										admin_url(
+											'admin.php?page=sap-artist-portal&sap_page=delete-song&song_id=' .
+											(int) $song['id']
+										)
+									); ?>"
+									class="sap-song-delete"
+								>
+									Delete
+								</a>
 
 							</td>
 
