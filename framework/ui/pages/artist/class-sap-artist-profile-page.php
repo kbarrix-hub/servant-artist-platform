@@ -48,11 +48,15 @@ final class SAP_Artist_Profile_Page implements SAP_Page_Interface {
 	public function initialize(): void {
 
 		$this->layout->register_section(
-			new SAP_Profile_Header_Section()
-		);
+	        new SAP_Profile_Header_Section()
+        );
 
-		$this->layout->register_section(
-			new SAP_Profile_Section()
+        $this->layout->register_section(
+	        new SAP_Profile_Bio_Section()
+        );
+
+        $this->layout->register_section(
+	        new SAP_Profile_Section()
 		);
 
 	}
