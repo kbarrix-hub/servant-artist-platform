@@ -56,7 +56,7 @@ final class SAP_Artist_Profile_Page implements SAP_Page_Interface {
         );
 
         $this->layout->register_section(
-	        new SAP_Profile_Section()
+	        new SAP_Profile_Info_Section()
 		);
 
 	}
