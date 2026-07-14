@@ -289,10 +289,12 @@ final class SAP_Runtime {
 			->songs()
 			->get_recent_songs(),
 		'song'             => $song,
+		'song_statuses'    => $this->core_services
+			->songs()
+			->get_song_statuses(),
 		'navigation_items' => $this->core_services
 			->navigation()
 			->get_navigation_items(),
-
 		];
 
 	}

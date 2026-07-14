@@ -31,7 +31,28 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
+
 final class SAP_Song_Service {
+
+	/**
+	 * Return the supported song workflow statuses.
+	 *
+	 * @return array<string, string>
+	 */
+	public function get_song_statuses(): array {
+
+		return [
+			'idea'           => 'Idea',
+			'writing'        => 'Writing',
+			'pre-production' => 'Pre-Production',
+			'recording'      => 'Recording',
+			'editing'        => 'Editing',
+			'mixing'         => 'Mixing',
+			'mastering'      => 'Mastering',
+			'released'       => 'Released',
+		];
+
+	}
 
 	/**
 	 * Return the total number of songs.

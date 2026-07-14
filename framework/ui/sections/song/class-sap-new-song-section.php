@@ -38,6 +38,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 
 		$context = $this->get_context();
 		$song    = $context['song'] ?? [];
+        $song_statuses = $context['song_statuses'] ?? [];
 
 		$is_edit = ! empty( $song );
 
@@ -45,7 +46,7 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 		$artist_name = $song['artist_name'] ?? '';
 		$song_key    = $song['song_key'] ?? '';
 		$song_bpm    = $song['song_bpm'] ?? '';
-		$song_status = $song['song_status'] ?? 'draft';
+		$song_status = $song['song_status'] ?? 'idea';
 		?>
 
 		<section class="sap-section">
@@ -163,9 +164,17 @@ final class SAP_New_Song_Section extends SAP_Abstract_Section {
 						<th><label for="song_status">Status</label></th>
 						<td>
 							<select id="song_status" name="song_status">
-								<option value="draft" <?php selected( $song_status, 'draft' ); ?>>Draft</option>
-								<option value="active" <?php selected( $song_status, 'active' ); ?>>Active</option>
-								<option value="published" <?php selected( $song_status, 'published' ); ?>>Published</option>
+								<?php foreach ( $song_statuses as $status_value => $status_label ) : ?>
+
+		                            <option
+			                            value="<?php echo esc_attr( $status_value ); ?>"
+			                            <?php selected( $song_status, $status_value ); ?>
+		                            >
+			                            <?php echo esc_html( $status_label ); ?>
+		                            </option>
+
+	                            <?php endforeach; ?>
+								
 							</select>
 						</td>
 					</tr>

@@ -86,10 +86,18 @@ final class SAP_Song_Form_Handler {
 				$_POST['song_bpm'] ?? 0
 			),
 			'song_status' => sanitize_key(
-				wp_unslash( $_POST['song_status'] ?? 'draft' )
+	            wp_unslash( $_POST['song_status'] ?? 'idea' )
 			),
 			'audio_attachment_id' => $audio_attachment_id,
 		];
+
+		    $valid_statuses = array_keys(
+			$this->song_service->get_song_statuses()
+		);
+
+		if ( ! in_array( $data['song_status'], $valid_statuses, true ) ) {
+			$data['song_status'] = 'idea';
+		}
 
 		if ( 'create_song' === $action ) {
 
@@ -117,10 +125,18 @@ final class SAP_Song_Form_Handler {
 			return;
 		}
 
-		$this->song_service->update_song(
-			$song_id,
-			$data
-		);
+		$result = $this->song_service->update_song(
+	        $song_id,
+	        $data
+        );
+
+        if ( empty( $result['success'] ) ) {
+	        return;
+        }
+
+        $_GET['sap_page'] = 'song-library';
+
+        $_REQUEST['sap_page'] = 'song-library';
 
 	}
 

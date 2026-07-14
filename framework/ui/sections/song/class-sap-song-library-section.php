@@ -147,7 +147,31 @@ final class SAP_Song_Library_Section extends SAP_Abstract_Section {
 
                             </td>
 
-                            <td><?php echo esc_html( ucfirst( $song['song_status'] ) ); ?></td>
+							<td>
+								
+								<?php
+
+                            $status = $song['song_status'] ?? 'idea';
+
+	                        $badges = [
+		                        'idea'           => '💡 Idea',
+		                        'writing'        => '✍️ Writing',
+		                        'pre-production' => '🎼 Pre-Production',
+		                        'recording'      => '🎙️ Recording',
+		                        'editing'        => '✂️ Editing',
+		                        'mixing'         => '🎚️ Mixing',
+		                        'mastering'      => '💿 Mastering',
+		                        'released'       => '✅ Released',
+	                        ];
+
+	                         echo esc_html(
+		                     $badges[ $status ] ?? ucfirst( $status )
+
+	                        );
+
+	                        ?>
+
+                            </td>
 
                             <td>
 
