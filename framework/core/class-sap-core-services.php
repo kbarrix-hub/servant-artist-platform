@@ -76,6 +76,13 @@ final class SAP_Core_Services {
     private SAP_User_Service $user;
 
 	/**
+     * Framework Profile.
+     *
+     * @var SAP_Profile
+     */
+    private SAP_Profile $profile;
+
+	/**
 	 * Framework Dashboard Service.
 	 *
 	 * @var SAP_Dashboard_Service
@@ -141,6 +148,9 @@ final class SAP_Core_Services {
 		$this->navigation = new SAP_Navigation_Manager();
         $this->router     = new SAP_Router();
         $this->user       = new SAP_User_Service();
+		$this->profile = new SAP_Profile(
+            $this->user
+            );
         $this->dashboard  = new SAP_Dashboard_Service();
         $this->songs      = new SAP_Song_Service();
 		$this->song_form_handler = new SAP_Song_Form_Handler(
@@ -245,9 +255,20 @@ final class SAP_Core_Services {
 	 */
 	public function user(): SAP_User_Service {
 
-	     return $this->user;
+    return $this->user;
 
-	}
+    }
+
+	/**
+     * Return the Profile.
+     *
+     * @return SAP_Profile
+     */
+    public function profile(): SAP_Profile {
+
+	return $this->profile;
+
+    }
 
 	/**
 	 * Return the Page Manager.

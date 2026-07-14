@@ -279,6 +279,8 @@ final class SAP_Loader {
 
 	require_once dirname( __DIR__ ) . '/ui/components/abstracts/abstract-sap-component.php';
 
+	require_once dirname( __DIR__ ) . '/ui/components/page-action-bar/class-sap-page-action-bar.php';
+
 	/*
 	 * UI Pages.
 	 */
@@ -336,6 +338,8 @@ final class SAP_Loader {
     require_once dirname( __DIR__ ) . '/modules/songs/class-sap-edit-song-page.php';
 
     require_once dirname( __DIR__ ) . '/modules/songs/class-sap-delete-song-page.php';
+
+	require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-header-section.php';
 
     require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-section.php';
 

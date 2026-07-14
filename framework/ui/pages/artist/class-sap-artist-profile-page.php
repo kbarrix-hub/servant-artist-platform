@@ -10,27 +10,11 @@ declare(strict_types=1);
  * Framework Component:
  * SAP-031.1 Artist Profile Page
  *
- * Responsibility:
- * Represents the Artist Profile page.
- *
- * The page coordinates the Artist Layout and
- * assembles the sections required to render
- * the Artist Profile.
- *
  * @package ServantArtistPlatform
- * @since   1.0.0
- * ============================================================
  */
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Class SAP_Artist_Profile_Page
- *
- * Artist Profile page implementation.
- *
- * @since 1.0.0
- */
 final class SAP_Artist_Profile_Page implements SAP_Page_Interface {
 
 	/**
@@ -39,6 +23,13 @@ final class SAP_Artist_Profile_Page implements SAP_Page_Interface {
 	 * @var SAP_Artist_Layout
 	 */
 	private SAP_Artist_Layout $layout;
+
+	/**
+	 * Runtime render context.
+	 *
+	 * @var array<string, mixed>
+	 */
+	private array $context = [];
 
 	/**
 	 * Constructor.
@@ -57,8 +48,27 @@ final class SAP_Artist_Profile_Page implements SAP_Page_Interface {
 	public function initialize(): void {
 
 		$this->layout->register_section(
+			new SAP_Profile_Header_Section()
+		);
+
+		$this->layout->register_section(
 			new SAP_Profile_Section()
 		);
+
+	}
+
+	/**
+	 * Assign the Runtime render context.
+	 *
+	 * @param array<string, mixed> $context Runtime context.
+	 *
+	 * @return void
+	 */
+	public function set_context( array $context ): void {
+
+		$this->context = $context;
+
+		$this->layout->set_context( $context );
 
 	}
 

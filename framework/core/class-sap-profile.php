@@ -119,4 +119,22 @@ final class SAP_Profile {
 
 	}
 
+	/**
+	 * Return the profile data.
+	 *
+	 * @return array<string, string>
+	 */
+	public function get_profile(): array {
+
+		return [
+			'display_name' => $this->display_name(),
+			'avatar'       => $this->avatar(),
+			'initials'     => $this->initials(),
+			'organization' => $this->organization(),
+			'title'        => $this->title(),
+		];
+
+	}
+
 }
+

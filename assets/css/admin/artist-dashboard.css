@@ -293,3 +293,96 @@
 	text-decoration: none;
 
 }
+
+/* ============================================================
+   Artist Profile Header
+============================================================ */
+
+.sap-profile-header-card {
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	gap: 32px;
+
+	padding: 28px;
+
+	margin-bottom: 30px;
+
+	background: #ffffff;
+
+	border: 1px solid #e7eaf3;
+
+	border-radius: 14px;
+
+	box-shadow: 0 2px 8px rgba(0,0,0,.04);
+
+}
+
+.sap-profile-avatar {
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 90px;
+	height: 90px;
+
+	border-radius: 50%;
+
+	background: linear-gradient(
+		135deg,
+		#5b4cff,
+		#7c6cff
+	);
+
+	color: #ffffff;
+
+	font-size: 40px;
+
+	flex-shrink: 0;
+
+}
+
+.sap-profile-details {
+
+	flex: 1;
+
+}
+
+.sap-profile-name {
+
+	margin: 0 0 8px;
+
+	font-size: 30px;
+
+	font-weight: 700;
+
+	color: #1e293b;
+
+}
+
+.sap-profile-meta {
+
+	margin: 0;
+
+	font-size: 16px;
+
+	color: #64748b;
+
+}
+
+.sap-profile-actions {
+
+	display: flex;
+
+	align-items: center;
+
+	justify-content: flex-end;
+
+	flex-wrap: wrap;
+
+	gap: 12px;
+
+}

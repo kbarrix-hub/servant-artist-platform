@@ -285,6 +285,9 @@ final class SAP_Runtime {
 		'page'             => $this->runtime_state['page'],
 		'user'             => $this->runtime_state['user'],
 		'dashboard'        => $this->runtime_state['dashboard'],
+		'profile'          => $this->core_services
+	        ->profile()
+	        ->get_profile(),
 		'songs'            => $this->core_services
 			->songs()
 			->get_recent_songs(),
