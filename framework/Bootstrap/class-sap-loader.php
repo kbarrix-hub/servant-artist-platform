@@ -290,6 +290,10 @@ final class SAP_Loader {
 
     require_once dirname( __DIR__ ) . '/ui/abstract-sap-harmony-module.php';
 
+	require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-collection.php';
+
+	require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-module-library.php';
+
     require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-renderer.php';
 
     require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-hero-module.php';

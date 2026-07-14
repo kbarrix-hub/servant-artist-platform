@@ -30,10 +30,15 @@ final class SAP_Harmony_Preview extends SAP_Abstract_Component {
 
 		$renderer = new SAP_Harmony_Renderer();
 
-		$modules = [
-			new SAP_Hero_Module(),
-            new SAP_Biography_Module(),
-		];
+		$collection = new SAP_Harmony_Collection();
+
+        $collection->add_module(
+	        new SAP_Hero_Module()
+    );
+
+        $collection->add_module(
+	        new SAP_Biography_Module()
+   );
 
 		?>
 
@@ -46,7 +51,9 @@ final class SAP_Harmony_Preview extends SAP_Abstract_Component {
 				</div>
 
 				<?php
-				$renderer->render_modules( $modules );
+				$renderer->render_modules(
+	                 $collection->get_modules()
+    );
 				?>
 
 			</div>

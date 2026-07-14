@@ -75,24 +75,17 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 					</div>
 
 					<!-- Module Library -->
-					<div class="sap-harmony-panel">
+					<div class="sap-designer-sidebar">
 
-						<h3>Harmony Modules</h3>
+	                    <?php
 
-						<ul class="sap-harmony-list">
-							<li>Hero</li>
-							<li>Biography</li>
-							<li>Featured Music</li>
-							<li>Music Player</li>
-							<li>Featured Video</li>
-							<li>Events</li>
-							<li>Gallery</li>
-							<li>Newsletter</li>
-							<li>Contact Form</li>
-							<li>Social Links</li>
-						</ul>
+	                    $library = new SAP_Module_Library();
 
-					</div>
+	                    $library->render();
+
+	                    ?>
+
+                    </div>
 
 				</div>
 
