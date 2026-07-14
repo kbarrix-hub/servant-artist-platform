@@ -40,24 +40,21 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 				<div class="sap-harmony-dashboard">
 
-					<!-- Website Pages -->
-					<div class="sap-harmony-panel">
+				<!-- Module Library -->
+					<div class="sap-harmony-module-library">
 
-						<h3>Website Pages</h3>
+	                    <?php
 
-						<ul class="sap-harmony-list">
-							<li>🏠 Home</li>
-							<li>🎵 Music</li>
-							<li>🎬 Videos</li>
-							<li>📅 Events</li>
-							<li>👤 About</li>
-							<li>✉ Contact</li>
-						</ul>
+	                    $library = new SAP_Module_Library();
 
-					</div>
+	                    $library->render();
+
+	                    ?>
+
+                    </div>
 
 					<!-- Live Preview -->
-					<div class="sap-harmony-panel sap-harmony-preview">
+					<div class="sap-harmony-workspace">
 
 						<h3>Website Preview</h3>
 
@@ -73,19 +70,6 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 						</div>
 
 					</div>
-
-					<!-- Module Library -->
-					<div class="sap-designer-sidebar">
-
-	                    <?php
-
-	                    $library = new SAP_Module_Library();
-
-	                    $library->render();
-
-	                    ?>
-
-                    </div>
 
 				</div>
 

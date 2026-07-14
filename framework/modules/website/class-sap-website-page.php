@@ -35,8 +35,12 @@ final class SAP_Website_Page extends SAP_Abstract_Page {
 	 */
 	public function initialize(): void {
 
-		$this->layout->register_section(
-			new SAP_Website_Designer_Section()
+	    SAP_Asset_Manager::instance()->enqueue_style(
+		    'harmony-designer'
+	    );
+
+	    $this->layout->register_section(
+		    new SAP_Website_Designer_Section()
 		);
 
 	}

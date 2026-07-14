@@ -151,7 +151,15 @@ final class SAP_Asset_Manager {
 		'media'   => 'all',
 	],
 
-];
+	'harmony-designer' => [
+	    'handle'  => 'sap-harmony-designer',
+	    'src'     => SAP_PLUGIN_URL . 'assets/css/admin/harmony-designer.css',
+	    'deps'    => [ 'sap-application-shell' ],
+	    'version' => SAP_VERSION,
+	    'media'   => 'all',
+    ],
+
+    ];
 
 }
 
