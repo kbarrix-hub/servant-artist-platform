@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-final class SAP_Settings_Module extends SAP_Abstract_Module implements SAP_Navigation_Provider_Interface {
+final class SAP_Settings_Module extends SAP_Abstract_Module implements SAP_Navigation_Provider_Interface, SAP_Page_Provider_Interface {
 
 	/**
 	 * Module identifier.
@@ -77,6 +77,30 @@ final class SAP_Settings_Module extends SAP_Abstract_Module implements SAP_Navig
 	}
 
 	/**
+	 * Return the module's primary page.
+	 *
+	 * @return SAP_Page_Interface
+	 */
+	public function get_page(): SAP_Page_Interface {
+
+		return new SAP_Settings_Page();
+
+	}
+
+	/**
+	 * Return the framework pages provided by this module.
+	 *
+	 * @return array<int, SAP_Page_Interface>
+	 */
+	public function get_pages(): array {
+
+		return [
+			new SAP_Settings_Page(),
+		];
+
+	}
+
+	/**
 	 * Return the navigation items provided by this module.
 	 *
 	 * @since 1.0.0
@@ -91,7 +115,7 @@ final class SAP_Settings_Module extends SAP_Abstract_Module implements SAP_Navig
 				'title' => 'Settings',
 				'icon'  => 'settings',
 				'order' => 900,
-				'url'   => admin_url( 'admin.php?page=sap-settings' ),
+				'url' => admin_url( 'admin.php?page=sap-artist-portal&sap_page=settings' ),
 			],
 		];
 

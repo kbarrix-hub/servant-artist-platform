@@ -227,6 +227,7 @@ final class SAP_Loader {
 	/*
 	 * Framework Interfaces.
 	 */
+
 	require_once dirname( __DIR__ ) . '/modules/interface-sap-module.php';
 
     require_once dirname( __DIR__ ) . '/interfaces/interface-sap-navigation-provider.php';
@@ -234,6 +235,7 @@ final class SAP_Loader {
     require_once dirname( __DIR__ ) . '/interfaces/interface-sap-page-provider.php';
 
     require_once dirname( __DIR__ ) . '/interfaces/interface-sap-context-provider.php';
+
 
 	/*
 	 * Platform Navigation Manager.
@@ -280,6 +282,8 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/ui/components/abstracts/abstract-sap-component.php';
 
 	require_once dirname( __DIR__ ) . '/ui/components/page-action-bar/class-sap-page-action-bar.php';
+
+	require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-preview.php';
 
 	/*
 	 * UI Pages.
@@ -347,6 +351,10 @@ final class SAP_Loader {
 
     require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-section.php';
 
+	require_once dirname( __DIR__ ) . '/ui/sections/settings/class-sap-settings-section.php';
+
+	require_once dirname( __DIR__ ) . '/ui/sections/website/class-sap-website-designer-section.php';
+
     /*
      * Framework Managers.
      */
@@ -377,6 +385,8 @@ final class SAP_Loader {
 	/*
 	 * Framework Modules.
 	 */
+	require_once dirname( __DIR__ ) . '/modules/settings/class-sap-settings-page.php';
+	
 	require_once dirname( __DIR__ ) . '/modules/settings/class-sap-settings-module.php';
 
     require_once dirname( __DIR__ ) . '/modules/artists/class-sap-artists-module.php';
@@ -388,6 +398,13 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/modules/songs/class-sap-new-song-page.php';
 
     require_once dirname( __DIR__ ) . '/modules/songs/class-sap-songs-module.php';
+
+	/*
+     * Website
+     */
+    require_once dirname( __DIR__ ) . '/modules/website/class-sap-website-page.php';
+    require_once dirname( __DIR__ ) . '/modules/website/class-sap-website-module.php';
+	
 	
 	}
 
@@ -475,6 +492,12 @@ final class SAP_Loader {
 		
 		$this->modules->register(
 	        new SAP_Songs_Module(
+		        $this->services
+	        )
+        );
+
+		$this->modules->register(
+	        new SAP_Website_Module(
 		        $this->services
 	        )
         );
