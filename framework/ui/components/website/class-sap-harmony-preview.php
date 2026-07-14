@@ -32,6 +32,7 @@ final class SAP_Harmony_Preview extends SAP_Abstract_Component {
 
 		$modules = [
 			new SAP_Hero_Module(),
+            new SAP_Biography_Module(),
 		];
 
 		?>

@@ -294,6 +294,8 @@ final class SAP_Loader {
 
     require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-hero-module.php';
 
+	require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-biography-module.php';
+
     require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-preview.php';
 
 	/*
