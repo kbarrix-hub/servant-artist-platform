@@ -6,12 +6,8 @@ declare(strict_types=1);
  * Servant Artist Platform
  * ============================================================
  *
- * SAP-058.1
- * Harmony Live Preview Component
- *
- * Responsibility:
- * Render a miniature Harmony Collection homepage inside
- * the Website Designer preview panel.
+ * SAP-061.1
+ * Harmony Canvas Component
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -23,14 +19,14 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class SAP_Harmony_Preview
  *
- * Harmony Collection website preview.
+ * Renders the Harmony Website Designer canvas.
  *
  * @since 1.0.0
  */
 final class SAP_Harmony_Preview extends SAP_Abstract_Component {
 
 	/**
-	 * Render the Harmony website preview.
+	 * Render the Harmony website canvas.
 	 *
 	 * @return void
 	 */
@@ -38,108 +34,47 @@ final class SAP_Harmony_Preview extends SAP_Abstract_Component {
 
 		?>
 
-		<div class="sap-harmony-site-preview">
+		<div class="sap-harmony-canvas">
 
-			<header class="sap-harmony-preview-header">
+			<div class="sap-harmony-canvas-page">
 
-				<div class="sap-harmony-preview-brand">
-					🌸 Harmony
+				<div class="sap-harmony-canvas-title">
+					🏠 Home Page
 				</div>
 
-				<nav class="sap-harmony-preview-navigation">
-					<span>Home</span>
-					<span>Music</span>
-					<span>Videos</span>
-					<span>Events</span>
-					<span>About</span>
-					<span>Contact</span>
-				</nav>
+				<div class="sap-harmony-module">
+					<h3>Hero Module</h3>
 
-			</header>
-
-			<section class="sap-harmony-preview-hero">
-
-				<span class="sap-harmony-preview-eyebrow">
-					Official Artist Website
-				</span>
-
-				<h4>Artist Name</h4>
-
-				<p>
-					Music created with purpose, faith, and heart.
-				</p>
-
-				<div class="sap-harmony-preview-buttons">
-
-					<span class="sap-harmony-preview-button is-primary">
-						Listen Now
-					</span>
-
-					<span class="sap-harmony-preview-button">
-						Upcoming Events
-					</span>
-
+					<p>
+						Artist hero banner, call-to-action buttons, and featured image.
+					</p>
 				</div>
 
-			</section>
-
-			<section class="sap-harmony-preview-content">
-
-				<div class="sap-harmony-preview-block">
-
-					<span class="sap-harmony-preview-label">
-						Featured Music
-					</span>
-
-					<div class="sap-harmony-preview-song">
-
-						<div class="sap-harmony-preview-artwork">
-							♪
-						</div>
-
-						<div>
-							<strong>Featured Song</strong>
-							<small>Latest Release</small>
-						</div>
-
-						<span class="sap-harmony-preview-play">
-							▶
-						</span>
-
-					</div>
-
-				</div>
-
-				<div class="sap-harmony-preview-block">
-
-					<span class="sap-harmony-preview-label">
-						About the Artist
-					</span>
+				<div class="sap-harmony-module">
+					<h3>Biography Module</h3>
 
 					<p>
 						Artist biography and story will appear here.
 					</p>
-
 				</div>
 
-				<div class="sap-harmony-preview-block">
+				<div class="sap-harmony-module">
+					<h3>Featured Music Module</h3>
 
-					<span class="sap-harmony-preview-label">
-						Upcoming Events
-					</span>
-
-					<div class="sap-harmony-preview-event">
-						<span>Coming Soon</span>
-						<strong>New events will appear here.</strong>
-					</div>
-
+					<p>
+						Songs, albums, and music player.
+					</p>
 				</div>
 
-			</section>
+				<div class="sap-harmony-module">
+					<h3>Footer Module</h3>
 
-			<footer class="sap-harmony-preview-footer">
-				Powered by Servant Artist Platform
-			</footer>
+					<p>
+						Social links, copyright, and contact information.
+					</p>
+				</div>
+
+			</div>
 
 		</div>
 

@@ -480,25 +480,21 @@
 
 .sap-preview-window{
 
-	display:flex;
+    display:block;
 
-	align-items:center;
+    width:100%;
 
-	justify-content:center;
+    min-height:520px;
 
-	flex-direction:column;
+    padding:24px;
 
-	min-height:420px;
+    background:#F8F5FB;
 
-	background:#F8F5FB;
+    border:2px dashed #D7C7F1;
 
-	border:2px dashed #D7C7F1;
+    border-radius:16px;
 
-	border-radius:16px;
-
-	text-align:center;
-
-	padding:40px;
+    overflow-y:auto;
 
 }
 
@@ -553,5 +549,94 @@
 		min-height:280px;
 
 	}
+
+}
+
+/* ============================================================
+   SAP-061.1
+   Harmony Designer Canvas
+============================================================ */
+
+.sap-harmony-canvas{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+
+}
+
+.sap-harmony-canvas-page{
+
+    width:100%;
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+
+}
+
+.sap-harmony-canvas-title{
+
+    padding:20px 28px;
+
+    background:#5B4CFF;
+
+    color:#ffffff;
+
+    font-size:20px;
+
+    font-weight:700;
+
+}
+
+.sap-harmony-module{
+
+    margin:0;
+
+    padding:36px;
+
+    border-bottom:1px solid #ECE5F7;
+
+    background:#ffffff;
+
+}
+
+.sap-harmony-module:last-child{
+
+    border-bottom:none;
+
+}
+
+.sap-harmony-module:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#8D6BC8;
+
+    box-shadow:0 10px 20px rgba(91,76,255,.08);
+
+}
+
+.sap-harmony-module h3{
+
+    margin:0 0 12px;
+
+    color:#4B3F72;
+
+    font-size:20px;
+
+}
+
+.sap-harmony-module p{
+
+    margin:0;
+
+    color:#6B7280;
+
+    line-height:1.7;
 
 }
