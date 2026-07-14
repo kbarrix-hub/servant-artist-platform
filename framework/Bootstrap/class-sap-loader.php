@@ -283,12 +283,28 @@ final class SAP_Loader {
 
 	require_once dirname( __DIR__ ) . '/ui/components/page-action-bar/class-sap-page-action-bar.php';
 
-	require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-preview.php';
+    /*
+     * Harmony Website Framework.
+     */
+    require_once dirname( __DIR__ ) . '/ui/interface-sap-harmony-module.php';
+
+    require_once dirname( __DIR__ ) . '/ui/abstract-sap-harmony-module.php';
+
+    require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-renderer.php';
+
+    require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-hero-module.php';
+
+    require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-preview.php';
 
 	/*
-	 * UI Pages.
-	 */
-	require_once dirname( __DIR__ ) . '/ui/pages/interfaces/interface-sap-page.php';
+     * UI Layouts.
+     */
+    require_once dirname( __DIR__ ) . '/ui/layouts/artist/class-sap-artist-layout.php';
+
+     /*
+     * UI Pages.
+     */
+    require_once dirname( __DIR__ ) . '/ui/pages/interfaces/interface-sap-page.php';
 
     require_once dirname( __DIR__ ) . '/ui/pages/abstracts/abstract-sap-page.php';
 
@@ -298,12 +314,7 @@ final class SAP_Loader {
 
     require_once dirname( __DIR__ ) . '/ui/pages/portal/class-sap-portal-builder-page.php';
 
-	/*
-	 * UI Layouts.
-	 */
-	require_once dirname( __DIR__ ) . '/ui/layouts/artist/class-sap-artist-layout.php';
-
-	/*
+    /*
      * UI Icons.
      */
     require_once dirname( __DIR__ ) . '/ui/icons/class-sap-icon-manager.php';
@@ -338,10 +349,6 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-new-song-section.php';
 
     require_once dirname( __DIR__ ) . '/ui/sections/song/class-sap-delete-song-section.php';
-
-    require_once dirname( __DIR__ ) . '/modules/songs/class-sap-edit-song-page.php';
-
-    require_once dirname( __DIR__ ) . '/modules/songs/class-sap-delete-song-page.php';
 
 	require_once dirname( __DIR__ ) . '/ui/sections/profile/class-sap-profile-header-section.php';
 
@@ -396,6 +403,10 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/modules/songs/class-sap-song-library-page.php';
 
 	require_once dirname( __DIR__ ) . '/modules/songs/class-sap-new-song-page.php';
+
+	require_once dirname( __DIR__ ) . '/modules/songs/class-sap-edit-song-page.php';
+
+    require_once dirname( __DIR__ ) . '/modules/songs/class-sap-delete-song-page.php';
 
     require_once dirname( __DIR__ ) . '/modules/songs/class-sap-songs-module.php';
 

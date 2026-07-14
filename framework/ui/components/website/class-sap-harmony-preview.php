@@ -6,8 +6,8 @@ declare(strict_types=1);
  * Servant Artist Platform
  * ============================================================
  *
- * SAP-061.1
- * Harmony Canvas Component
+ * SAP-061.3.5
+ * Harmony Preview Component
  *
  * @package ServantArtistPlatform
  * @since   1.0.0
@@ -17,11 +17,7 @@ declare(strict_types=1);
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class SAP_Harmony_Preview
- *
- * Renders the Harmony Website Designer canvas.
- *
- * @since 1.0.0
+ * Harmony Preview.
  */
 final class SAP_Harmony_Preview extends SAP_Abstract_Component {
 
@@ -31,6 +27,12 @@ final class SAP_Harmony_Preview extends SAP_Abstract_Component {
 	 * @return void
 	 */
 	public function render(): void {
+
+		$renderer = new SAP_Harmony_Renderer();
+
+		$modules = [
+			new SAP_Hero_Module(),
+		];
 
 		?>
 
@@ -42,37 +44,9 @@ final class SAP_Harmony_Preview extends SAP_Abstract_Component {
 					🏠 Home Page
 				</div>
 
-				<div class="sap-harmony-module">
-					<h3>Hero Module</h3>
-
-					<p>
-						Artist hero banner, call-to-action buttons, and featured image.
-					</p>
-				</div>
-
-				<div class="sap-harmony-module">
-					<h3>Biography Module</h3>
-
-					<p>
-						Artist biography and story will appear here.
-					</p>
-				</div>
-
-				<div class="sap-harmony-module">
-					<h3>Featured Music Module</h3>
-
-					<p>
-						Songs, albums, and music player.
-					</p>
-				</div>
-
-				<div class="sap-harmony-module">
-					<h3>Footer Module</h3>
-
-					<p>
-						Social links, copyright, and contact information.
-					</p>
-				</div>
+				<?php
+				$renderer->render_modules( $modules );
+				?>
 
 			</div>
 
