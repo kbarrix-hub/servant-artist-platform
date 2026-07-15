@@ -24,6 +24,18 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 	 */
 	public function render(): void {
 
+		$services = $this->context['services'];
+
+        $designer = $services->harmony_designer();
+
+		$designer->select_module(
+			'hero_001',
+			'Hero',
+			'section'
+		);
+
+		$selection = $designer->selected();
+
 		?>
 
 		<section class="sap-section sap-harmony-designer">
@@ -48,23 +60,15 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 							The new Harmony Engine has been successfully initialized.
 						</p>
 
-						<p>
-							This workspace will become the home of the visual designer,
-							module library, live canvas, inspector, templates,
-							themes, collections, click-to-select, and drag-and-drop.
-						</p>
+						<hr>
 
-						<div class="notice notice-info inline">
+						<h3>Current Harmony Selection</h3>
 
-							<p>
+						<p><strong>ID:</strong> <?php echo esc_html( $selection['id'] ); ?></p>
 
-								<strong>SAP-063A</strong><br>
+						<p><strong>Module:</strong> <?php echo esc_html( $selection['module'] ); ?></p>
 
-								Harmony Engine Foundation installed successfully.
-
-							</p>
-
-						</div>
+						<p><strong>Type:</strong> <?php echo esc_html( $selection['type'] ); ?></p>
 
 					</div>
 

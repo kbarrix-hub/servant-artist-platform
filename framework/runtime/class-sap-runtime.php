@@ -282,6 +282,7 @@ final class SAP_Runtime {
 
 		'route'            => $this->runtime_state['route'],
 		'module'           => $this->runtime_state['module'],
+		'services'         => $this->core_services,
 		'page'             => $this->runtime_state['page'],
 		'user'             => $this->runtime_state['user'],
 		'dashboard'        => $this->runtime_state['dashboard'],

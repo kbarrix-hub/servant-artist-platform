@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Harmony Renderer
+ * Harmony Renderer.
  */
 class SAP_Harmony_Renderer {
 
@@ -46,7 +46,27 @@ class SAP_Harmony_Renderer {
 	 */
 	public function render(): string {
 
-		return '';
+		ob_start();
+		?>
+
+		<div
+			class="sap-harmony-module"
+			data-module-id="hero_001"
+			data-module-name="Hero"
+			data-module-type="section">
+
+			<h2>Hero Module</h2>
+
+			<p>
+				This is the first Harmony module rendered by the
+				Harmony Engine.
+			</p>
+
+		</div>
+
+		<?php
+
+		return ob_get_clean();
 
 	}
 

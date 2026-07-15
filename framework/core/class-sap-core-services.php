@@ -117,6 +117,13 @@ final class SAP_Core_Services {
      */
     private SAP_Harmony_Renderer $harmony_renderer;
 
+	/**
+	 * Harmony Selection Manager.
+	 *
+	 * @var SAP_Selection_Manager
+	 */
+	private SAP_Selection_Manager $selection_manager;
+
     /**
      * Harmony Designer.
      *
@@ -184,11 +191,15 @@ final class SAP_Core_Services {
 	    $this->harmony_state
         );
 
-        $this->harmony_designer = new SAP_Harmony_Designer(
-	    $this->harmony_state,
-	    $this->harmony_renderer
-      );
+        $this->selection_manager = new SAP_Selection_Manager(
+	        $this->harmony_state
+        );
 
+        $this->harmony_designer = new SAP_Harmony_Designer(
+	        $this->harmony_renderer,
+	        $this->selection_manager
+        );
+		
         $this->pages = new SAP_Page_Manager();
 
 	}
@@ -245,6 +256,17 @@ final class SAP_Core_Services {
 	public function harmony_renderer(): SAP_Harmony_Renderer {
 
 		return $this->harmony_renderer;
+
+	}
+
+	/**
+	 * Return the Harmony Selection Manager.
+	 *
+	 * @return SAP_Selection_Manager
+	 */
+	public function selection_manager(): SAP_Selection_Manager {
+
+		return $this->selection_manager;
 
 	}
 
