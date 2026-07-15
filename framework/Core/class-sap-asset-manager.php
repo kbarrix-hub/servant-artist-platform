@@ -122,7 +122,7 @@ final class SAP_Asset_Manager {
 
 	'portal-ui' => [
 	    'handle'  => 'sap-portal-ui',
-	    'src'     => SAP_PLUGIN_URL . 'assets/css/admin/portal-ui.css',
+	    'src'     => SAP_PLUGIN_URL . 'assets/css/portal-ui.css',
 	    'deps'    => [ 'sap-application-shell' ],
 	    'version' => SAP_VERSION,
 	    'media'   => 'all',
