@@ -35,38 +35,35 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 				</h2>
 
 				<p class="sap-card-subtitle">
-					Design and manage your artist website using the Harmony Collection.
+					Welcome to the new Harmony Engine.
 				</p>
 
 				<div class="sap-harmony-dashboard">
 
-				<!-- Module Library -->
-					<div class="sap-harmony-module-library">
+					<div class="sap-card">
 
-	                    <?php
+						<h3>Harmony Engine Foundation</h3>
 
-	                    $library = new SAP_Module_Library();
+						<p>
+							The new Harmony Engine has been successfully initialized.
+						</p>
 
-	                    $library->render();
+						<p>
+							This workspace will become the home of the visual designer,
+							module library, live canvas, inspector, templates,
+							themes, collections, click-to-select, and drag-and-drop.
+						</p>
 
-	                    ?>
+						<div class="notice notice-info inline">
 
-                    </div>
+							<p>
 
-					<!-- Live Preview -->
-					<div class="sap-harmony-workspace">
+								<strong>SAP-063A</strong><br>
 
-						<h3>Website Preview</h3>
+								Harmony Engine Foundation installed successfully.
 
-						<div class="sap-preview-window">
+							</p>
 
-							<?php
-
-	                        $preview = new SAP_Harmony_Preview();
-	                        $preview->render();
-
-	                        ?>
-							
 						</div>
 
 					</div>

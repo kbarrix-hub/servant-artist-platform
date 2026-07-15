@@ -284,23 +284,13 @@ final class SAP_Loader {
 	require_once dirname( __DIR__ ) . '/ui/components/page-action-bar/class-sap-page-action-bar.php';
 
     /*
-     * Harmony Website Framework.
+     * Harmony Engine.
      */
-    require_once dirname( __DIR__ ) . '/ui/interface-sap-harmony-module.php';
+    require_once dirname( __DIR__ ) . '/harmony/state/class-sap-harmony-state.php';
 
-    require_once dirname( __DIR__ ) . '/ui/abstract-sap-harmony-module.php';
+    require_once dirname( __DIR__ ) . '/harmony/renderer/class-sap-harmony-renderer.php';
 
-	require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-collection.php';
-
-	require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-module-library.php';
-
-    require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-renderer.php';
-
-    require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-hero-module.php';
-
-	require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-biography-module.php';
-
-    require_once dirname( __DIR__ ) . '/ui/components/website/class-sap-harmony-preview.php';
+    require_once dirname( __DIR__ ) . '/harmony/designer/class-sap-harmony-designer.php';
 
 	/*
      * UI Layouts.

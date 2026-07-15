@@ -104,6 +104,27 @@ final class SAP_Core_Services {
 	private SAP_Song_Form_Handler $song_form_handler;
 
 	/**
+     * Harmony State.
+     *
+     * @var SAP_Harmony_State
+     */
+    private SAP_Harmony_State $harmony_state;
+
+    /**
+     * Harmony Renderer.
+     *
+     * @var SAP_Harmony_Renderer
+     */
+    private SAP_Harmony_Renderer $harmony_renderer;
+
+    /**
+     * Harmony Designer.
+     *
+     * @var SAP_Harmony_Designer
+     */
+    private SAP_Harmony_Designer $harmony_designer;
+
+	/**
 	 * Framework Page Manager.
 	 *
 	 * @var SAP_Page_Manager
@@ -154,9 +175,21 @@ final class SAP_Core_Services {
         $this->dashboard  = new SAP_Dashboard_Service();
         $this->songs      = new SAP_Song_Service();
 		$this->song_form_handler = new SAP_Song_Form_Handler(
-			$this->songs
-			);
-        $this->pages      = new SAP_Page_Manager(); 
+	        $this->songs
+        );
+
+        $this->harmony_state = new SAP_Harmony_State();
+
+        $this->harmony_renderer = new SAP_Harmony_Renderer(
+	    $this->harmony_state
+        );
+
+        $this->harmony_designer = new SAP_Harmony_Designer(
+	    $this->harmony_state,
+	    $this->harmony_renderer
+      );
+
+        $this->pages = new SAP_Page_Manager();
 
 	}
 
@@ -190,6 +223,39 @@ final class SAP_Core_Services {
 	public function song_form_handler(): SAP_Song_Form_Handler {
 
 		return $this->song_form_handler;
+
+	}
+
+		/**
+	 * Return the Harmony State.
+	 *
+	 * @return SAP_Harmony_State
+	 */
+	public function harmony_state(): SAP_Harmony_State {
+
+		return $this->harmony_state;
+
+	}
+
+	/**
+	 * Return the Harmony Renderer.
+	 *
+	 * @return SAP_Harmony_Renderer
+	 */
+	public function harmony_renderer(): SAP_Harmony_Renderer {
+
+		return $this->harmony_renderer;
+
+	}
+
+	/**
+	 * Return the Harmony Designer.
+	 *
+	 * @return SAP_Harmony_Designer
+	 */
+	public function harmony_designer(): SAP_Harmony_Designer {
+
+		return $this->harmony_designer;
 
 	}
 
