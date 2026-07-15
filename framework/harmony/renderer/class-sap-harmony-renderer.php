@@ -48,38 +48,76 @@ class SAP_Harmony_Renderer {
 
 		$selection = $this->state->selected();
 
-		$is_selected = (
-			$selection['id'] === 'hero_001'
-		);
-
-		$classes = 'sap-harmony-module';
-
-		if ( $is_selected ) {
-			$classes .= ' is-selected';
-		}
-
 		ob_start();
 		?>
 
-		<div
-			class="<?php echo esc_attr( $classes ); ?>"
-			data-module-id="hero_001"
-			data-module-name="Hero"
-			data-module-type="section">
+		<?php
+		$this->render_module(
+			'hero_001',
+			'Hero',
+			'section',
+			'Hero Module',
+			'This is the first Harmony module rendered by the Harmony Engine.',
+			$selection
+		);
 
-			<h2>Hero Module</h2>
-
-			<p>
-				This is the first Harmony module rendered by the
-				Harmony Engine.
-			</p>
-
-		</div>
+		$this->render_module(
+			'bio_001',
+			'Biography',
+			'section',
+			'Biography Module',
+			'This module represents the artist biography section.',
+			$selection
+		);
+		?>
 
 		<?php
 
 		return ob_get_clean();
 
+	}
+
+	/**
+	 * Render a Harmony module.
+	 *
+	 * @param string $id          Module ID.
+	 * @param string $name        Module name.
+	 * @param string $type        Module type.
+	 * @param string $title       Display title.
+	 * @param string $content     Module content.
+	 * @param array  $selection   Current selection.
+	 *
+	 * @return void
+	 */
+	protected function render_module(
+		string $id,
+		string $name,
+		string $type,
+		string $title,
+		string $content,
+		array $selection
+	): void {
+
+		$classes = 'sap-harmony-module';
+
+		if ( isset( $selection['id'] ) && $selection['id'] === $id ) {
+			$classes .= ' is-selected';
+		}
+		?>
+
+		<div
+			class="<?php echo esc_attr( $classes ); ?>"
+			data-module-id="<?php echo esc_attr( $id ); ?>"
+			data-module-name="<?php echo esc_attr( $name ); ?>"
+			data-module-type="<?php echo esc_attr( $type ); ?>">
+
+			<h2><?php echo esc_html( $title ); ?></h2>
+
+			<p><?php echo esc_html( $content ); ?></p>
+
+		</div>
+
+		<?php
 	}
 
 }
