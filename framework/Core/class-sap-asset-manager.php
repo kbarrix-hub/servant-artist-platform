@@ -83,21 +83,6 @@ final class SAP_Asset_Manager {
 
 		return self::$instance;
 	}
-
-    	/**
-	 * Starts the Asset Manager.
-	 *
-	 * Registers the framework asset catalog.
-	 *
-	 * @return void
-	 */
-	public function run(): void {
-
-		$this->register_styles();
-
-		$this->register_scripts();
-
-	}
  
     /**
 	 * Register framework styles.
@@ -151,9 +136,9 @@ final class SAP_Asset_Manager {
 		'media'   => 'all',
 	],
 
-	'harmony-designer' => [
-	    'handle'  => 'sap-harmony-designer',
-	    'src'     => SAP_PLUGIN_URL . 'assets/css/admin/harmony-designer.css',
+	'harmony' => [
+	    'handle'  => 'sap-harmony',
+	    'src'     => SAP_PLUGIN_URL . 'framework/harmony/assets/css/harmony.css',
 	    'deps'    => [ 'sap-application-shell' ],
 	    'version' => SAP_VERSION,
 	    'media'   => 'all',
@@ -173,10 +158,57 @@ final class SAP_Asset_Manager {
 	 */
 	private function register_scripts(): void {
 
-		// Section 7
+	$this->assets['scripts'] = [
 
-	}
+		'harmony' => [
+			'handle'    => 'sap-harmony',
+			'src'       => SAP_PLUGIN_URL . 'framework/harmony/assets/js/harmony.js',
+			'deps'      => [],
+			'version'   => SAP_VERSION,
+			'in_footer' => true,
+		],
 
+	];
+
+}
+
+    /**
+ * Starts the Asset Manager.
+ *
+ * Registers the framework asset catalog.
+ *
+ * @return void
+ */
+public function run(): void {
+
+	$this->register_styles();
+
+	$this->register_scripts();
+
+	add_action(
+		'admin_enqueue_scripts',
+		[ $this, 'enqueue_assets' ]
+	);
+
+}
+
+/**
+ * Enqueue the framework asset bundle.
+ *
+ * @return void
+ */
+public function enqueue_assets(): void {
+
+	$this->enqueue_style( 'application-shell' );
+	$this->enqueue_style( 'header' );
+	$this->enqueue_style( 'sidebar' );
+	$this->enqueue_style( 'portal-ui' );
+	$this->enqueue_style( 'artist-dashboard' );
+	$this->enqueue_style( 'harmony' );
+
+	$this->enqueue_script( 'harmony' );
+
+}
 		/**
 	 * Enqueue a registered style.
 	 *
@@ -201,6 +233,31 @@ final class SAP_Asset_Manager {
 		);
 
 	}
+
+	/**
+     * Enqueue a registered script.
+     *
+     * @param string $asset Asset identifier.
+     *
+     * @return void
+     */
+    public function enqueue_script( string $asset ): void {
+
+	    if ( ! isset( $this->assets['scripts'][ $asset ] ) ) {
+		    return;
+	    }
+
+	    $script = $this->assets['scripts'][ $asset ];
+
+	    wp_enqueue_script(
+		    $script['handle'],
+		    $script['src'],
+		    $script['deps'],
+		    $script['version'],
+		    $script['in_footer']
+	    );
+
+    }
 
     /**
 	 * Enqueue framework styles.

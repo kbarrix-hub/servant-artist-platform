@@ -46,11 +46,23 @@ class SAP_Harmony_Renderer {
 	 */
 	public function render(): string {
 
+		$selection = $this->state->selected();
+
+		$is_selected = (
+			$selection['id'] === 'hero_001'
+		);
+
+		$classes = 'sap-harmony-module';
+
+		if ( $is_selected ) {
+			$classes .= ' is-selected';
+		}
+
 		ob_start();
 		?>
 
 		<div
-			class="sap-harmony-module"
+			class="<?php echo esc_attr( $classes ); ?>"
 			data-module-id="hero_001"
 			data-module-name="Hero"
 			data-module-type="section">

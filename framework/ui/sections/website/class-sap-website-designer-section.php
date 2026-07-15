@@ -26,15 +26,17 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 		$services = $this->context['services'];
 
-        $designer = $services->harmony_designer();
+		$designer = $services->harmony_designer();
 
+		/*
+		 * Temporary selection until JavaScript
+		 * click-to-select is implemented.
+		 */
 		$designer->select_module(
 			'hero_001',
 			'Hero',
 			'section'
 		);
-
-		$selection = $designer->selected();
 
 		?>
 
@@ -50,27 +52,9 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 					Welcome to the new Harmony Engine.
 				</p>
 
-				<div class="sap-harmony-dashboard">
+				<div class="sap-harmony-workspace">
 
-					<div class="sap-card">
-
-						<h3>Harmony Engine Foundation</h3>
-
-						<p>
-							The new Harmony Engine has been successfully initialized.
-						</p>
-
-						<hr>
-
-						<h3>Current Harmony Selection</h3>
-
-						<p><strong>ID:</strong> <?php echo esc_html( $selection['id'] ); ?></p>
-
-						<p><strong>Module:</strong> <?php echo esc_html( $selection['module'] ); ?></p>
-
-						<p><strong>Type:</strong> <?php echo esc_html( $selection['type'] ); ?></p>
-
-					</div>
+					<?php echo wp_kses_post( $designer->render() ); ?>
 
 				</div>
 
