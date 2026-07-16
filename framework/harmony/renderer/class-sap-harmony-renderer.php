@@ -48,30 +48,22 @@ class SAP_Harmony_Renderer {
 
 		$selection = $this->state->selected();
 
+		$collection = new SAP_Harmony_Collection();
+
 		ob_start();
-		?>
 
-		<?php
-		$this->render_module(
-			'hero_001',
-			'Hero',
-			'section',
-			'Hero Module',
-			'This is the first Harmony module rendered by the Harmony Engine.',
-			$selection
-		);
+		foreach ( $collection->all() as $module ) {
 
-		$this->render_module(
-			'bio_001',
-			'Biography',
-			'section',
-			'Biography Module',
-			'This module represents the artist biography section.',
-			$selection
-		);
-		?>
+			$this->render_module(
+				$module['id'],
+				$module['name'],
+				$module['type'],
+				$module['title'],
+				$module['content'],
+				$selection
+			);
 
-		<?php
+		}
 
 		return ob_get_clean();
 
@@ -80,12 +72,12 @@ class SAP_Harmony_Renderer {
 	/**
 	 * Render a Harmony module.
 	 *
-	 * @param string $id          Module ID.
-	 * @param string $name        Module name.
-	 * @param string $type        Module type.
-	 * @param string $title       Display title.
-	 * @param string $content     Module content.
-	 * @param array  $selection   Current selection.
+	 * @param string $id        Module ID.
+	 * @param string $name      Module name.
+	 * @param string $type      Module type.
+	 * @param string $title     Display title.
+	 * @param string $content   Module content.
+	 * @param array  $selection Current selection.
 	 *
 	 * @return void
 	 */
@@ -103,6 +95,7 @@ class SAP_Harmony_Renderer {
 		if ( isset( $selection['id'] ) && $selection['id'] === $id ) {
 			$classes .= ' is-selected';
 		}
+
 		?>
 
 		<div
@@ -118,6 +111,7 @@ class SAP_Harmony_Renderer {
 		</div>
 
 		<?php
+
 	}
 
 }
