@@ -110,6 +110,13 @@ final class SAP_Core_Services {
      */
     private SAP_Harmony_State $harmony_state;
 
+	/**
+     * Harmony Collection.
+     *
+     * @var SAP_Harmony_Collection
+     */
+    private SAP_Harmony_Collection $harmony_collection;
+
     /**
      * Harmony Renderer.
      *
@@ -186,9 +193,11 @@ final class SAP_Core_Services {
         );
 
         $this->harmony_state = new SAP_Harmony_State();
+		$this->harmony_collection = new SAP_Harmony_Collection();
 
         $this->harmony_renderer = new SAP_Harmony_Renderer(
-	    $this->harmony_state
+	        $this->harmony_state,
+	        $this->harmony_collection
         );
 
         $this->selection_manager = new SAP_Selection_Manager(
@@ -197,7 +206,8 @@ final class SAP_Core_Services {
 
         $this->harmony_designer = new SAP_Harmony_Designer(
 	        $this->harmony_renderer,
-	        $this->selection_manager
+	        $this->harmony_collection,
+			$this->selection_manager
         );
 		
         $this->pages = new SAP_Page_Manager();
@@ -247,6 +257,17 @@ final class SAP_Core_Services {
 		return $this->harmony_state;
 
 	}
+
+	/**
+     * Return the Harmony Collection.
+     *
+     * @return SAP_Harmony_Collection
+     */
+    public function harmony_collection(): SAP_Harmony_Collection {
+
+	    return $this->harmony_collection;
+
+    }
 
 	/**
 	 * Return the Harmony Renderer.

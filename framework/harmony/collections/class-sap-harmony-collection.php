@@ -55,20 +55,20 @@ final class SAP_Harmony_Collection {
 	 *
 	 * @return array<int, array<string, string>>
 	 */
-	public function all(): array {
+	public function get_modules(): array {
 
 		return $this->modules;
 
 	}
 
 	/**
-	 * Find a module by ID.
+	 * Return a single Harmony module.
 	 *
 	 * @param string $id Module ID.
 	 *
 	 * @return array<string, string>|null
 	 */
-	public function find( string $id ): ?array {
+	public function get_module( string $id ): ?array {
 
 		foreach ( $this->modules as $module ) {
 
@@ -83,13 +83,34 @@ final class SAP_Harmony_Collection {
 	}
 
 	/**
+	 * Determine whether a module exists.
+	 *
+	 * @param string $id Module ID.
+	 *
+	 * @return bool
+	 */
+	public function has_module( string $id ): bool {
+
+		foreach ( $this->modules as $module ) {
+
+			if ( $module['id'] === $id ) {
+				return true;
+			}
+
+		}
+
+		return false;
+
+	}
+
+	/**
 	 * Add a Harmony module.
 	 *
 	 * @param array<string, string> $module Module data.
 	 *
 	 * @return void
 	 */
-	public function add( array $module ): void {
+	public function add_module( array $module ): void {
 
 		$this->modules[] = $module;
 
@@ -102,7 +123,7 @@ final class SAP_Harmony_Collection {
 	 *
 	 * @return void
 	 */
-	public function remove( string $id ): void {
+	public function remove_module( string $id ): void {
 
 		$this->modules = array_values(
 			array_filter(

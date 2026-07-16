@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * ============================================================
  * Servant Artist Platform
@@ -12,42 +14,73 @@
  * @package ServantArtistPlatform
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Harmony Designer.
  */
-class SAP_Harmony_Designer {
+final class SAP_Harmony_Designer {
 
 	/**
 	 * Harmony renderer.
 	 *
 	 * @var SAP_Harmony_Renderer
 	 */
-	protected SAP_Harmony_Renderer $renderer;
+	private SAP_Harmony_Renderer $renderer;
+
+	/**
+	 * Harmony collection.
+	 *
+	 * @var SAP_Harmony_Collection
+	 */
+	private SAP_Harmony_Collection $collection;
 
 	/**
 	 * Harmony selection manager.
 	 *
 	 * @var SAP_Selection_Manager
 	 */
-	protected SAP_Selection_Manager $selection;
+	private SAP_Selection_Manager $selection;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param SAP_Harmony_Renderer  $renderer  Harmony renderer.
-	 * @param SAP_Selection_Manager $selection Harmony selection manager.
+	 * @param SAP_Harmony_Renderer   $renderer   Harmony renderer.
+	 * @param SAP_Harmony_Collection $collection Harmony collection.
+	 * @param SAP_Selection_Manager  $selection  Harmony selection manager.
 	 */
 	public function __construct(
 		SAP_Harmony_Renderer $renderer,
+		SAP_Harmony_Collection $collection,
 		SAP_Selection_Manager $selection
 	) {
 
-		$this->renderer  = $renderer;
-		$this->selection = $selection;
+		$this->renderer   = $renderer;
+		$this->collection = $collection;
+		$this->selection  = $selection;
+
+	}
+
+	/**
+	 * Add a Harmony module.
+	 *
+	 * @param string $type Module type.
+	 *
+	 * @return array<string,string>
+	 */
+	public function add_module( string $type ): array {
+
+		$module = SAP_Harmony_Module_Factory::create( $type );
+
+		$this->collection->add_module( $module );
+
+		$this->selection->select(
+			$module['id'],
+			$module['name'],
+			$module['type']
+		);
+
+		return $module;
 
 	}
 
@@ -57,6 +90,7 @@ class SAP_Harmony_Designer {
 	 * @param string $id     Module ID.
 	 * @param string $module Module name.
 	 * @param string $type   Module type.
+	 *
 	 * @return void
 	 */
 	public function select_module(
@@ -87,7 +121,7 @@ class SAP_Harmony_Designer {
 	/**
 	 * Return the current selection.
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string,mixed>
 	 */
 	public function selected(): array {
 
