@@ -147,8 +147,59 @@ final class SAP_Harmony_Designer {
 	 */
 	public function render(): string {
 
-		return $this->renderer->render();
+	ob_start();
+	?>
 
-	}
+	<div class="sap-harmony-workspace">
+
+		<div class="sap-harmony-toolbar">
+
+			<button
+				type="button"
+				class="button button-primary sap-add-module">
+
+				+ Add Module
+
+			</button>
+
+			<div class="sap-module-menu">
+
+				<button
+					type="button"
+					data-module="hero">
+
+					🟣 Hero
+
+				</button>
+
+				<button
+					type="button"
+					data-module="text">
+
+					📄 Text
+
+				</button>
+
+				<button
+					type="button"
+					data-module="image">
+
+					🖼 Image
+
+				</button>
+
+			</div>
+
+		</div>
+
+		<?php echo $this->renderer->render(); ?>
+
+	</div>
+
+	<?php
+
+	return (string) ob_get_clean();
+
+}
 
 }

@@ -187,6 +187,142 @@
 
 }
 
+/* ============================================================
+   Harmony Toolbar
+============================================================ */
+
+.sap-harmony-toolbar {
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	margin-bottom: 20px;
+	padding-bottom: 16px;
+
+	border-bottom: 1px solid #e7eaf3;
+
+}
+
+.sap-add-module {
+
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+
+	padding: 10px 18px;
+
+	border-radius: 10px;
+
+	font-weight: 600;
+
+	box-shadow: 0 4px 12px rgba(91,76,255,.15);
+
+	transition:
+		transform .18s ease,
+		box-shadow .18s ease;
+
+}
+
+.sap-add-module:hover {
+
+	transform: translateY(-2px);
+
+	box-shadow:
+		0 8px 18px rgba(91,76,255,.22);
+
+}
+
+.sap-module-menu {
+
+	display: none;
+
+	position: absolute;
+
+	margin-top: 8px;
+
+	min-width: 220px;
+
+	background: #ffffff;
+
+	border: 1px solid #e7eaf3;
+	border-radius: 12px;
+
+	box-shadow: 0 12px 30px rgba(0,0,0,.10);
+
+	overflow: hidden;
+
+	z-index: 1000;
+
+}
+
+.sap-module-menu button {
+
+	display: block;
+
+	width: 100%;
+
+	padding: 14px 18px;
+
+	text-align: left;
+
+	background: transparent;
+
+	border: none;
+
+	cursor: pointer;
+
+	font-size: 14px;
+
+	transition: background .15s ease;
+
+}
+
+.sap-module-menu button:hover {
+
+	background: #f4f2ff;
+
+}
+
+/* ============================================================
+   Harmony Workspace Layout
+============================================================ */
+
+.sap-harmony-layout {
+
+	display: grid;
+
+	grid-template-columns:
+		220px
+		minmax(0, 1fr)
+		300px;
+
+	gap: 24px;
+
+	align-items: start;
+
+	margin-top: 24px;
+
+}
+
+.sap-harmony-workspace {
+
+	min-width: 0;
+
+}
+
+.sap-harmony-library {
+
+	background: #ffffff;
+
+	border: 1px solid #e7eaf3;
+	border-radius: 12px;
+
+	padding: 20px;
+
+	box-shadow: 0 8px 24px rgba(0,0,0,.06);
+
+}
 
 /* ============================================================
    Responsive
@@ -194,9 +330,10 @@
 
 @media (max-width: 992px) {
 
-	.sap-harmony-dashboard {
+	.sap-harmony-dashboard,
+    .sap-harmony-layout {
 
-		grid-template-columns: 1fr;
+	    grid-template-columns: 1fr;
 
 	}
 

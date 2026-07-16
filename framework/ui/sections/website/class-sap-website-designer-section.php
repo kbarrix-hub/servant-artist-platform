@@ -6,7 +6,7 @@ declare(strict_types=1);
  * Servant Artist Platform
  * ============================================================
  *
- * SAP-057.4
+ * SAP-073.1
  * Harmony Website Designer Dashboard
  *
  * @package ServantArtistPlatform
@@ -52,29 +52,102 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 					Welcome to the new Harmony Engine.
 				</p>
 
-				<div class="sap-harmony-workspace">
+				<div class="sap-harmony-layout">
 
-					<?php echo wp_kses_post( $designer->render() ); ?>
+					<!-- ==========================================
+					     Module Library
+					========================================== -->
+
+					<aside class="sap-harmony-library">
+
+						<h3>Modules</h3>
+
+						<button class="sap-harmony-module-card" type="button">
+
+	                        <div class="sap-harmony-module-icon">
+		                        🟣
+	                        </div>
+
+	                    <div class="sap-harmony-module-content">
+
+		                    <strong>Hero</strong>
+
+		                    <span>Page Header</span>
+
+	                    </div>
+
+                       </button>
+
+                        <button class="sap-harmony-module-card" type="button">
+
+	                        <div class="sap-harmony-module-icon">
+		                        📄
+	                        </div>
+
+	                    <div class="sap-harmony-module-content">
+
+		                    <strong>Text</strong>
+
+		                    <span>Rich Content</span>
+
+	                    </div>
+
+                       </button>
+
+                        <button class="sap-harmony-module-card" type="button">
+							
+	                        <div class="sap-harmony-module-icon">
+		                        🖼
+	                        </div>
+
+	                        <div class="sap-harmony-module-content">
+
+		                        <strong>Image</strong>
+
+		                        <span>Responsive Image</span>
+
+	                    </div>
+
+                       </button>
+
+					</aside>
+
+					<!-- ==========================================
+					     Canvas
+					========================================== -->
+
+					<div class="sap-harmony-workspace">
+
+						<?php echo wp_kses_post( $designer->render() ); ?>
+
+					</div>
+
+					<!-- ==========================================
+					     Inspector
+					========================================== -->
+
+					<aside class="sap-card sap-harmony-inspector">
+
+						<h3>Harmony Inspector</h3>
+
+						<p>
+							<strong>Module:</strong>
+							<span id="sap-inspector-name">None</span>
+						</p>
+
+						<p>
+							<strong>Type:</strong>
+							<span id="sap-inspector-type">None</span>
+						</p>
+
+						<p>
+							<strong>ID:</strong>
+							<span id="sap-inspector-id">None</span>
+						</p>
+
+					</aside>
 
 				</div>
-
-				<div class="sap-card sap-harmony-inspector">
-
-	                <h3>Harmony Inspector</h3>
-
-	                <p><strong>Module:</strong>
-		                <span id="sap-inspector-name">None</span>
-	                </p>
-
-	                <p><strong>Type:</strong>
-		                <span id="sap-inspector-type">None</span>
-	                </p>
-
-	                <p><strong>ID:</strong>
-		                <span id="sap-inspector-id">None</span>
-	                </p>
-
-                </div>
 
 				<hr>
 

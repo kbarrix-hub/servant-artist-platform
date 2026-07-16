@@ -12,6 +12,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	console.log('Harmony Loaded');
 
+/*
+ * ============================================================
+ * Harmony Module Menu
+ * ============================================================
+ */
+
+const addButton = document.querySelector('.sap-add-module');
+const moduleMenu = document.querySelector('.sap-module-menu');
+
+if (addButton && moduleMenu) {
+
+	addButton.addEventListener('click', function (event) {
+
+		event.stopPropagation();
+
+		moduleMenu.style.display =
+			moduleMenu.style.display === 'block'
+				? 'none'
+				: 'block';
+
+	});
+
+	document.addEventListener('click', function () {
+
+		moduleMenu.style.display = 'none';
+
+	});
+
+}	
+
 	document.addEventListener('click', function (event) {
 
 	    const module = event.target.closest('.sap-harmony-module');
