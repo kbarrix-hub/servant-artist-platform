@@ -14,34 +14,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	document.addEventListener('click', function (event) {
 
-		const module = event.target.closest('.sap-harmony-module');
+	    const module = event.target.closest('.sap-harmony-module');
 
-		if (!module) {
-			return;
-		}
+	    if (!module) {
+		    return;
+	    }
 
-		/*
-		 * Remove current Harmony selection.
-		 */
-		document
-			.querySelectorAll('.sap-harmony-module.is-selected')
-			.forEach(function (item) {
-				item.classList.remove('is-selected');
-			});
+	    document
+		    .querySelectorAll('.sap-harmony-module.is-selected')
+		    .forEach(function (item) {
+			    item.classList.remove('is-selected');
+		});
 
-		/*
-		 * Select the clicked module.
-		 */
-		module.classList.add('is-selected');
+	    module.classList.add('is-selected');
 
-		console.clear();
+	    /*
+	     * Update the Harmony Inspector.
+	     */
+	    document.getElementById('sap-inspector-name').textContent =
+		    module.dataset.moduleName;
 
-		console.log('Harmony Module Selected');
+	    document.getElementById('sap-inspector-type').textContent =
+		    module.dataset.moduleType;
 
-		console.log('ID:', module.dataset.moduleId);
-		console.log('Name:', module.dataset.moduleName);
-		console.log('Type:', module.dataset.moduleType);
+	    document.getElementById('sap-inspector-id').textContent =
+		    module.dataset.moduleId;
 
-	});
+	    console.clear();
+
+	    console.log('Harmony Module Selected');
+
+	    console.log('ID:', module.dataset.moduleId);
+	    console.log('Name:', module.dataset.moduleName);
+	    console.log('Type:', module.dataset.moduleType);
+
+    });
 
 });
