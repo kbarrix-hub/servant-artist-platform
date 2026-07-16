@@ -20,6 +20,20 @@ document.addEventListener('DOMContentLoaded', function () {
 			return;
 		}
 
+		/*
+		 * Remove current Harmony selection.
+		 */
+		document
+			.querySelectorAll('.sap-harmony-module.is-selected')
+			.forEach(function (item) {
+				item.classList.remove('is-selected');
+			});
+
+		/*
+		 * Select the clicked module.
+		 */
+		module.classList.add('is-selected');
+
 		console.clear();
 
 		console.log('Harmony Module Selected');
