@@ -162,6 +162,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	};
 
+	const CommandExecutors = {
+
+	add_module(request) {
+
+		Harmony.addModule(
+			request.payload.type
+		);
+
+	},
+
+	select_module(request) {
+
+		Harmony.selectModule(
+			request.payload.id
+		);
+
+	}
+
+};
+
+    const Transport = {
+
+	send(request) {
+
+		const executor =
+			CommandExecutors[request.command];
+
+		if (!executor) {
+
+			console.warn(
+				'Unknown Harmony command:',
+				request.command
+			);
+
+			return;
+
+		}
+
+		executor(request);
+
+	}
+
+
+};
 	/**
 	 * ============================================================
 	 * Harmony API
@@ -174,20 +218,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	const HarmonyAPI = {
 
-	    addModule(type) {
+    /**
+     * Send a command to the Harmony Engine.
+     *
+     * Today this routes commands to the JavaScript prototype.
+     * Later this method will send AJAX requests to the
+     * PHP Harmony Command Handler.
+     *
+     * @param {string} command
+     * @param {Object} payload
+     */
+    sendCommand(command, payload = {}) {
 
-		    Harmony.addModule(type);
-
-	    },
-
-	    selectModule(id) {
-
-		    Harmony.selectModule(id);
-
-	    }
-
-
+	const request = {
+		command: command,
+		payload: payload
 	};
+
+	Transport.send(request);
+
+},
+
+    addModule(type) {
+
+        this.sendCommand(
+            'add_module',
+            {
+                type: type
+            }
+        );
+
+    },
+
+    selectModule(id) {
+
+        this.sendCommand(
+            'select_module',
+            {
+                id: id
+            }
+        );
+
+    }
+
+};
 
 	const addButton = document.querySelector('.sap-add-module');
 	const moduleMenu = document.querySelector('.sap-module-menu');
