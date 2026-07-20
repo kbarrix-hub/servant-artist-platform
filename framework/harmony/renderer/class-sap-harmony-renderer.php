@@ -104,7 +104,8 @@ final class SAP_Harmony_Renderer {
 			class="<?php echo esc_attr( $classes ); ?>"
 			data-module-id="<?php echo esc_attr( $module['id'] ); ?>"
 			data-module-name="<?php echo esc_attr( $module['name'] ); ?>"
-			data-module-type="<?php echo esc_attr( $module['type'] ); ?>">
+			data-module-type="<?php echo esc_attr( $module['type'] ); ?>"
+			draggable="true">
 
 			<h2><?php echo esc_html( $module['title'] ); ?></h2>
 

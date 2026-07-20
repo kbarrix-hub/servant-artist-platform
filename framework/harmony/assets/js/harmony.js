@@ -28,6 +28,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			this.collection.push(module);
 
+			this.selected = module.id;
+
+			this.renderCanvas();
+
+		},
+
+		selectModule(id) {
+
+			this.selected = id;
+
 			this.renderCanvas();
 
 		},
@@ -37,6 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			const element = document.createElement('div');
 
 			element.className = 'sap-harmony-module';
+
+			if (module.id === this.selected) {
+				element.classList.add('is-selected');
+			}
 
 			element.dataset.moduleId = module.id;
 			element.dataset.moduleName = module.name;
@@ -53,13 +67,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		renderCanvas() {
 
-			const canvas = document.querySelector('.sap-harmony-canvas');
+			const canvas = document.querySelector(
+				'.sap-harmony-live-canvas'
+			);
 
 			if (!canvas) {
 				return;
 			}
 
+			// Preserve the editor overlay.
+			const overlay = canvas.querySelector(
+				'.sap-harmony-overlay'
+			);
+
 			canvas.innerHTML = '';
+
+			if (overlay) {
+				canvas.appendChild(overlay);
+			}
 
 			this.collection.forEach((module) => {
 
@@ -68,6 +93,19 @@ document.addEventListener('DOMContentLoaded', function () {
 				);
 
 			});
+
+			const selected = this.collection.find(
+				module => module.id === this.selected
+			);
+
+			document.getElementById('sap-inspector-name').textContent =
+				selected ? selected.name : 'None';
+
+			document.getElementById('sap-inspector-type').textContent =
+				selected ? selected.type : 'None';
+
+			document.getElementById('sap-inspector-id').textContent =
+				selected ? selected.id : 'None';
 
 		}
 
@@ -99,43 +137,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	document.addEventListener('click', function (event) {
 
-		const module = event.target.closest('.sap-harmony-module');
+		const module = event.target.closest(
+			'.sap-harmony-module'
+		);
 
 		if (module) {
 
-			document
-				.querySelectorAll('.sap-harmony-module.is-selected')
-				.forEach(function (item) {
-					item.classList.remove('is-selected');
-				});
-
-			module.classList.add('is-selected');
-
-			const name = document.getElementById('sap-inspector-name');
-			const type = document.getElementById('sap-inspector-type');
-			const id = document.getElementById('sap-inspector-id');
-
-			if (name) {
-				name.textContent = module.dataset.moduleName;
-			}
-
-			if (type) {
-				type.textContent = module.dataset.moduleType;
-			}
-
-			if (id) {
-				id.textContent = module.dataset.moduleId;
-			}
+			Harmony.selectModule(
+				module.dataset.moduleId
+			);
 
 			return;
 
 		}
 
-		const card = event.target.closest('.sap-harmony-module-card');
+		const card = event.target.closest(
+			'.sap-harmony-module-card'
+		);
 
 		if (card) {
 
-			Harmony.addModule(card.dataset.module);
+			Harmony.addModule(
+				card.dataset.module
+			);
 
 		}
 
