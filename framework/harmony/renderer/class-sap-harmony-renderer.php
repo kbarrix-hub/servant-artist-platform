@@ -59,8 +59,7 @@ final class SAP_Harmony_Renderer {
 	public function render(): string {
 
 		$selection = $this->state->selected();
-
-		$modules = $this->collection->get_modules();
+		$modules   = $this->collection->get_modules();
 
 		ob_start();
 

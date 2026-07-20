@@ -62,7 +62,11 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 						<h3>Modules</h3>
 
-						<button class="sap-harmony-module-card" type="button">
+						<button
+	                        class="sap-harmony-module-card"
+	                        type="button"
+	                        data-module="hero"
+                        >
 
 	                        <div class="sap-harmony-module-icon">
 		                        🟣
@@ -78,11 +82,15 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
                        </button>
 
-                        <button class="sap-harmony-module-card" type="button">
+                        <button
+	                         class="sap-harmony-module-card"
+	                         type="button"
+	                         data-module="text"
+                       >
 
-	                        <div class="sap-harmony-module-icon">
-		                        📄
-	                        </div>
+	                    <div class="sap-harmony-module-icon">
+		                    📄
+	                    </div>
 
 	                    <div class="sap-harmony-module-content">
 
@@ -92,23 +100,27 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 	                    </div>
 
-                       </button>
+                    </button>
 
-                        <button class="sap-harmony-module-card" type="button">
-							
-	                        <div class="sap-harmony-module-icon">
-		                        🖼
-	                        </div>
+                        <button
+	                        class="sap-harmony-module-card"
+	                        type="button"
+	                        data-module="image"
+                        >
 
-	                        <div class="sap-harmony-module-content">
+	                    <div class="sap-harmony-module-icon">
+		                   🖼
+	                    </div>
 
-		                        <strong>Image</strong>
+	                    <div class="sap-harmony-module-content">
 
-		                        <span>Responsive Image</span>
+		                    <strong>Image</strong>
+
+		                    <span>Responsive Image</span>
 
 	                    </div>
 
-                       </button>
+                    </button>
 
 					</aside>
 

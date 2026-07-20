@@ -528,6 +528,7 @@ final class SAP_Loader {
 		 */
 
 	}
+	
 
 	/**
 	 * Start the Servant Artist Platform.
