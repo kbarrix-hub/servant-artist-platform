@@ -298,6 +298,8 @@ final class SAP_Loader {
 
     require_once dirname( __DIR__ ) . '/harmony/designer/class-sap-harmony-designer.php';
 
+	require_once dirname( __DIR__ ) . '/harmony/designer/class-sap-harmony-command-handler.php';
+
 	/*
      * UI Layouts.
      */

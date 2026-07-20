@@ -180,17 +180,20 @@ final class SAP_Harmony_Designer {
 
 		</div>
 
-		<div class="sap-harmony-canvas">
+		<div class="sap-harmony-live-canvas">
 
-			<div class="sap-harmony-live-canvas">
+            <div class="sap-harmony-overlay">
 
-				<div class="sap-harmony-overlay"></div>
+                <div
+                    class="sap-harmony-drop-indicator"
+                    id="sap-harmony-drop-indicator">
+                </div>
 
-				<?php echo $this->renderer->render(); ?>
+            </div>
 
-			</div>
+            <?php echo $this->renderer->render(); ?>
 
-		</div>
+        </div>
 
 		<?php
 

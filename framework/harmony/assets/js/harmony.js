@@ -18,19 +18,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		selected: null,
 
+		dropIndicator: null,
+
 		addModule(type) {
 
-			const module = {
-				id: 'module_' + Date.now(),
-				type: type,
-				name: type.charAt(0).toUpperCase() + type.slice(1)
-			};
+            const module = {
+                id: 'module_' + Date.now(),
+                type: type,
+                name: type.charAt(0).toUpperCase() + type.slice(1)
+            };
 
 			this.collection.push(module);
 
-			this.selected = module.id;
+	        this.selected = module.id;
 
-			this.renderCanvas();
+	        this.renderCanvas();
+
 
 		},
 
@@ -65,6 +68,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		},
 
+		showDropIndicator(y) {
+
+			if (!this.dropIndicator) {
+
+				this.dropIndicator = document.getElementById(
+					'sap-harmony-drop-indicator'
+				);
+
+			}
+
+			if (!this.dropIndicator) {
+				return;
+			}
+
+			this.dropIndicator.style.display = 'block';
+			this.dropIndicator.style.top = y + 'px';
+
+		},
+
+		hideDropIndicator() {
+
+			if (!this.dropIndicator) {
+				return;
+			}
+
+			this.dropIndicator.style.display = 'none';
+
+		},
+
 		renderCanvas() {
 
 			const canvas = document.querySelector(
@@ -88,9 +120,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			this.collection.forEach((module) => {
 
-				canvas.appendChild(
-					this.createModule(module)
-				);
+                canvas.appendChild(
+                    this.createModule(module)
+                );
 
 			});
 
@@ -98,16 +130,62 @@ document.addEventListener('DOMContentLoaded', function () {
 				module => module.id === this.selected
 			);
 
-			document.getElementById('sap-inspector-name').textContent =
-				selected ? selected.name : 'None';
+			const inspectorName = document.getElementById(
+				'sap-inspector-name'
+			);
 
-			document.getElementById('sap-inspector-type').textContent =
-				selected ? selected.type : 'None';
+			const inspectorType = document.getElementById(
+				'sap-inspector-type'
+			);
 
-			document.getElementById('sap-inspector-id').textContent =
-				selected ? selected.id : 'None';
+			const inspectorId = document.getElementById(
+				'sap-inspector-id'
+			);
+
+			if (inspectorName) {
+				inspectorName.textContent =
+					selected ? selected.name : 'None';
+			}
+
+			if (inspectorType) {
+				inspectorType.textContent =
+					selected ? selected.type : 'None';
+			}
+
+			if (inspectorId) {
+				inspectorId.textContent =
+					selected ? selected.id : 'None';
+			}
+
 
 		}
+
+	};
+
+	/**
+	 * ============================================================
+	 * Harmony API
+	 * ============================================================
+	 *
+	 * The UI communicates with Harmony through this API.
+	 * Today it delegates to the prototype engine.
+	 * Later these methods will call the PHP Command Handler.
+	 */
+
+	const HarmonyAPI = {
+
+	    addModule(type) {
+
+		    Harmony.addModule(type);
+
+	    },
+
+	    selectModule(id) {
+
+		    Harmony.selectModule(id);
+
+	    }
+
 
 	};
 
@@ -143,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		if (module) {
 
-			Harmony.selectModule(
+			HarmonyAPI.selectModule(
 				module.dataset.moduleId
 			);
 
@@ -157,9 +235,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		if (card) {
 
-			Harmony.addModule(
-				card.dataset.module
-			);
+	        HarmonyAPI.addModule(
+		        card.dataset.module
+	        );
 
 		}
 

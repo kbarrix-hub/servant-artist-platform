@@ -139,6 +139,13 @@ final class SAP_Core_Services {
     private SAP_Harmony_Designer $harmony_designer;
 
 	/**
+     * Harmony Command Handler.
+     *
+     * @var SAP_Harmony_Command_Handler
+     */
+    private SAP_Harmony_Command_Handler $harmony_command_handler;
+
+	/**
 	 * Framework Page Manager.
 	 *
 	 * @var SAP_Page_Manager
@@ -208,6 +215,11 @@ final class SAP_Core_Services {
 	        $this->harmony_renderer,
 	        $this->harmony_collection,
 			$this->selection_manager
+        );
+
+		$this->harmony_command_handler =
+            new SAP_Harmony_Command_Handler(
+                $this->harmony_designer
         );
 		
         $this->pages = new SAP_Page_Manager();
@@ -301,6 +313,17 @@ final class SAP_Core_Services {
 		return $this->harmony_designer;
 
 	}
+
+	/**
+     * Return the Harmony Command Handler.
+     *
+     * @return SAP_Harmony_Command_Handler
+     */
+    public function harmony_command_handler(): SAP_Harmony_Command_Handler {
+
+        return $this->harmony_command_handler;
+
+    }
 
 	/**
 	 * Return the Registry.
