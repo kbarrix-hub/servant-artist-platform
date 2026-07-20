@@ -56,9 +56,22 @@ final class SAP_Harmony_Ajax_Controller {
 			'nonce'
 		);
 
+		$command = sanitize_text_field(
+			$_POST['command'] ?? ''
+		);
+
+		$payload = $_POST['payload'] ?? [];
+
+		$result = $this->handler->handle(
+			$command,
+			is_array( $payload )
+				? $payload
+				: []
+		);
+
 		wp_send_json_success(
 			[
-				'message' => 'Harmony AJAX connected.'
+				'result' => $result,
 			]
 		);
 
