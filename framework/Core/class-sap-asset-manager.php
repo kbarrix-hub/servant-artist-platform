@@ -257,6 +257,15 @@ public function enqueue_assets(): void {
 		    $script['in_footer']
 	    );
 
+		wp_localize_script(
+	        $script['handle'],
+	        'SAPHarmony',
+	        [
+		        'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+		        'nonce'   => wp_create_nonce( 'sap_harmony_nonce' ),
+	        ]
+        );
+
     }
 
     /**
