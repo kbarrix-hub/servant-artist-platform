@@ -221,6 +221,10 @@ final class SAP_Core_Services {
             new SAP_Harmony_Command_Handler(
                 $this->harmony_designer
         );
+
+		new SAP_Harmony_Ajax_Controller(
+                $this->harmony_command_handler
+        );
 		
         $this->pages = new SAP_Page_Manager();
 
