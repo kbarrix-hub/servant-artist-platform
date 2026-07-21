@@ -53,14 +53,15 @@ final class SAP_Harmony_Command_Handler {
 
 		switch ( strtoupper( $command ) ) {
 
-			case 'ADD_MODULE':
+			case 'PING':
+				return 'pong';
 
+			case 'ADD_MODULE':
 				return $this->designer->add_module(
 					(string) ( $payload['type'] ?? 'text' )
 				);
 
 			case 'SELECT_MODULE':
-
 				$this->designer->select_module(
 					(string) ( $payload['id'] ?? '' ),
 					(string) ( $payload['name'] ?? '' ),
@@ -70,13 +71,13 @@ final class SAP_Harmony_Command_Handler {
 				return true;
 
 			default:
-
-				throw new InvalidArgumentException(
-					sprintf(
+				return [
+					'success' => false,
+					'message' => sprintf(
 						'Unknown Harmony command: %s',
 						$command
-					)
-				);
+					),
+				];
 
 		}
 

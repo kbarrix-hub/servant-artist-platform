@@ -60,13 +60,18 @@ final class SAP_Harmony_Ajax_Controller {
 			$_POST['command'] ?? ''
 		);
 
-		$payload = $_POST['payload'] ?? [];
+		$payload = [];
+
+		if ( isset( $_POST['payload'] ) ) {
+			$payload = json_decode(
+				wp_unslash( $_POST['payload'] ),
+				true
+			) ?: [];
+		}
 
 		$result = $this->handler->handle(
 			$command,
-			is_array( $payload )
-				? $payload
-				: []
+			$payload
 		);
 
 		wp_send_json_success(

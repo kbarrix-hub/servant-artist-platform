@@ -186,23 +186,51 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	send(request) {
 
-		const executor =
-			CommandExecutors[request.command];
+    return fetch(SAPHarmony.ajaxUrl, {
 
-		if (!executor) {
+        method: 'POST',
 
-			console.warn(
-				'Unknown Harmony command:',
-				request.command
-			);
+        headers: {
+            'Content-Type':
+                'application/x-www-form-urlencoded'
+        },
 
-			return;
+        body: new URLSearchParams({
 
-		}
+            action: 'sap_harmony_command',
 
-		executor(request);
+            nonce: SAPHarmony.nonce,
 
-	}
+            command: request.command.toUpperCase(),
+
+            payload: JSON.stringify(
+                request.payload
+            )
+
+        })
+
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        console.log(
+            'Harmony Response:',
+            data
+        );
+
+		return data;
+
+    })
+    .catch(error => {
+
+        console.error(
+            'Harmony Error:',
+            error
+        );
+
+    });
+
+}
 
 
 };
@@ -235,20 +263,45 @@ document.addEventListener('DOMContentLoaded', function () {
 		payload: payload
 	};
 
-	Transport.send(request);
+	return Transport.send(request);
 
 },
 
     addModule(type) {
 
-        this.sendCommand(
-            'add_module',
-            {
-                type: type
-            }
+    this.sendCommand(
+        'add_module',
+        {
+            type: type
+        }
+    ).then((response) => {
+
+        if (
+            response.success &&
+            response.data &&
+            response.data.result
+        ) {
+
+            const module = response.data.result;
+
+            Harmony.collection.push(module);
+
+            Harmony.selected = module.id;
+
+            Harmony.renderCanvas();
+
+        }
+
+    }).catch((error) => {
+
+        console.error(
+            'ADD_MODULE failed:',
+            error
         );
 
-    },
+    });
+
+},
 
     selectModule(id) {
 
@@ -314,7 +367,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	        );
 
 		}
-
+        
 	});
+
+	window.HarmonyAPI = HarmonyAPI;
+        window.Harmony = Harmony;
 
 });
