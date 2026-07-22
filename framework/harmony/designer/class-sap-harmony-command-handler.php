@@ -57,20 +57,33 @@ final class SAP_Harmony_Command_Handler {
 				return 'pong';
 
 			case 'ADD_MODULE':
-				return $this->designer->add_module(
+
+				$this->designer->add_module(
 					(string) ( $payload['type'] ?? 'text' )
 				);
 
+				return [
+					'success'  => true,
+					'selected' => $this->designer->selected(),
+					'canvas'   => $this->designer->render_canvas(),
+				];
+
 			case 'SELECT_MODULE':
+
 				$this->designer->select_module(
 					(string) ( $payload['id'] ?? '' ),
 					(string) ( $payload['name'] ?? '' ),
 					(string) ( $payload['type'] ?? '' )
 				);
 
-				return true;
+				return [
+					'success'  => true,
+					'selected' => $this->designer->selected(),
+					'canvas'   => $this->designer->render_canvas(),
+				];
 
 			default:
+
 				return [
 					'success' => false,
 					'message' => sprintf(

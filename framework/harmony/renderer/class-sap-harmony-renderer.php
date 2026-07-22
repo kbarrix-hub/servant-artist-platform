@@ -29,27 +29,42 @@ final class SAP_Harmony_Renderer {
 	private SAP_Harmony_State $state;
 
 	/**
-	 * Harmony collection.
-	 *
-	 * @var SAP_Harmony_Collection
-	 */
-	private SAP_Harmony_Collection $collection;
+     * Harmony document.
+     *
+     * @var SAP_Harmony_Document
+     */
+    private SAP_Harmony_Document $document;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param SAP_Harmony_State      $state      Harmony state.
-	 * @param SAP_Harmony_Collection $collection Harmony collection.
+	 * @param SAP_Harmony_Document $document Harmony document.
 	 */
 	public function __construct(
-		SAP_Harmony_State $state,
-		SAP_Harmony_Collection $collection
-	) {
+	    SAP_Harmony_State $state,
+	    SAP_Harmony_Document $document
+    ) {
 
-		$this->state      = $state;
-		$this->collection = $collection;
+	    $this->state    = $state;
+	    $this->document = $document;
 
-	}
+    }
+ 
+	/**
+     * Replace the current Harmony document.
+     *
+     * @param SAP_Harmony_Document $document Harmony document.
+     *
+     * @return void
+     */
+    public function set_document(
+	    SAP_Harmony_Document $document
+    ): void {
+
+	    $this->document = $document;
+
+    }
 
 	/**
 	 * Render the Harmony canvas.
@@ -59,7 +74,10 @@ final class SAP_Harmony_Renderer {
 	public function render(): string {
 
 		$selection = $this->state->selected();
-		$modules   = $this->collection->get_modules();
+
+        $modules = $this->document
+	        ->collection()
+	        ->get_modules();
 
 		ob_start();
 

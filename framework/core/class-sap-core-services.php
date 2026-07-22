@@ -117,6 +117,20 @@ final class SAP_Core_Services {
      */
     private SAP_Harmony_Collection $harmony_collection;
 
+	/**
+     * Harmony Document.
+     *
+     * @var SAP_Harmony_Document
+     */
+    private SAP_Harmony_Document $harmony_document;
+
+	/**
+     * Harmony Document Store.
+     *
+     * @var SAP_Harmony_Document_Store
+     */
+    private SAP_Harmony_Document_Store $harmony_document_store;
+
     /**
      * Harmony Renderer.
      *
@@ -201,10 +215,16 @@ final class SAP_Core_Services {
 
         $this->harmony_state = new SAP_Harmony_State();
 		$this->harmony_collection = new SAP_Harmony_Collection();
+		$this->harmony_document = new SAP_Harmony_Document(
+	        $this->harmony_collection
+        );
+		$this->harmony_document_store =
+            new SAP_Harmony_Document_Store();
+    
 
         $this->harmony_renderer = new SAP_Harmony_Renderer(
 	        $this->harmony_state,
-	        $this->harmony_collection
+	        $this->harmony_document
         );
 
         $this->selection_manager = new SAP_Selection_Manager(
@@ -213,8 +233,8 @@ final class SAP_Core_Services {
 
         $this->harmony_designer = new SAP_Harmony_Designer(
 	        $this->harmony_renderer,
-	        $this->harmony_collection,
-			$this->selection_manager
+	        $this->harmony_document_store,
+	        $this->selection_manager
         );
 
 		$this->harmony_command_handler =
@@ -284,6 +304,17 @@ final class SAP_Core_Services {
 	    return $this->harmony_collection;
 
     }
+
+	/**
+     * Return the Harmony Document Store.
+     *
+     * @return SAP_Harmony_Document_Store
+     */
+    public function harmony_document_store(): SAP_Harmony_Document_Store {
+
+	return $this->harmony_document_store;
+
+}
 
 	/**
 	 * Return the Harmony Renderer.

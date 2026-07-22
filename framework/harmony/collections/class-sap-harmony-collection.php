@@ -28,28 +28,10 @@ final class SAP_Harmony_Collection {
 	 */
 	public function __construct() {
 
-		$this->modules = [
-
-			[
-				'id'      => 'hero_001',
-				'name'    => 'Hero',
-				'type'    => 'section',
-				'title'   => 'Hero Module',
-				'content' => 'This is the first Harmony module.',
-			],
-
-			[
-				'id'      => 'bio_001',
-				'name'    => 'Biography',
-				'type'    => 'section',
-				'title'   => 'Biography Module',
-				'content' => 'This module represents the artist biography.',
-			],
-
-		];
+    $this->modules = [];
 
 	}
-
+	
 	/**
 	 * Return all Harmony modules.
 	 *

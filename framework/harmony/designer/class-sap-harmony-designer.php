@@ -23,9 +23,10 @@ final class SAP_Harmony_Designer {
 
 	private SAP_Harmony_Renderer $renderer;
 
-	private SAP_Harmony_Collection $collection;
-
+	private SAP_Harmony_Document_Store $document_store;
+	
 	private SAP_Selection_Manager $selection;
+
 	/**
 	 * Current drag operation.
 	 *
@@ -39,22 +40,29 @@ final class SAP_Harmony_Designer {
 	];
 
 	public function __construct(
-		SAP_Harmony_Renderer $renderer,
-		SAP_Harmony_Collection $collection,
-		SAP_Selection_Manager $selection
-	) {
+	SAP_Harmony_Renderer $renderer,
+	SAP_Harmony_Document_Store $document_store,
+	SAP_Selection_Manager $selection
 
-		$this->renderer   = $renderer;
-		$this->collection = $collection;
-		$this->selection  = $selection;
+    ) {
 
-	}
+	$this->renderer       = $renderer;
+	$this->document_store = $document_store;
+	$this->selection      = $selection;
+
+    }
 
 	public function add_module( string $type ): array {
 
 		$module = SAP_Harmony_Module_Factory::create( $type );
 
-		$this->collection->add_module( $module );
+	    $document = $this->document_store->load();
+
+        $document
+            ->collection()
+            ->add_module( $module );
+
+        $this->document_store->save( $document );
 
 		$this->selection->select(
 			$module['id'],
@@ -70,13 +78,15 @@ final class SAP_Harmony_Designer {
 		string $id,
 		string $module,
 		string $type
-	): void {
+	): array {
 
 		$this->selection->select(
 			$id,
 			$module,
 			$type
 		);
+
+		return $this->selection->selected();
 
 	}
 
@@ -97,7 +107,6 @@ final class SAP_Harmony_Designer {
 		return $this->selection->has_selection();
 
 	}
-
 
 	public function begin_drag( string $module_id ): void {
 
@@ -135,9 +144,24 @@ final class SAP_Harmony_Designer {
 
 	}
 
+	/**
+	 * Render only the live Harmony canvas.
+	 *
+	 * @return string
+	 */
+    public function render_canvas(): string {
+
+	    $this->renderer->set_document(
+		    $this->document_store->load()
+	    );
+
+	    return $this->renderer->render();
+
+    }
+
 	public function render(): string {
 
-		ob_start();
+    	ob_start();
 		?>
 
 		<div class="sap-harmony-toolbar">
@@ -182,22 +206,23 @@ final class SAP_Harmony_Designer {
 
 		<div class="sap-harmony-live-canvas">
 
-            <div class="sap-harmony-overlay">
+			<div class="sap-harmony-overlay">
 
-                <div
-                    class="sap-harmony-drop-indicator"
-                    id="sap-harmony-drop-indicator">
-                </div>
+				<div
+					class="sap-harmony-drop-indicator"
+					id="sap-harmony-drop-indicator">
+				</div>
 
-            </div>
+			</div>
 
-            <?php echo $this->renderer->render(); ?>
+			<?php echo $this->render_canvas(); ?>
 
-        </div>
+		</div>
 
 		<?php
 
 		return (string) ob_get_clean();
+		
 
 	}
 

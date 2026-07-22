@@ -28,16 +28,6 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 		$designer = $services->harmony_designer();
 
-		/*
-		 * Temporary selection until JavaScript
-		 * click-to-select is implemented.
-		 */
-		$designer->select_module(
-			'hero_001',
-			'Hero',
-			'section'
-		);
-
 		?>
 
 		<section class="sap-section sap-harmony-designer">
