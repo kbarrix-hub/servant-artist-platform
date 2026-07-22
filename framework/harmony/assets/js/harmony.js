@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     	const Harmony = {
 
-		replaceCanvas(html) {
+            selectedModuleId: null,
+
+            replaceCanvas(html) {
 
 	const currentCanvas = document.querySelector(
 		'.sap-harmony-live-canvas'
@@ -192,14 +194,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     selectModule(id, name, type) {
 
-	this.sendCommand(
-		'select_module',
-		{
-			id: id,
-			name: name,
-			type: type
-		}
-	)
+	Harmony.selectedModuleId = id;
+
+	    this.sendCommand(
+		    'select_module',
+		    {
+			    id: id,
+			    name: name,
+			    type: type
+		    }
+	    )
+		
 	.then((response) => {
 
 		if (
@@ -210,12 +215,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		) {
 
 			Harmony.replaceCanvas(
-				response.data.result.canvas
-			);
+                response.data.result.canvas
+            );
 
-			Harmony.updateInspector(
-				response.data.result.selected
-			);
+            Harmony.updateInspector(
+                response.data.result.selected
+            );
 
 		}
 
@@ -271,13 +276,65 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			});
 
+	    },
+
+
+	deleteModule() {
+
+		if (
+			!confirm(
+				'Delete the selected module?'
+			)
+		) {
+			return;
+		}
+
+		this.sendCommand(
+            'delete_module',
+            {
+                id: Harmony.selectedModuleId
+            }
+        )
+			.then((response) => {
+
+				if (
+					response.success &&
+					response.data &&
+					response.data.result &&
+					response.data.result.success
+				) {
+
+				Harmony.replaceCanvas(
+                    response.data.result.canvas
+                );
+
+                Harmony.selectedModuleId = null;
+
+                Harmony.updateInspector(
+                    response.data.result.selected
+                );
+
+				}
+
+			})
+			.catch((error) => {
+
+				console.error(
+					'DELETE_MODULE failed:',
+					error
+				);
+
+			});
+
 	}
 
 };
 
+
 	const addButton = document.querySelector('.sap-add-module');
 	const moduleMenu = document.querySelector('.sap-module-menu');
 	const newButton = document.querySelector('.sap-new-document');
+	const deleteButton = document.querySelector('.sap-delete-module');
 
 	if (addButton && moduleMenu) {
 
@@ -312,6 +369,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	);
 
 }
+
+    if (deleteButton) {
+
+	deleteButton.addEventListener(
+		'click',
+		function () {
+
+			HarmonyAPI.deleteModule();
+
+		}
+	);
+
+}
+    
     document.addEventListener('click', function (event) {
 
 		const module = event.target.closest(

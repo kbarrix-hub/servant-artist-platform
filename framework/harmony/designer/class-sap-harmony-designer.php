@@ -167,6 +167,33 @@ final class SAP_Harmony_Designer {
 
 	}
 
+    /**
+     * Delete a Harmony module by ID.
+     *
+     * @param string $id Module ID.
+     *
+     * @return void
+     */
+	public function delete_module( string $id ): void {
+
+    $document = $this->document_store->load();
+
+    $document
+        ->collection()
+        ->remove_module( $id );
+
+    $this->document_store->save(
+        $document
+    );
+
+    $this->selection->clear();
+
+    $this->renderer->set_document(
+        $document
+		);
+
+	}
+	
 	/**
 	 * Render only the live Harmony canvas.
 	 *
@@ -202,6 +229,14 @@ final class SAP_Harmony_Designer {
 	            class="button sap-new-document">
 
 	            + New Website
+
+            </button>
+
+			<button
+	            type="button"
+	            class="button sap-delete-module">
+
+	            Delete Module
 
             </button>
 

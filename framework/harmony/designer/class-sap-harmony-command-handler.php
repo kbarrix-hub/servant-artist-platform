@@ -47,11 +47,11 @@ final class SAP_Harmony_Command_Handler {
 	 * @return mixed
 	 */
 	public function handle(
-		string $command,
-		array $payload = []
-	) {
+        string $command,
+        array $payload = []
+    ) {
 
-		switch ( strtoupper( $command ) ) {
+        switch ( strtoupper( $command ) ) {
 
 			case 'PING':
 				return 'pong';
@@ -77,6 +77,18 @@ final class SAP_Harmony_Command_Handler {
 					'selected' => $this->designer->selected(),
 					'canvas'   => $this->designer->render_canvas(),
 				];
+
+			case 'DELETE_MODULE':
+
+                $this->designer->delete_module(
+                    (string) ( $payload['id'] ?? '' )
+                );
+
+                return [
+                    'success'  => true,
+                    'selected' => $this->designer->selected(),
+                    'canvas'   => $this->designer->render_canvas(),
+                ];
 
 			case 'SELECT_MODULE':
 
