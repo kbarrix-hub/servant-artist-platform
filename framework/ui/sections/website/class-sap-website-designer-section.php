@@ -132,20 +132,11 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 						<h3>Harmony Inspector</h3>
 
-						<p>
-							<strong>Module:</strong>
-							<span id="sap-inspector-name">None</span>
-						</p>
+						<div id="sap-harmony-inspector-content">
 
-						<p>
-							<strong>Type:</strong>
-							<span id="sap-inspector-type">None</span>
-						</p>
+                              <p>Select a module to edit its properties.</p>
 
-						<p>
-							<strong>ID:</strong>
-							<span id="sap-inspector-id">None</span>
-						</p>
+                        </div>
 
 					</aside>
 

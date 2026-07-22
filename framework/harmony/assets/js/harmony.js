@@ -49,22 +49,66 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		updateInspector(selection) {
 
-			document.getElementById(
-				'sap-inspector-name'
-			).textContent =
-				selection?.name ?? 'None';
+    const inspector = document.getElementById(
+        'sap-harmony-inspector-content'
+    );
 
-			document.getElementById(
-				'sap-inspector-type'
-			).textContent =
-				selection?.type ?? 'None';
+    if (!inspector) {
+        return;
+    }
 
-			document.getElementById(
-				'sap-inspector-id'
-			).textContent =
-				selection?.id ?? 'None';
+    if (
+        !selection ||
+        !selection.id
+    ) {
 
-		}
+        inspector.innerHTML = `
+            <p>Select a module to edit its properties.</p>
+        `;
+
+        return;
+
+    }
+
+    inspector.innerHTML = `
+        <div class="sap-inspector-group">
+
+            <label>Module</label>
+
+            <input
+                type="text"
+                value="${selection.module ?? ''}"
+                readonly
+            >
+
+        </div>
+
+        <div class="sap-inspector-group">
+
+            <label>Type</label>
+
+            <input
+                type="text"
+                value="${selection.type ?? ''}"
+                readonly
+            >
+
+        </div>
+
+        <div class="sap-inspector-group">
+
+            <label>ID</label>
+
+            <input
+                type="text"
+                value="${selection.id ?? ''}"
+                readonly
+            >
+
+        </div>
+    `;
+
+},
 
 	};
 
@@ -260,8 +304,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						response.data.result.canvas
 					);
 
-					Harmony.updateInspector(
-						response.data.result.selected
+					Harmony.selectedModuleId = null;
+
+                    Harmony.updateInspector(
+                        response.data.result.selected
 					);
 
 				}
