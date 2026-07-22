@@ -229,35 +229,90 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	});
 
-}
+},
+
+	newDocument() {
+
+		if (
+			!confirm(
+				'Create a new website?\n\nAll current modules will be removed.'
+			)
+		) {
+			return;
+		}
+
+		this.sendCommand('new_document')
+			.then((response) => {
+
+				if (
+					response.success &&
+					response.data &&
+					response.data.result &&
+					response.data.result.success
+				) {
+
+					Harmony.replaceCanvas(
+						response.data.result.canvas
+					);
+
+					Harmony.updateInspector(
+						response.data.result.selected
+					);
+
+				}
+
+			})
+			.catch((error) => {
+
+				console.error(
+					'NEW_DOCUMENT failed:',
+					error
+				);
+
+			});
+
+	}
 
 };
 
 	const addButton = document.querySelector('.sap-add-module');
 	const moduleMenu = document.querySelector('.sap-module-menu');
+	const newButton = document.querySelector('.sap-new-document');
 
 	if (addButton && moduleMenu) {
 
-		addButton.addEventListener('click', function (event) {
+	addButton.addEventListener('click', function (event) {
 
-			event.stopPropagation();
+		event.stopPropagation();
 
-			moduleMenu.style.display =
-				moduleMenu.style.display === 'block'
-					? 'none'
-					: 'block';
+		moduleMenu.style.display =
+			moduleMenu.style.display === 'block'
+				? 'none'
+				: 'block';
 
-		});
+	});
 
-		document.addEventListener('click', function () {
+	document.addEventListener('click', function () {
 
-			moduleMenu.style.display = 'none';
+		moduleMenu.style.display = 'none';
 
-		});
+	});
 
-	}
+}
 
-	document.addEventListener('click', function (event) {
+    if (newButton) {
+
+	newButton.addEventListener(
+		'click',
+		function () {
+
+			HarmonyAPI.newDocument();
+
+		}
+	);
+
+}
+    document.addEventListener('click', function (event) {
 
 		const module = event.target.closest(
 			'.sap-harmony-module'

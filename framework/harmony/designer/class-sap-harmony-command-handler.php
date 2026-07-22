@@ -68,6 +68,16 @@ final class SAP_Harmony_Command_Handler {
 					'canvas'   => $this->designer->render_canvas(),
 				];
 
+			case 'NEW_DOCUMENT':
+
+				$this->designer->new_document();
+
+				return [
+					'success'  => true,
+					'selected' => $this->designer->selected(),
+					'canvas'   => $this->designer->render_canvas(),
+				];
+
 			case 'SELECT_MODULE':
 
 				$this->designer->select_module(

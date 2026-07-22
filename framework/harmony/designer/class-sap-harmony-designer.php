@@ -74,6 +74,29 @@ final class SAP_Harmony_Designer {
 
 	}
 
+		/**
+	 * Create a new empty Harmony document.
+	 *
+	 * @return void
+	 */
+	public function new_document(): void {
+
+		$document = new SAP_Harmony_Document(
+			new SAP_Harmony_Collection()
+		);
+
+		$this->document_store->save(
+			$document
+		);
+
+		$this->selection->clear();
+
+		$this->renderer->set_document(
+			$document
+		);
+
+	}
+
 	public function select_module(
 		string $id,
 		string $module,
@@ -173,6 +196,14 @@ final class SAP_Harmony_Designer {
 				+ Add Module
 
 			</button>
+
+			<button
+	            type="button"
+	            class="button sap-new-document">
+
+	            + New Website
+
+            </button>
 
 			<div class="sap-module-menu">
 
