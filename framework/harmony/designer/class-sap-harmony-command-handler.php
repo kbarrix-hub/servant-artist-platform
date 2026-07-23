@@ -114,6 +114,20 @@ final class SAP_Harmony_Command_Handler {
 					),
 				];
 
+							case 'SAVE_MODULE':
+
+				$this->designer->save_module(
+					(string) ( $payload['id'] ?? '' ),
+					(string) ( $payload['title'] ?? '' ),
+					(string) ( $payload['content'] ?? '' )
+				);
+
+				return [
+					'success'  => true,
+					'selected' => $this->designer->selected(),
+					'canvas'   => $this->designer->render_canvas(),
+				];
+
 		}
 
 	}

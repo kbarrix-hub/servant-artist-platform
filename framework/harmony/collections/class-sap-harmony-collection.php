@@ -116,6 +116,35 @@ final class SAP_Harmony_Collection {
 
 	}
 
+    /**
+	 * Update a Harmony module.
+	 *
+	 * @param string               $id      Module ID.
+	 * @param array<string,string> $changes Updated module values.
+	 *
+	 * @return void
+	 */
+	public function update_module(
+		string $id,
+		array $changes
+	): void {
+
+		foreach ( $this->modules as $index => $module ) {
+
+			if ( $module['id'] !== $id ) {
+				continue;
+			}
+
+			$this->modules[ $index ] = array_merge(
+				$module,
+				$changes
+			);
+
+			return;
+
+		}
+
+	}
 	/**
 	 * Move a module to a new position.
 	 *

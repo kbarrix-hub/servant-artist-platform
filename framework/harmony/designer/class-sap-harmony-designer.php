@@ -74,7 +74,7 @@ final class SAP_Harmony_Designer {
 
 	}
 
-		/**
+	/**
 	 * Create a new empty Harmony document.
 	 *
 	 * @return void
@@ -121,9 +121,25 @@ final class SAP_Harmony_Designer {
 
 	public function selected(): array {
 
-		return $this->selection->selected();
+	$selection = $this->selection->selected();
 
+	if (
+		empty( $selection ) ||
+		empty( $selection['id'] )
+	) {
+		return [];
 	}
+
+	$module = $this->document_store
+		->load()
+		->collection()
+		->get_module(
+			(string) $selection['id']
+		);
+
+	return $module ?? [];
+
+    }
 
 	public function has_selection(): bool {
 
@@ -194,6 +210,43 @@ final class SAP_Harmony_Designer {
 
 	}
 	
+    /**
+     * Save a Harmony module.
+     *
+     * @param string $id      Module ID.
+     * @param string $title   Module title.
+     * @param string $content Module content.
+     *
+     * @return void
+     */
+    public function save_module(
+	    string $id,
+	    string $title,
+	    string $content
+    ): void {
+
+	    $document = $this->document_store->load();
+
+	    $document
+		    ->collection()
+		    ->update_module(
+			    $id,
+			[
+				'title'   => $title,
+				'content' => $content,
+			]
+		);
+
+	$this->document_store->save(
+		$document
+	);
+
+	$this->renderer->set_document(
+		$document
+	);
+
+    }
+
 	/**
 	 * Render only the live Harmony canvas.
 	 *

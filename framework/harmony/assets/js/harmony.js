@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 },
 
-		updateInspector(selection) {
+	updateInspector(selection) {
 
     const inspector = document.getElementById(
         'sap-harmony-inspector-content'
@@ -73,37 +73,30 @@ document.addEventListener('DOMContentLoaded', function () {
     inspector.innerHTML = `
         <div class="sap-inspector-group">
 
-            <label>Module</label>
+            <h3>${selection.name ?? 'Module'} Settings</h3>
+
+        </div>
+
+        <div class="sap-inspector-group">
+
+            <label>Heading</label>
 
             <input
                 type="text"
-                value="${selection.module ?? ''}"
-                readonly
+                id="sap-inspector-title"
+                value="${selection.title ?? ''}"
             >
 
         </div>
 
         <div class="sap-inspector-group">
 
-            <label>Type</label>
+            <label>Content</label>
 
-            <input
-                type="text"
-                value="${selection.type ?? ''}"
-                readonly
-            >
-
-        </div>
-
-        <div class="sap-inspector-group">
-
-            <label>ID</label>
-
-            <input
-                type="text"
-                value="${selection.id ?? ''}"
-                readonly
-            >
+            <textarea
+                id="sap-inspector-content"
+                rows="6"
+            >${selection.content ?? ''}</textarea>
 
         </div>
     `;
@@ -280,7 +273,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
 },
 
-	newDocument() {
+    saveModule(id, title, content) {
+
+        this.sendCommand(
+            'save_module',
+        {
+            id: id,
+            title: title,
+            content: content
+        }
+    )
+    .then((response) => {
+
+        if (
+            response.success &&
+            response.data &&
+            response.data.result &&
+            response.data.result.success
+        ) {
+
+            Harmony.replaceCanvas(
+                response.data.result.canvas
+            );
+
+            Harmony.updateInspector(
+                response.data.result.selected
+            );
+
+        }
+
+    })
+    .catch((error) => {
+
+        console.error(
+            'SAVE_MODULE failed:',
+            error
+        );
+
+    });
+
+},
+	
+    newDocument() {
 
 		if (
 			!confirm(
