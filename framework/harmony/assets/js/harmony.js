@@ -49,57 +49,98 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	updateInspector(selection) {
 
-    const inspector = document.getElementById(
-        'sap-harmony-inspector-content'
-    );
+	const inspector = document.getElementById(
+		'sap-harmony-inspector-content'
+	);
 
-    if (!inspector) {
-        return;
-    }
+	if (!inspector) {
+		return;
+	}
 
-    if (
-        !selection ||
-        !selection.id
-    ) {
+	if (
+		!selection ||
+		!selection.id
+	) {
 
-        inspector.innerHTML = `
-            <p>Select a module to edit its properties.</p>
-        `;
+		inspector.innerHTML = `
+			<p>Select a module to edit its properties.</p>
+		`;
 
-        return;
+		return;
 
-    }
+	}
 
-    inspector.innerHTML = `
-        <div class="sap-inspector-group">
+	inspector.innerHTML = `
+		<div class="sap-inspector-group">
 
-            <h3>${selection.name ?? 'Module'} Settings</h3>
+			<h3>${selection.name ?? 'Module'} Settings</h3>
 
-        </div>
+		</div>
 
-        <div class="sap-inspector-group">
+		<div class="sap-inspector-group">
 
-            <label>Heading</label>
+			<label>Heading</label>
 
-            <input
-                type="text"
-                id="sap-inspector-title"
-                value="${selection.title ?? ''}"
-            >
+			<input
+				type="text"
+				id="sap-inspector-title"
+				value="${selection.title ?? ''}"
+			>
 
-        </div>
+		</div>
 
-        <div class="sap-inspector-group">
+		<div class="sap-inspector-group">
 
-            <label>Content</label>
+			<label>Content</label>
 
-            <textarea
-                id="sap-inspector-content"
-                rows="6"
-            >${selection.content ?? ''}</textarea>
+			<textarea
+				id="sap-inspector-content"
+				rows="6"
+			>${selection.content ?? ''}</textarea>
 
-        </div>
-    `;
+		</div>
+
+		<div class="sap-inspector-group">
+
+			<button
+				type="button"
+				id="sap-save-module"
+				class="button button-primary"
+			>
+				Save Module
+			</button>
+
+		</div>
+	`;
+
+	const saveButton = document.getElementById(
+		'sap-save-module'
+	);
+
+	if (!saveButton) {
+		return;
+	}
+
+	saveButton.addEventListener(
+		'click',
+		function () {
+
+			const title = document.getElementById(
+				'sap-inspector-title'
+			).value;
+
+			const content = document.getElementById(
+				'sap-inspector-content'
+			).value;
+
+			HarmonyAPI.saveModule(
+				selection.id,
+				title,
+				content
+			);
+
+		}
+	);
 
 },
 

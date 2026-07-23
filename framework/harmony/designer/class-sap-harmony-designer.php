@@ -248,6 +248,47 @@ final class SAP_Harmony_Designer {
     }
 
 	/**
+	 * Move a Harmony module.
+	 *
+	 * @param string $source_id Source module ID.
+	 * @param string $target_id Target module ID.
+	 * @param string $position  before|after.
+	 *
+	 * @return bool
+	 */
+	public function move_module(
+		string $source_id,
+		string $target_id,
+		string $position = 'before'
+	): bool {
+
+		$document = $this->document_store->load();
+
+		$moved = $document
+			->collection()
+			->move_module(
+				$source_id,
+				$target_id,
+				$position
+			);
+
+		if ( ! $moved ) {
+			return false;
+		}
+
+		$this->document_store->save(
+			$document
+		);
+
+		$this->renderer->set_document(
+			$document
+		);
+
+		return true;
+
+	}
+	
+	/**
 	 * Render only the live Harmony canvas.
 	 *
 	 * @return string

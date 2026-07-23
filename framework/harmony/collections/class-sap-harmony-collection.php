@@ -146,27 +146,64 @@ final class SAP_Harmony_Collection {
 
 	}
 	/**
-	 * Move a module to a new position.
-	 *
-	 * @param int $from Source index.
-	 * @param int $to   Destination index.
-	 *
-	 * @return void
-	 */
-	public function move( int $from, int $to ): void {
+     * Move a Harmony module relative to another module.
+     *
+     * @param string $source_id Source module ID.
+     * @param string $target_id Target module ID.
+     * @param string $position  before|after
+     *
+     * @return bool
+    */
+    public function move_module(
+	string $source_id,
+	string $target_id,
+	string $position = 'before'
+    ): bool {
 
-		if (
-			! isset( $this->modules[ $from ] ) ||
-			! isset( $this->modules[ $to ] )
-		) {
-			return;
+	if ( $source_id === $target_id ) {
+		return false;
+	}
+
+	$source_index = null;
+	$target_index = null;
+
+	foreach ( $this->modules as $index => $module ) {
+
+		if ( $module['id'] === $source_id ) {
+			$source_index = $index;
 		}
 
-		$module = $this->modules[ $from ];
-
-		array_splice( $this->modules, $from, 1 );
-		array_splice( $this->modules, $to, 0, [ $module ] );
+		if ( $module['id'] === $target_id ) {
+			$target_index = $index;
+		}
 
 	}
+
+	if ( null === $source_index || null === $target_index ) {
+		return false;
+	}
+
+	$module = $this->modules[ $source_index ];
+
+	array_splice( $this->modules, $source_index, 1 );
+
+	if ( $source_index < $target_index ) {
+		$target_index--;
+	}
+
+	if ( 'after' === $position ) {
+		$target_index++;
+	}
+
+	array_splice(
+		$this->modules,
+		$target_index,
+		0,
+		[ $module ]
+	);
+
+	return true;
+
+}
 
 }

@@ -47,11 +47,11 @@ final class SAP_Harmony_Command_Handler {
 	 * @return mixed
 	 */
 	public function handle(
-        string $command,
-        array $payload = []
-    ) {
+		string $command,
+		array $payload = []
+	) {
 
-        switch ( strtoupper( $command ) ) {
+		switch ( strtoupper( $command ) ) {
 
 			case 'PING':
 				return 'pong';
@@ -80,15 +80,15 @@ final class SAP_Harmony_Command_Handler {
 
 			case 'DELETE_MODULE':
 
-                $this->designer->delete_module(
-                    (string) ( $payload['id'] ?? '' )
-                );
+				$this->designer->delete_module(
+					(string) ( $payload['id'] ?? '' )
+				);
 
-                return [
-                    'success'  => true,
-                    'selected' => $this->designer->selected(),
-                    'canvas'   => $this->designer->render_canvas(),
-                ];
+				return [
+					'success'  => true,
+					'selected' => $this->designer->selected(),
+					'canvas'   => $this->designer->render_canvas(),
+				];
 
 			case 'SELECT_MODULE':
 
@@ -104,17 +104,7 @@ final class SAP_Harmony_Command_Handler {
 					'canvas'   => $this->designer->render_canvas(),
 				];
 
-			default:
-
-				return [
-					'success' => false,
-					'message' => sprintf(
-						'Unknown Harmony command: %s',
-						$command
-					),
-				];
-
-							case 'SAVE_MODULE':
+			case 'SAVE_MODULE':
 
 				$this->designer->save_module(
 					(string) ( $payload['id'] ?? '' ),
@@ -126,6 +116,30 @@ final class SAP_Harmony_Command_Handler {
 					'success'  => true,
 					'selected' => $this->designer->selected(),
 					'canvas'   => $this->designer->render_canvas(),
+				];
+
+			case 'MOVE_MODULE':
+
+				$moved = $this->designer->move_module(
+					(string) ( $payload['source'] ?? '' ),
+					(string) ( $payload['target'] ?? '' ),
+					(string) ( $payload['position'] ?? 'before' )
+				);
+
+				return [
+					'success'  => $moved,
+					'selected' => $this->designer->selected(),
+					'canvas'   => $this->designer->render_canvas(),
+				];
+
+			default:
+
+				return [
+					'success' => false,
+					'message' => sprintf(
+						'Unknown Harmony command: %s',
+						$command
+					),
 				];
 
 		}
