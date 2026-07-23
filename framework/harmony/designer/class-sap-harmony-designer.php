@@ -276,6 +276,20 @@ final class SAP_Harmony_Designer {
 			return false;
 		}
 
+		$module = $document
+            ->collection()
+            ->get_module( $source_id );
+
+       if ( $module ) {
+
+            $this->selection->select(
+                (string) $module['id'],
+                (string) $module['name'],
+                (string) $module['type']
+        );
+
+    }
+
 		$this->document_store->save(
 			$document
 		);

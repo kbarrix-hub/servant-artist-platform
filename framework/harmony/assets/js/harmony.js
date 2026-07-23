@@ -14,9 +14,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     	const Harmony = {
 
+			version: 'SAP091-test',
+
             selectedModuleId: null,
 
-            replaceCanvas(html) {
+			drag: {
+		        active: false,
+		        source: null,
+		        target: null,
+		        position: 'before'
+	        },
+
+			applySelection() {
+
+    document
+        .querySelectorAll('.sap-harmony-module')
+        .forEach(module => {
+
+            module.classList.remove(
+                'sap-harmony-selected'
+            );
+
+            if (
+                module.dataset.moduleId ===
+                this.selectedModuleId
+            ) {
+
+                module.classList.add(
+                    'sap-harmony-selected'
+                );
+
+            }
+
+        });
+
+},
+
+            replaceCanvas(html) {	
 
 	const currentCanvas = document.querySelector(
 		'.sap-harmony-live-canvas'
@@ -35,15 +69,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	currentCanvas.innerHTML = html;
 
 	currentCanvas.querySelectorAll(
-		'.sap-harmony-module'
-	).forEach(module => {
+    '.sap-harmony-module'
+).forEach(module => {
 
-		module.setAttribute(
-			'draggable',
-			'true'
-		);
+    module.removeAttribute(
+        'draggable'
+    );
 
-	});
+});
+
+this.applySelection();
 
 },
 
@@ -137,14 +172,34 @@ document.addEventListener('DOMContentLoaded', function () {
 				selection.id,
 				title,
 				content
-			);
-
+			);	
+    
 		}
-	);
+	);    	
 
 },
+    	beginDrag(sourceId) {
+
+		this.drag.active = true;
+		this.drag.source = sourceId;
+		this.drag.target = null;
+		this.drag.position = 'before';
+
+	},
+
+	endDrag() {
+
+		this.drag.active = false;
+		this.drag.source = null;
+		this.drag.target = null;
+		this.drag.position = 'before';
+
+	},    
 
 	};
+
+	console.log('Harmony Object:', Harmony);
+    console.log('Harmony Keys:', Object.keys(Harmony));
 
     const Transport = {
 
@@ -248,13 +303,23 @@ document.addEventListener('DOMContentLoaded', function () {
 			response.data.result.success
 		) {
 
-			Harmony.replaceCanvas(
-				response.data.result.canvas
-			);
+		if (
+            response.data.result.selected &&
+            response.data.result.selected.id
+        ) {
 
-			Harmony.updateInspector(
-				response.data.result.selected
-			);
+            Harmony.selectedModuleId =
+                response.data.result.selected.id;
+
+        }
+
+        Harmony.replaceCanvas(
+            response.data.result.canvas
+        );
+
+        Harmony.updateInspector(
+            response.data.result.selected
+        );
 
 		}
 
@@ -354,6 +419,47 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 },
+
+    moveModule(source, target, position) {
+
+    this.sendCommand(
+        'move_module',
+        {
+            source: source,
+            target: target,
+            position: position
+        }
+    )
+    .then((response) => {
+
+        if (
+            response.success &&
+            response.data &&
+            response.data.result &&
+            response.data.result.success
+        ) {
+
+            Harmony.replaceCanvas(
+                response.data.result.canvas
+            );
+
+            Harmony.updateInspector(
+                response.data.result.selected
+            );
+
+        }
+
+    })
+    .catch((error) => {
+
+        console.error(
+            'MOVE_MODULE failed:',
+            error
+        );
+
+    });
+
+},
 	
     newDocument() {
 
@@ -429,6 +535,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     response.data.result.canvas
                 );
 
+				if (
+                    response.data.result.selected &&
+                    response.data.result.selected.id
+                ) {
+
+                    Harmony.selectedModuleId =
+                    response.data.result.selected.id;
+
+                }
                 Harmony.selectedModuleId = null;
 
                 Harmony.updateInspector(
@@ -536,7 +651,94 @@ document.addEventListener('DOMContentLoaded', function () {
         
 	});
 
+	document.addEventListener(
+	'pointerdown',
+	function (event) {
+
+		const module = event.target.closest(
+			'.sap-harmony-module'
+		);
+
+		if (!module) {
+			return;
+		}
+
+		Harmony.beginDrag(
+			module.dataset.moduleId
+		);
+
+		console.log(
+			'Pointer Down:',
+			Harmony.drag
+		);
+
+	}
+);
+
+
+document.addEventListener(
+    'pointermove',
+    function (event) {
+
+        if (!Harmony.drag.active) {
+            return;
+        }
+
+        const module = event.target.closest(
+            '.sap-harmony-module'
+        );
+
+        if (!module) {
+            return;
+        }
+
+        Harmony.drag.target =
+            module.dataset.moduleId;
+
+        Harmony.drag.position = 'before';
+
+        console.log(
+            'Pointer Move:',
+            Harmony.drag
+        );
+
+    }
+);
+
+document.addEventListener(
+    'pointerup',
+    function () {
+
+        if (!Harmony.drag.active) {
+            return;
+        }
+
+        console.log(
+            'Pointer Up:',
+            Harmony.drag
+        );
+
+        if (
+            Harmony.drag.source &&
+            Harmony.drag.target &&
+            Harmony.drag.source !== Harmony.drag.target
+        ) {
+
+            HarmonyAPI.moveModule(
+                Harmony.drag.source,
+                Harmony.drag.target,
+                Harmony.drag.position
+            );
+
+        }
+
+        Harmony.endDrag();
+
+    }
+);
+
 	window.HarmonyAPI = HarmonyAPI;
         window.Harmony = Harmony;
+
 
 });

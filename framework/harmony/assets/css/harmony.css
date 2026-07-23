@@ -423,3 +423,28 @@
 	}
 
 }
+
+/* ============================================================
+   Selected Module
+============================================================ */
+
+.sap-harmony-module {
+
+    position: relative;
+
+    border: 2px solid transparent;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+
+}
+
+.sap-harmony-module.sap-harmony-selected {
+
+    border-color: #7c5cfc;
+
+    box-shadow:
+        0 0 0 3px rgba(124,92,252,.18);
+
+}
