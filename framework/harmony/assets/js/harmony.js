@@ -258,21 +258,37 @@ hideDropIndicator() {
     
 	beginDrag(sourceId) {
 
-		this.drag.active = true;
-		this.drag.source = sourceId;
-		this.drag.target = null;
-		this.drag.position = 'before';
+        this.drag.active = true;
+        this.drag.source = sourceId;
+        this.drag.target = null;
+        this.drag.position = 'before';
 
-	},
+        const module = document.querySelector(
+            '[data-module-id="' + sourceId + '"]'
+        );
+
+        if (module) {
+        module.classList.add('is-dragging');
+        }
+
+    },
 
 	endDrag() {
 
-		this.drag.active = false;
-		this.drag.source = null;
-		this.drag.target = null;
-		this.drag.position = 'before';
+        document
+            .querySelector(
+                '.sap-harmony-module.is-dragging'
+            )
+        ?.classList.remove(
+            'is-dragging'
+        );
 
-	},    
+        this.drag.active = false;
+        this.drag.source = null;
+        this.drag.target = null;
+        this.drag.position = 'before';
+
+    },    
 
 	};
 

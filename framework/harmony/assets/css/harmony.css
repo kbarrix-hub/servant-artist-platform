@@ -470,3 +470,18 @@
         transform .18s ease;
 
 }
+
+.sap-harmony-module.is-dragging {
+
+    opacity: .85;
+
+    transform: scale(1.02);
+
+    cursor: grabbing;
+
+    box-shadow:
+        0 16px 40px rgba(0,0,0,.18);
+
+    z-index: 500;
+
+}
