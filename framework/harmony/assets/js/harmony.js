@@ -203,10 +203,10 @@ this.applySelection();
     let top =
         rect.top - canvasRect.top;
 
-    if (this.drag.position === 'after') {
-
-        top += rect.height;
-
+    if (this.drag.position === 'before') {
+        top -= 4;
+    } else {
+        top += rect.height - 2;
     }
 
     this.dropIndicator.style.display = 'block';
@@ -801,16 +801,53 @@ document.addEventListener(
 
         Harmony.drag.target =
             module.dataset.moduleId;
+			console.log(
+                'Target:',
+                module.dataset.moduleId
+            );
 
-        const rect = module.getBoundingClientRect();
+        if (
+    module.dataset.moduleId ===
+    Harmony.drag.source
+) {
 
-        const midpoint =
-            rect.top + (rect.height / 2);
+    Harmony.drag.target = null;
 
-        Harmony.drag.position =
-            event.clientY < midpoint
-                ? 'before'
-                : 'after';
+    Harmony.hideDropIndicator();
+
+    return;
+
+}
+
+const modules = Array.from(
+    document.querySelectorAll(
+        '.sap-harmony-module'
+    )
+);
+
+const sourceModule = document.querySelector(
+    '[data-module-id="' +
+    Harmony.drag.source +
+    '"]'
+);
+
+const sourceIndex =
+    modules.indexOf(sourceModule);
+
+const targetIndex =
+    modules.indexOf(module);
+
+if (
+    sourceIndex === -1 ||
+    targetIndex === -1
+) {
+    return;
+}
+
+Harmony.drag.position =
+    targetIndex < sourceIndex
+        ? 'before'
+        : 'after';
 
         Harmony.showDropIndicator(module);
 
@@ -840,7 +877,11 @@ document.addEventListener(
             Harmony.drag.target &&
             Harmony.drag.source !== Harmony.drag.target
         ) {
-
+        console.log({
+            source: Harmony.drag.source,
+            target: Harmony.drag.target,
+            position: Harmony.drag.position
+        });
             HarmonyAPI.moveModule(
                 Harmony.drag.source,
                 Harmony.drag.target,
@@ -850,6 +891,8 @@ document.addEventListener(
         }
 
 		document.body.style.userSelect = '';
+
+		Harmony.hideDropIndicator();
 
         Harmony.endDrag();
 

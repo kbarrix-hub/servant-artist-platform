@@ -404,7 +404,7 @@
 	left: 24px;
 	right: 24px;
 
-	height: 4px;
+	height: 6px;
 
 	background: #4f46e5;
 
@@ -414,7 +414,8 @@
 
 	pointer-events: none;
 
-	transition: top 120ms ease;
+	transition: top 120ms ease,
+                opacity 120ms ease;
 
 	z-index: 1000;
 
@@ -467,21 +468,25 @@
     transition:
         border-color .18s ease,
         box-shadow .18s ease,
-        transform .18s ease;
+        transform .18s ease,
+        opacity .18s ease,
+        background-color .18s ease;
 
 }
 
 .sap-harmony-module.is-dragging {
 
-    opacity: .85;
+    opacity: .92;
 
-    transform: scale(1.02);
+    transform:
+        scale(1.02)
+        rotate(.25deg);
 
     cursor: grabbing;
 
     box-shadow:
-        0 16px 40px rgba(0,0,0,.18);
+        0 22px 48px rgba(0,0,0,.20);
 
-    z-index: 500;
+    z-index: 1000;
 
 }
