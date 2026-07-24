@@ -227,7 +227,36 @@ hideDropIndicator() {
     }
 
 },
-    	beginDrag(sourceId) {
+    getModuleAtPointer(x, y) {
+
+    const elements = document.elementsFromPoint(x, y);
+
+    for (const element of elements) {
+
+        if (
+            element.classList &&
+            element.classList.contains(
+                'sap-harmony-drop-indicator'
+            )
+        ) {
+            continue;
+        }
+
+        const module = element.closest?.(
+            '.sap-harmony-module'
+        );
+
+        if (module) {
+            return module;
+        }
+
+    }
+
+    return null;
+
+    },
+    
+	beginDrag(sourceId) {
 
 		this.drag.active = true;
 		this.drag.source = sourceId;
@@ -725,6 +754,8 @@ if (Harmony.dropIndicator) {
 			module.dataset.moduleId
 		);
 
+		document.body.style.userSelect = 'none';
+
 		console.log(
 			'Pointer Down:',
 			Harmony.drag
@@ -742,8 +773,10 @@ document.addEventListener(
             return;
         }
 
-        const module = event.target.closest(
-            '.sap-harmony-module'
+        const module = Harmony.getModuleAtPointer(
+            event.clientX,
+            event.clientY
+
         );
 
         if (!module) {
@@ -799,6 +832,8 @@ document.addEventListener(
             );
 
         }
+
+		document.body.style.userSelect = '';
 
         Harmony.endDrag();
 

@@ -369,6 +369,14 @@
 
 }
 
+.sap-harmony-live-canvas,
+.sap-harmony-live-canvas * {
+
+    user-select: none;
+    -webkit-user-select: none;
+
+}
+
 /* ============================================================
    Harmony Overlay
 ============================================================ */
@@ -404,6 +412,12 @@
 
 	display: none;
 
+	pointer-events: none;
+
+	transition: top 120ms ease;
+
+	z-index: 1000;
+
 	box-shadow:
 		0 0 8px rgba(79,70,229,.35);
 
@@ -432,19 +446,27 @@
 
     position: relative;
 
+    display: block;
+
+    width: 100%;
+
+    min-height: 120px;
+
+    padding: 24px;
+
+    margin-bottom: 20px;
+
+    background: #ffffff;
+
     border: 2px solid transparent;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
 
     transition:
         border-color .18s ease,
-        box-shadow .18s ease;
-
-}
-
-.sap-harmony-module.sap-harmony-selected {
-
-    border-color: #7c5cfc;
-
-    box-shadow:
-        0 0 0 3px rgba(124,92,252,.18);
+        box-shadow .18s ease,
+        transform .18s ease;
 
 }
