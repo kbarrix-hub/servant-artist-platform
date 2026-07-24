@@ -23,7 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		        source: null,
 		        target: null,
 		        position: 'before'
+				
 	        },
+
+			dropIndicator: null,
 
 			applySelection() {
 
@@ -176,6 +179,52 @@ this.applySelection();
     
 		}
 	);    	
+
+}, 
+
+    showDropIndicator(module) {
+
+    if (!this.dropIndicator || !module) {
+        return;
+    }
+
+    const rect = module.getBoundingClientRect();
+
+    const canvas = document.querySelector(
+        '.sap-harmony-live-canvas'
+    );
+
+    if (!canvas) {
+        return;
+    }
+
+    const canvasRect = canvas.getBoundingClientRect();
+
+    let top =
+        rect.top - canvasRect.top;
+
+    if (this.drag.position === 'after') {
+
+        top += rect.height;
+
+    }
+
+    this.dropIndicator.style.display = 'block';
+
+    this.dropIndicator.style.top =
+        top + 'px';
+
+    this.dropIndicator.style.left = '0';
+
+    this.dropIndicator.style.width = '100%';
+
+},
+
+hideDropIndicator() {
+
+    if (this.dropIndicator) {
+        this.dropIndicator.style.display = 'none';
+    }
 
 },
     	beginDrag(sourceId) {
@@ -571,6 +620,15 @@ this.applySelection();
 	const moduleMenu = document.querySelector('.sap-module-menu');
 	const newButton = document.querySelector('.sap-new-document');
 	const deleteButton = document.querySelector('.sap-delete-module');
+	Harmony.dropIndicator = document.querySelector(
+    '.sap-harmony-drop-indicator'
+);
+
+if (Harmony.dropIndicator) {
+
+    Harmony.dropIndicator.style.display = 'none';
+
+}
 
 	if (addButton && moduleMenu) {
 
@@ -695,7 +753,17 @@ document.addEventListener(
         Harmony.drag.target =
             module.dataset.moduleId;
 
-        Harmony.drag.position = 'before';
+        const rect = module.getBoundingClientRect();
+
+        const midpoint =
+            rect.top + (rect.height / 2);
+
+        Harmony.drag.position =
+            event.clientY < midpoint
+                ? 'before'
+                : 'after';
+
+        Harmony.showDropIndicator(module);
 
         console.log(
             'Pointer Move:',
