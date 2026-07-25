@@ -662,7 +662,7 @@ hideDropIndicator() {
 
 
 	const addButton = document.querySelector('.sap-add-module');
-	const moduleMenu = document.querySelector('.sap-module-menu');
+    const moduleLibrary = document.querySelector('.sap-harmony-library');
 	const newButton = document.querySelector('.sap-new-document');
 	const deleteButton = document.querySelector('.sap-delete-module');
 	Harmony.dropIndicator = document.querySelector(
@@ -675,27 +675,7 @@ if (Harmony.dropIndicator) {
 
 }
 
-	if (addButton && moduleMenu) {
-
-	addButton.addEventListener('click', function (event) {
-
-		event.stopPropagation();
-
-		moduleMenu.style.display =
-			moduleMenu.style.display === 'block'
-				? 'none'
-				: 'block';
-
-	});
-
-	document.addEventListener('click', function () {
-
-		moduleMenu.style.display = 'none';
-
-	});
-
-}
-
+    
     if (newButton) {
 
 	newButton.addEventListener(

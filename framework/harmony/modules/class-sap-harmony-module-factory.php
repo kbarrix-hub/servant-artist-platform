@@ -31,6 +31,17 @@ final class SAP_Harmony_Module_Factory {
 
 		switch ( strtolower( $type ) ) {
 
+            case 'section':
+                return [
+                    'id'       => $id,
+                    'name'     => 'Section',
+                    'type'     => 'container',
+                    'title'    => 'Section',
+                    'content'  => '',
+                    'parent'   => null,
+                    'children' => [],
+                ];
+
 			case 'hero':
 				return [
 					'id'      => $id,
@@ -38,6 +49,8 @@ final class SAP_Harmony_Module_Factory {
 					'type'    => 'section',
 					'title'   => 'New Hero',
 					'content' => 'Hero content...',
+					'parent'   => null,
+                    'children' => [],
 				];
 
 			case 'text':
@@ -47,6 +60,8 @@ final class SAP_Harmony_Module_Factory {
 					'type'    => 'content',
 					'title'   => 'Text Block',
 					'content' => 'Enter text...',
+					'parent'   => null,
+                    'children' => [],
 				];
 
 			case 'image':
@@ -56,6 +71,8 @@ final class SAP_Harmony_Module_Factory {
 					'type'    => 'media',
 					'title'   => 'Image',
 					'content' => '',
+					'parent'   => null,
+                    'children' => [],
 				];
 
 			default:
@@ -65,6 +82,8 @@ final class SAP_Harmony_Module_Factory {
 					'type'    => 'module',
 					'title'   => ucfirst( $type ),
 					'content' => '',
+					'parent'   => null,
+                    'children' => [],
 				];
 
 		}

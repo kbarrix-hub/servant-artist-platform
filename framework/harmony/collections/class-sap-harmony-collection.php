@@ -145,6 +145,33 @@ final class SAP_Harmony_Collection {
 		}
 
 	}
+
+	public function is_container(
+        string $id
+    ): bool {
+
+        return false;
+
+    }
+
+    public function get_children(
+        string $id
+    ): array {
+
+        return [];
+
+    }
+
+    public function set_parent(
+        string $child,
+        ?string $parent
+    ): void {
+
+    // SAP-094
+    // Implementation coming next.
+
+    }
+	
 	/**
      * Move a Harmony module relative to another module.
      *

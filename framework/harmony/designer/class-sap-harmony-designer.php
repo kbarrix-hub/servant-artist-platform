@@ -348,50 +348,23 @@ final class SAP_Harmony_Designer {
 
             </button>
 
-			<div class="sap-module-menu">
-
-				<button
-					type="button"
-					data-module="hero">
-
-					🟣 Hero
-
-				</button>
-
-				<button
-					type="button"
-					data-module="text">
-
-					📄 Text
-
-				</button>
-
-				<button
-					type="button"
-					data-module="image">
-
-					🖼 Image
-
-				</button>
-
-			</div>
-
 		</div>
 
 		<div class="sap-harmony-live-canvas">
 
-			<div class="sap-harmony-overlay">
+            <div class="sap-harmony-overlay">
 
-				<div
-					class="sap-harmony-drop-indicator"
-					id="sap-harmony-drop-indicator">
-				</div>
+                <div
+                    class="sap-harmony-drop-indicator"
+                    id="sap-harmony-drop-indicator">
+                </div>
 
-			</div>
+            </div>
 
-			<?php echo $this->render_canvas(); ?>
+            <?php echo $this->render_canvas(); ?>
 
-		</div>
+       </div>
+
 
 		<?php
 
