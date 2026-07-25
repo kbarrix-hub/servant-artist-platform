@@ -58,15 +58,25 @@ final class SAP_Harmony_Command_Handler {
 
 			case 'ADD_MODULE':
 
-				$this->designer->add_module(
-					(string) ( $payload['type'] ?? 'text' )
-				);
+            $type = strtolower(
+                (string) ( $payload['type'] ?? 'text' )
+            );
 
-				return [
-					'success'  => true,
-					'selected' => $this->designer->selected(),
-					'canvas'   => $this->designer->render_canvas(),
-				];
+            if ( 'section' === $type ) {
+
+                $this->designer->create_section_layout();
+
+            } else {
+
+                $this->designer->add_module( $type );
+
+            }
+
+            return [
+                'success'  => true,
+                'selected' => $this->designer->selected(),
+                'canvas'   => $this->designer->render_canvas(),
+            ];
 
 			case 'NEW_DOCUMENT':
 

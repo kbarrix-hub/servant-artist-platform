@@ -393,6 +393,54 @@ final class SAP_Harmony_Designer {
 	}
 
 	/**
+ * Create a smart Section layout.
+ *
+ * Section
+ * └── Row
+ *     └── Column
+ *
+ * @return array<string,mixed>
+ */
+public function create_section_layout(): array {
+
+    $document = $this->document_store->load();
+
+    $collection = $document->collection();
+
+    $section = SAP_Harmony_Module_Factory::create( 'section' );
+    $row     = SAP_Harmony_Module_Factory::create( 'row' );
+    $column  = SAP_Harmony_Module_Factory::create( 'column' );
+
+    $row['parent'] = $section['id'];
+
+    $section['children'][] = $row['id'];
+
+    $column['parent'] = $row['id'];
+
+    $row['children'][] = $column['id'];
+
+    $collection->add_module( $section );
+    $collection->add_module( $row );
+    $collection->add_module( $column );
+
+    $this->document_store->save( $document );
+
+	$this->renderer->set_document(
+    $document
+    );
+
+    $this->selection->select(
+        $section['id'],
+        $section['name'],
+        $section['type']
+    );
+	
+
+    return $section;
+
+}
+
+	/**
      * Return the registered Harmony modules.
      *
      * @return array<string,array<string,string>>
