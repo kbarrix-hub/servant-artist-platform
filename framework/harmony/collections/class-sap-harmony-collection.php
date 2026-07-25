@@ -200,6 +200,44 @@ final class SAP_Harmony_Collection {
         }
 
     }
+
+	/**
+     * Move a module into a container.
+     *
+     * This assigns the module's parent without affecting the
+     * existing sibling ordering. Reordering inside containers
+     * will be added in a later milestone.
+     *
+     * @param string $source_id    Module being moved.
+     * @param string $container_id Container module ID.
+     *
+     * @return bool
+     */
+    public function move_into(
+        string $source_id,
+        string $container_id
+    ): bool {
+
+        if ( ! $this->has_module( $source_id ) ) {
+            return false;
+        }
+
+        if ( ! $this->has_module( $container_id ) ) {
+            return false;
+        }
+
+        if ( ! $this->is_container( $container_id ) ) {
+            return false;
+        }
+
+        $this->set_parent(
+            $source_id,
+            $container_id
+        );
+
+        return true;
+
+    }
 	
 	/**
      * Determine whether a Harmony module is a container.

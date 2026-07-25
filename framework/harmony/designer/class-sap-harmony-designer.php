@@ -268,13 +268,26 @@ final class SAP_Harmony_Designer {
 
 		$document = $this->document_store->load();
 
-		$moved = $document
-			->collection()
-			->move_module(
-				$source_id,
-				$target_id,
-				$position
-			);
+		if ( 'inside' === $position ) {
+
+	        $moved = $document
+		        ->collection()
+		        ->move_into(
+			        $source_id,
+			        $target_id
+		        );
+
+        } else {
+
+	        $moved = $document
+		        ->collection()
+		        ->move_module(
+			        $source_id,
+			        $target_id,
+			        $position
+		        );
+
+        }
 
 		if ( ! $moved ) {
 			return false;
