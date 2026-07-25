@@ -251,10 +251,21 @@ final class SAP_Harmony_Collection {
         $module = $this->get_module( $id );
 
         if ( null === $module ) {
-            return false;
+        return false;
         }
 
-        return isset( $module['children'] );
+        $containers = [
+            'website',
+            'section',
+            'row',
+            'column',
+        ];
+
+        return in_array(
+            strtolower( (string) ( $module['type'] ?? '' ) ),
+            $containers,
+            true
+        );
 
     }
 
