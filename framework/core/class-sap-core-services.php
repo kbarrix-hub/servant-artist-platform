@@ -231,10 +231,13 @@ final class SAP_Core_Services {
 	        $this->harmony_state
         );
 
+		$harmony_module_registry = new SAP_Harmony_Module_Registry();
+
         $this->harmony_designer = new SAP_Harmony_Designer(
 	        $this->harmony_renderer,
 	        $this->harmony_document_store,
-	        $this->selection_manager
+	        $this->selection_manager,
+			$harmony_module_registry
         );
 
 		$this->harmony_command_handler =

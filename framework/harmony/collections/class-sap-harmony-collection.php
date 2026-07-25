@@ -146,32 +146,80 @@ final class SAP_Harmony_Collection {
 
 	}
 
-	public function is_container(
-        string $id
-    ): bool {
-
-        return false;
-
-    }
-
+    /**
+     * Return all child modules for a container.
+     *
+     * @param string $id Parent module ID.
+     *
+     * @return array<int, array<string, mixed>>
+    */
     public function get_children(
         string $id
     ): array {
 
-        return [];
+        $children = [];
+
+        foreach ( $this->modules as $module ) {
+
+            if (
+                isset( $module['parent'] ) &&
+                $module['parent'] === $id
+            ) {
+            $children[] = $module;
+            }
+
+        }
+
+        return $children;
 
     }
 
+    /**
+     * Assign a parent container to a module.
+     *
+     * @param string      $child  Child module ID.
+     * @param string|null $parent Parent module ID.
+     *
+     * @return void
+     */
     public function set_parent(
         string $child,
         ?string $parent
     ): void {
 
-    // SAP-094
-    // Implementation coming next.
+        foreach ( $this->modules as $index => $module ) {
+
+            if ( $module['id'] !== $child ) {
+                continue;
+            }
+
+            $this->modules[ $index ]['parent'] = $parent;
+
+            return;
+
+        }
 
     }
 	
+	/**
+     * Determine whether a Harmony module is a container.
+     *
+     * @param string $id Module ID.
+     *
+     * @return bool
+     */
+    public function is_container( string $id ): bool {
+
+        $module = $this->get_module( $id );
+
+        if ( null === $module ) {
+            return false;
+        }
+
+        return isset( $module['children'] );
+
+    }
+
 	/**
      * Move a Harmony module relative to another module.
      *

@@ -294,6 +294,8 @@ final class SAP_Loader {
 
     require_once dirname( __DIR__ ) . '/harmony/document/class-sap-harmony-document-store.php';
 
+	require_once dirname( __DIR__ ) . '/harmony/class-sap-harmony-module-registry.php';
+
     require_once dirname( __DIR__ ) . '/harmony/modules/class-sap-harmony-module-factory.php';
 
     require_once dirname( __DIR__ ) . '/harmony/renderer/class-sap-harmony-renderer.php';

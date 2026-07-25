@@ -27,6 +27,8 @@ final class SAP_Harmony_Designer {
 	
 	private SAP_Selection_Manager $selection;
 
+	private SAP_Harmony_Module_Registry $module_registry;
+
 	/**
 	 * Current drag operation.
 	 *
@@ -40,17 +42,19 @@ final class SAP_Harmony_Designer {
 	];
 
 	public function __construct(
-	SAP_Harmony_Renderer $renderer,
-	SAP_Harmony_Document_Store $document_store,
-	SAP_Selection_Manager $selection
+    SAP_Harmony_Renderer $renderer,
+    SAP_Harmony_Document_Store $document_store,
+    SAP_Selection_Manager $selection,
+    SAP_Harmony_Module_Registry $module_registry
+	
+) {
 
-    ) {
+    $this->renderer        = $renderer;
+    $this->document_store  = $document_store;
+    $this->selection       = $selection;
+    $this->module_registry = $module_registry;
 
-	$this->renderer       = $renderer;
-	$this->document_store = $document_store;
-	$this->selection      = $selection;
-
-    }
+}
 
 	public function add_module( string $type ): array {
 
@@ -372,5 +376,16 @@ final class SAP_Harmony_Designer {
 		
 
 	}
+
+	/**
+     * Return the registered Harmony modules.
+     *
+     * @return array<string,array<string,string>>
+     */
+    public function get_registered_modules(): array {
+
+        return $this->module_registry->get_modules();
+
+    }
 
 }

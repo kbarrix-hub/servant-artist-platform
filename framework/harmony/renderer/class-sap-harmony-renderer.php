@@ -83,12 +83,20 @@ final class SAP_Harmony_Renderer {
 
 		foreach ( $modules as $module ) {
 
-			$this->render_module(
-				$module,
-				$selection
-			);
+            // Only render root modules.
+            if (
+                isset( $module['parent'] ) &&
+                null !== $module['parent']
+            ) {
+                continue;
+            }
 
-		}
+            $this->render_module(
+                $module,
+                $selection
+            );
+
+        }
 
 		return (string) ob_get_clean();
 
@@ -126,12 +134,60 @@ final class SAP_Harmony_Renderer {
 
 			<h2><?php echo esc_html( $module['title'] ); ?></h2>
 
-			<p><?php echo esc_html( $module['content'] ); ?></p>
+            <p><?php echo esc_html( $module['content'] ); ?></p>
 
-		</div>
+            <?php
 
-		<?php
+            if ( $this->is_container( $module ) ) {
 
-	}
+                ?>
+
+                <div class="sap-harmony-children">
+
+                    <?php
+
+                    $children = $this->document
+                        ->collection()
+                        ->get_children( $module['id'] );
+
+                    foreach ( $children as $child ) {
+
+                        $this->render_module(
+                            $child,
+                            $selection
+                        );
+
+                    }
+
+                    ?>
+
+                </div>
+
+                <?php
+
+            }
+
+            ?>
+
+        </div>
+
+        <?php
+
+    }
+
+	/**
+     * Determine whether a module is a container.
+     *
+     * @param array<string,mixed> $module Module data.
+     *
+     * @return bool
+     */
+    private function is_container(
+        array $module
+    ): bool {
+
+        return isset( $module['children'] );
+
+    }
 
 }

@@ -44,73 +44,40 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 				<div class="sap-harmony-layout">
 
-					<!-- ==========================================
-					     Module Library
-					========================================== -->
+				<!-- ==========================================
+					 Module Library
+				========================================== -->
 
-					<aside class="sap-harmony-library">
+				<aside class="sap-harmony-library">
 
-						<h3>Modules</h3>
+					<h3>Modules</h3>
 
-						<button
-	                        class="sap-harmony-module-card"
-	                        type="button"
-	                        data-module="hero"
-                        >
-
-	                        <div class="sap-harmony-module-icon">
-		                        🟣
-	                        </div>
-
-	                    <div class="sap-harmony-module-content">
-
-		                    <strong>Hero</strong>
-
-		                    <span>Page Header</span>
-
-	                    </div>
-
-                       </button>
+                    <?php foreach ( $designer->get_registered_modules() as $module ) : ?>
 
                         <button
-	                         class="sap-harmony-module-card"
-	                         type="button"
-	                         data-module="text"
-                       >
+                            class="sap-harmony-module-card"
+                            type="button"
+                            data-module="<?php echo esc_attr( $module['type'] ); ?>">
 
-	                    <div class="sap-harmony-module-icon">
-		                    📄
-	                    </div>
+                            <div class="sap-harmony-module-icon">
+                            <?php echo esc_html( $module['icon'] ); ?>
+                            </div>
 
-	                    <div class="sap-harmony-module-content">
+                            <div class="sap-harmony-module-content">
 
-		                    <strong>Text</strong>
+                                <strong>
+                                    <?php echo esc_html( $module['name'] ); ?>
+                                </strong>
 
-		                    <span>Rich Content</span>
+                                <span>
+                                    <?php echo esc_html( $module['description'] ); ?>
+                                </span>
 
-	                    </div>
+                            </div>
 
-                    </button>
+                        </button>
 
-                        <button
-	                        class="sap-harmony-module-card"
-	                        type="button"
-	                        data-module="image"
-                        >
-
-	                    <div class="sap-harmony-module-icon">
-		                   🖼
-	                    </div>
-
-	                    <div class="sap-harmony-module-content">
-
-		                    <strong>Image</strong>
-
-		                    <span>Responsive Image</span>
-
-	                    </div>
-
-                    </button>
+                    <?php endforeach; ?>
 
 					</aside>
 
