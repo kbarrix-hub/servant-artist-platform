@@ -268,7 +268,9 @@ final class SAP_Harmony_Designer {
 
 		$document = $this->document_store->load();
 
-		if ( 'inside' === $position ) {
+		error_log( 'SAP: move position = ' . $position );
+
+        if ( 'inside' === $position ) {
 
 	        $moved = $document
 		        ->collection()

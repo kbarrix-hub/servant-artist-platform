@@ -309,7 +309,12 @@ final class SAP_Harmony_Collection {
 
 	$module = $this->modules[ $source_index ];
 
-	array_splice( $this->modules, $source_index, 1 );
+    /*
+     * Flat moves always remove the parent relationship.
+     */
+    $module['parent'] = null;
+
+    array_splice( $this->modules, $source_index, 1 );
 
 	if ( $source_index < $target_index ) {
 		$target_index--;

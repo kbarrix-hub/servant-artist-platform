@@ -182,7 +182,7 @@ this.applySelection();
 
 }, 
 
-    showDropIndicator(module) {
+   showDropIndicator(module) {
 
     if (!this.dropIndicator || !module) {
         return;
@@ -200,23 +200,48 @@ this.applySelection();
 
     const canvasRect = canvas.getBoundingClientRect();
 
-    let top =
-        rect.top - canvasRect.top;
-
-    if (this.drag.position === 'before') {
-        top -= 4;
-    } else {
-        top += rect.height - 2;
-    }
-
     this.dropIndicator.style.display = 'block';
 
-    this.dropIndicator.style.top =
-        top + 'px';
+    if (this.drag.position === 'inside') {
 
-    this.dropIndicator.style.left = '0';
+        this.dropIndicator.style.top =
+            (rect.top - canvasRect.top) + 'px';
 
-    this.dropIndicator.style.width = '100%';
+        this.dropIndicator.style.left =
+            (rect.left - canvasRect.left) + 'px';
+
+        this.dropIndicator.style.width =
+            rect.width + 'px';
+
+        this.dropIndicator.style.height =
+            rect.height + 'px';
+
+        this.dropIndicator.style.border =
+            '2px dashed #7c3aed';
+
+    } else {
+
+        let top =
+            rect.top - canvasRect.top;
+
+        if (this.drag.position === 'before') {
+            top -= 4;
+        } else {
+            top += rect.height - 2;
+        }
+
+        this.dropIndicator.style.top =
+            top + 'px';
+
+        this.dropIndicator.style.left = '0';
+
+        this.dropIndicator.style.width = '100%';
+
+        this.dropIndicator.style.height = '2px';
+
+        this.dropIndicator.style.border = 'none';
+
+    }
 
 },
 
