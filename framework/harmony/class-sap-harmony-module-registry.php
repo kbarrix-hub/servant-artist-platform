@@ -38,40 +38,168 @@ final class SAP_Harmony_Module_Registry {
 	}
 
 	/**
-	 * Register the default Harmony modules.
-	 *
-	 * @return void
-	 */
-	private function register_defaults(): void {
+ * Register the default Harmony modules.
+ *
+ * @return void
+ */
+private function register_defaults(): void {
 
-		$this->register(
-			[
-				'type'        => 'hero',
-				'name'        => 'Hero',
-				'icon'        => '🟣',
-				'description' => 'Page Header',
-			]
-		);
+	/*
+	|--------------------------------------------------------------------------
+	| Layout Modules
+	|--------------------------------------------------------------------------
+	*/
 
-		$this->register(
-			[
-				'type'        => 'text',
-				'name'        => 'Text',
-				'icon'        => '📄',
-				'description' => 'Rich Content',
-			]
-		);
+	$this->register(
+		[
+			'type'        => 'section',
+			'name'        => 'Section',
+			'icon'        => '📄',
+			'description' => 'Layout Section',
+			'category'    => 'layout',
+			'container'   => 'true',
+		]
+	);
 
-		$this->register(
-			[
-				'type'        => 'image',
-				'name'        => 'Image',
-				'icon'        => '🖼',
-				'description' => 'Responsive Image',
-			]
-		);
+	$this->register(
+		[
+			'type'        => 'row',
+			'name'        => 'Row',
+			'icon'        => '📐',
+			'description' => 'Layout Row',
+			'category'    => 'layout',
+			'container'   => 'true',
+		]
+	);
 
-	}
+	$this->register(
+		[
+			'type'        => 'column',
+			'name'        => 'Column',
+			'icon'        => '🧱',
+			'description' => 'Layout Column',
+			'category'    => 'layout',
+			'container'   => 'true',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'group',
+			'name'        => 'Group',
+			'icon'        => '📂',
+			'description' => 'Content Group',
+			'category'    => 'layout',
+			'container'   => 'true',
+		]
+	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Content Modules
+	|--------------------------------------------------------------------------
+	*/
+
+	$this->register(
+		[
+			'type'        => 'hero',
+			'name'        => 'Hero',
+			'icon'        => '🟣',
+			'description' => 'Page Header',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'heading',
+			'name'        => 'Heading',
+			'icon'        => '📝',
+			'description' => 'Heading',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'text',
+			'name'        => 'Text',
+			'icon'        => '📄',
+			'description' => 'Rich Content',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'image',
+			'name'        => 'Image',
+			'icon'        => '🖼',
+			'description' => 'Responsive Image',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'button',
+			'name'        => 'Button',
+			'icon'        => '🔘',
+			'description' => 'Button',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'divider',
+			'name'        => 'Divider',
+			'icon'        => '➖',
+			'description' => 'Divider',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'spacer',
+			'name'        => 'Spacer',
+			'icon'        => '⬜',
+			'description' => 'Spacer',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'video',
+			'name'        => 'Video',
+			'icon'        => '🎬',
+			'description' => 'Video',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+	$this->register(
+		[
+			'type'        => 'gallery',
+			'name'        => 'Gallery',
+			'icon'        => '🖼',
+			'description' => 'Gallery',
+			'category'    => 'content',
+			'container'   => 'false',
+		]
+	);
+
+}
 
 	/**
 	 * Register a Harmony module.
