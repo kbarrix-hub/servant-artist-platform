@@ -35,7 +35,7 @@ final class SAP_Harmony_Module_Factory {
                 return [
                     'id'       => $id,
                     'name'     => 'Section',
-                    'type'     => 'container',
+                    'type'     => 'section',
                     'title'    => 'Section',
                     'content'  => '',
                     'parent'   => null,
@@ -46,7 +46,7 @@ final class SAP_Harmony_Module_Factory {
 				return [
 					'id'      => $id,
 					'name'    => 'Hero',
-					'type'    => 'section',
+					'type'    => 'hero',
 					'title'   => 'New Hero',
 					'content' => 'Hero content...',
 					'parent'   => null,
@@ -57,7 +57,7 @@ final class SAP_Harmony_Module_Factory {
 				return [
 					'id'      => $id,
 					'name'    => 'Text',
-					'type'    => 'content',
+					'type'    => 'text',
 					'title'   => 'Text Block',
 					'content' => 'Enter text...',
 					'parent'   => null,
@@ -68,7 +68,7 @@ final class SAP_Harmony_Module_Factory {
 				return [
 					'id'      => $id,
 					'name'    => 'Image',
-					'type'    => 'media',
+					'type'    => 'image',
 					'title'   => 'Image',
 					'content' => '',
 					'parent'   => null,
@@ -79,7 +79,7 @@ final class SAP_Harmony_Module_Factory {
 				return [
 					'id'      => $id,
 					'name'    => ucfirst( $type ),
-					'type'    => 'module',
+					'type'    => strtolower( $type ),
 					'title'   => ucfirst( $type ),
 					'content' => '',
 					'parent'   => null,

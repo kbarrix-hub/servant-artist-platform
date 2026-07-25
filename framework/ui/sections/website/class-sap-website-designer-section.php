@@ -50,36 +50,60 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 				<aside class="sap-harmony-library">
 
-					<h3>Modules</h3>
+    <h3>Modules</h3>
 
-                    <?php foreach ( $designer->get_registered_modules() as $module ) : ?>
+    <?php
 
-                        <button
-                            class="sap-harmony-module-card"
-                            type="button"
-                            data-module="<?php echo esc_attr( $module['type'] ); ?>">
+    $grouped = [];
 
-                            <div class="sap-harmony-module-icon">
-                            <?php echo esc_html( $module['icon'] ); ?>
-                            </div>
+    foreach ( $designer->get_registered_modules() as $module ) {
 
-                            <div class="sap-harmony-module-content">
+        $category = strtolower( $module['category'] ?? 'other' );
 
-                                <strong>
-                                    <?php echo esc_html( $module['name'] ); ?>
-                                </strong>
+        $grouped[ $category ][] = $module;
 
-                                <span>
-                                    <?php echo esc_html( $module['description'] ); ?>
-                                </span>
+    }
 
-                            </div>
+    foreach ( $grouped as $category => $modules ) :
 
-                        </button>
+    ?>
 
-                    <?php endforeach; ?>
+        <h4 class="sap-harmony-module-group">
 
-					</aside>
+            <?php echo esc_html( strtoupper( $category ) ); ?>
+
+        </h4>
+
+        <?php foreach ( $modules as $module ) : ?>
+
+            <button
+                class="sap-harmony-module-card"
+                type="button"
+                data-module="<?php echo esc_attr( $module['type'] ); ?>">
+
+                <div class="sap-harmony-module-icon">
+                    <?php echo esc_html( $module['icon'] ); ?>
+                </div>
+
+                <div class="sap-harmony-module-content">
+
+                    <strong>
+                        <?php echo esc_html( $module['name'] ); ?>
+                    </strong>
+
+                    <span>
+                        <?php echo esc_html( $module['description'] ); ?>
+                    </span>
+
+                </div>
+
+            </button>
+
+        <?php endforeach; ?>
+
+    <?php endforeach; ?>
+
+</aside>
 
 					<!-- ==========================================
 					     Canvas

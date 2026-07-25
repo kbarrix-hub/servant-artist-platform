@@ -477,3 +477,23 @@
 
 }
 
+.sap-harmony-module-group {
+
+    margin: 22px 0 12px;
+
+    padding-bottom: 6px;
+
+    border-bottom: 1px solid #e7eaf3;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+    color: #64748b;
+
+}
+
