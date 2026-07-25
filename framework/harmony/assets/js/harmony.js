@@ -824,17 +824,34 @@ if (
     return;
 }
 
-Harmony.drag.position =
-    targetIndex < sourceIndex
-        ? 'before'
-        : 'after';
+const rect = module.getBoundingClientRect();
 
-        Harmony.showDropIndicator(module);
+const pointerOffset =
+    event.clientY - rect.top;
 
-        console.log(
-            'Pointer Move:',
-            Harmony.drag
-        );
+const ratio =
+    pointerOffset / rect.height;
+
+if (ratio < 0.33) {
+
+    Harmony.drag.position = 'before';
+
+} else if (ratio > 0.66) {
+
+    Harmony.drag.position = 'after';
+
+} else {
+
+    Harmony.drag.position = 'inside';
+
+}
+
+Harmony.showDropIndicator(module);
+
+console.log(
+    'Pointer Move:',
+    Harmony.drag
+);
 
     }
 );
