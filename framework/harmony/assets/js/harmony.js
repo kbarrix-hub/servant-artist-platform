@@ -792,18 +792,24 @@ if (Harmony.dropIndicator) {
 
 	        const type = card.dataset.module;
 
-if (
-    type === 'single' ||
-    type === 'two-column'
-) {
+            const layouts = [
+                'single',
+                'two-column',
+                'three-column',
+                'four-column',
+                'sidebar-left',
+                'sidebar-right'
+            ];
 
-    HarmonyAPI.createLayout(type);
+            if (layouts.includes(type)) {
 
-} else {
+                HarmonyAPI.createLayout(type);
 
-    HarmonyAPI.addModule(type);
+            } else {
 
-}
+                HarmonyAPI.addModule(type);
+
+            }
 
 		}
         

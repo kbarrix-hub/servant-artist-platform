@@ -68,6 +68,22 @@ final class SAP_Harmony_Command_Handler {
             $this->designer->create_two_column_layout();
             break;
 
+        case 'three-column':
+            $this->designer->create_three_column_layout();
+            break;
+
+		case 'four-column':
+            $this->designer->create_four_column_layout();
+            break;
+
+        case 'sidebar-left':
+            $this->designer->create_sidebar_left_layout();
+            break;
+
+        case 'sidebar-right':
+            $this->designer->create_sidebar_right_layout();
+            break;	
+
         case 'single':
         default:
             $this->designer->create_section_layout();

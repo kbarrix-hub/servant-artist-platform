@@ -67,7 +67,7 @@ private function register_defaults(): void {
 			'name'        => 'Row',
 			'icon'        => '📐',
 			'description' => 'Layout Row',
-			'category'    => 'layout',
+			'category'    => 'internal',
 			'container'   => 'true',
 		]
 	);
@@ -78,21 +78,76 @@ private function register_defaults(): void {
 			'name'        => 'Column',
 			'icon'        => '🧱',
 			'description' => 'Layout Column',
-			'category'    => 'layout',
+			'category'    => 'internal',
 			'container'   => 'true',
 		]
 	);
 
+	$this->register(
+	    [
+		    'type'        => 'two-column',
+		    'name'        => 'Two Columns',
+		    'icon'        => '🟪🟪',
+		    'description' => 'Two Column Layout',
+		    'category'    => 'layout',
+		    'container'   => 'true',
+	    ]
+    );
+
+    $this->register(
+	    [
+		    'type'        => 'three-column',
+		    'name'        => 'Three Columns',
+		    'icon'        => '🟪🟪🟪',
+		    'description' => 'Three Column Layout',
+		    'category'    => 'layout',
+		    'container'   => 'true',
+	    ]
+    );
+
+    $this->register(
+	    [
+		    'type'        => 'four-column',
+		    'name'        => 'Four Columns',
+		    'icon'        => '🟪🟪🟪🟪',
+		    'description' => 'Four Column Layout',
+		    'category'    => 'layout',
+		    'container'   => 'true',
+	    ]
+    );
+	
 	$this->register(
 		[
 			'type'        => 'group',
 			'name'        => 'Group',
 			'icon'        => '📂',
 			'description' => 'Content Group',
-			'category'    => 'layout',
+			'category'    => 'internal',
 			'container'   => 'true',
 		]
 	);
+
+    $this->register(
+	    [
+		    'type'        => 'sidebar-left',
+		    'name'        => 'Sidebar Left',
+		    'icon'        => '◧',
+		    'description' => 'Sidebar Left Layout',
+		    'category'    => 'layout',
+		    'container'   => 'true',
+	    ]
+    );
+    
+	$this->register(
+	    [
+		    'type'        => 'sidebar-right',
+		    'name'        => 'Sidebar Right',
+		    'icon'        => '◨',
+		    'description' => 'Sidebar Right Layout',
+		    'category'    => 'layout',
+		    'container'   => 'true',
+	    ]
+    );
 
 	/*
 	|--------------------------------------------------------------------------

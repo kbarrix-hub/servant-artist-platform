@@ -487,6 +487,211 @@ public function create_section_layout(): array {
 
 		}
 
+		/**
+         * Create a three-column Section layout.
+         *
+         * Section
+         * └── Row
+         *     ├── Column
+         *     ├── Column
+         *     └── Column
+         *
+         * @return array<string,mixed>
+         */
+        public function create_three_column_layout(): array {
+
+            $document = $this->document_store->load();
+
+            $collection = $document->collection();
+
+            $section = SAP_Harmony_Module_Factory::create( 'section' );
+            $row     = SAP_Harmony_Module_Factory::create( 'row' );
+
+            $column1 = SAP_Harmony_Module_Factory::create( 'column' );
+            $column2 = SAP_Harmony_Module_Factory::create( 'column' );
+            $column3 = SAP_Harmony_Module_Factory::create( 'column' );
+
+            // Row belongs to Section.
+            $row['parent'] = $section['id'];
+            $section['children'][] = $row['id'];
+
+            // Column 1.
+            $column1['parent'] = $row['id'];
+            $row['children'][] = $column1['id'];
+
+            // Column 2.
+            $column2['parent'] = $row['id'];
+            $row['children'][] = $column2['id'];
+
+            // Column 3.
+            $column3['parent'] = $row['id'];
+            $row['children'][] = $column3['id'];
+
+            $collection->add_module( $section );
+            $collection->add_module( $row );
+            $collection->add_module( $column1 );
+            $collection->add_module( $column2 );
+            $collection->add_module( $column3 );
+
+            return $this->finalize_layout(
+                $document,
+                $section
+            );
+
+        }
+
+        /**
+        * Create a four-column Section layout.
+         *
+         * Section
+         * └── Row
+         *     ├── Column
+         *     ├── Column
+         *     ├── Column
+         *     └── Column
+         *
+         * @return array<string,mixed>
+         */
+        public function create_four_column_layout(): array {
+
+            $document = $this->document_store->load();
+
+            $collection = $document->collection();
+
+            $section = SAP_Harmony_Module_Factory::create( 'section' );
+            $row     = SAP_Harmony_Module_Factory::create( 'row' );
+
+            $column1 = SAP_Harmony_Module_Factory::create( 'column' );
+            $column2 = SAP_Harmony_Module_Factory::create( 'column' );
+            $column3 = SAP_Harmony_Module_Factory::create( 'column' );
+            $column4 = SAP_Harmony_Module_Factory::create( 'column' );
+
+            // Row belongs to Section.
+            $row['parent'] = $section['id'];
+            $section['children'][] = $row['id'];
+
+            // Column 1.
+            $column1['parent'] = $row['id'];
+            $row['children'][] = $column1['id'];
+
+            // Column 2.
+            $column2['parent'] = $row['id'];
+            $row['children'][] = $column2['id'];
+
+            // Column 3.
+            $column3['parent'] = $row['id'];
+            $row['children'][] = $column3['id'];
+
+            // Column 4.
+            $column4['parent'] = $row['id'];
+            $row['children'][] = $column4['id'];
+
+            $collection->add_module( $section );
+            $collection->add_module( $row );
+            $collection->add_module( $column1 );
+            $collection->add_module( $column2 );
+            $collection->add_module( $column3 );
+            $collection->add_module( $column4 );
+
+            return $this->finalize_layout(
+                $document,
+                $section
+            );
+
+        }
+
+    /**
+	 * Create a left sidebar Section layout.
+	 *
+	 * Section
+	 * └── Row
+	 *     ├── Sidebar Column
+	 *     └── Content Column
+	 *
+	 * @return array<string,mixed>
+	 */
+	public function create_sidebar_left_layout(): array {
+
+		$document = $this->document_store->load();
+
+		$collection = $document->collection();
+
+		$section = SAP_Harmony_Module_Factory::create( 'section' );
+		$row     = SAP_Harmony_Module_Factory::create( 'row' );
+
+		$sidebar = SAP_Harmony_Module_Factory::create( 'column' );
+		$content = SAP_Harmony_Module_Factory::create( 'column' );
+
+		// Row belongs to Section.
+		$row['parent'] = $section['id'];
+		$section['children'][] = $row['id'];
+
+		// Sidebar column.
+		$sidebar['parent'] = $row['id'];
+		$row['children'][] = $sidebar['id'];
+
+		// Main content column.
+		$content['parent'] = $row['id'];
+		$row['children'][] = $content['id'];
+
+		$collection->add_module( $section );
+		$collection->add_module( $row );
+		$collection->add_module( $sidebar );
+		$collection->add_module( $content );
+
+		return $this->finalize_layout(
+			$document,
+			$section
+		);
+
+	}
+
+	    	/**
+	 * Create a right sidebar Section layout.
+	 *
+	 * Section
+	 * └── Row
+	 *     ├── Content Column
+	 *     └── Sidebar Column
+	 *
+	 * @return array<string,mixed>
+	 */
+	public function create_sidebar_right_layout(): array {
+
+		$document = $this->document_store->load();
+
+		$collection = $document->collection();
+
+		$section = SAP_Harmony_Module_Factory::create( 'section' );
+		$row     = SAP_Harmony_Module_Factory::create( 'row' );
+
+		$content = SAP_Harmony_Module_Factory::create( 'column' );
+		$sidebar = SAP_Harmony_Module_Factory::create( 'column' );
+
+		// Row belongs to Section.
+		$row['parent'] = $section['id'];
+		$section['children'][] = $row['id'];
+
+		// Main content column.
+		$content['parent'] = $row['id'];
+		$row['children'][] = $content['id'];
+
+		// Sidebar column.
+		$sidebar['parent'] = $row['id'];
+		$row['children'][] = $sidebar['id'];
+
+		$collection->add_module( $section );
+		$collection->add_module( $row );
+		$collection->add_module( $content );
+		$collection->add_module( $sidebar );
+
+		return $this->finalize_layout(
+			$document,
+			$section
+		);
+    
+	}
+
         private function finalize_layout(
             SAP_Harmony_Document $document,
             array $section
@@ -509,5 +714,6 @@ public function create_section_layout(): array {
             return $section;
 
         }
+
 
 		}

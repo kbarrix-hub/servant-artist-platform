@@ -60,14 +60,18 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
         $category = strtolower( $module['category'] ?? 'other' );
 
+        // Hide internal Harmony engine modules.
+        if ( 'internal' === $category ) {
+            continue;
+        }
+
         $grouped[ $category ][] = $module;
 
     }
 
-    foreach ( $grouped as $category => $modules ) :
-
     ?>
 
+    <?php foreach ( $grouped as $category => $modules ) : ?>
         <h4 class="sap-harmony-module-group">
 
             <?php echo esc_html( strtoupper( $category ) ); ?>
