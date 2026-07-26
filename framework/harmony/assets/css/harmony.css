@@ -497,3 +497,42 @@
 
 }
 
+/* ============================================================
+   SAP-103B
+   Harmony Semantic Layout Engine
+============================================================ */
+
+.sap-harmony-section>.sap-harmony-children {
+
+	display: block;
+
+}
+
+.sap-harmony-row>.sap-harmony-children {
+
+	display: flex;
+
+	gap: 24px;
+
+	align-items: stretch;
+
+}
+
+.sap-harmony-column {
+
+	flex: 1;
+
+	min-width: 0;
+
+}
+
+.sap-harmony-column>.sap-harmony-children {
+
+	display: flex;
+
+	flex-direction: column;
+
+	gap: 20px;
+
+}
+

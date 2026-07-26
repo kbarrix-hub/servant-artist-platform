@@ -115,7 +115,23 @@ final class SAP_Harmony_Renderer {
 		array $selection
 	): void {
 
-		$classes = 'sap-harmony-module';
+				$classes = 'sap-harmony-module';
+
+		switch ( $module['type'] ) {
+
+			case 'section':
+				$classes .= ' sap-harmony-section';
+				break;
+
+			case 'row':
+				$classes .= ' sap-harmony-row';
+				break;
+
+			case 'column':
+				$classes .= ' sap-harmony-column';
+				break;
+
+		}
 
 		if (
 			isset( $selection['id'] ) &&
