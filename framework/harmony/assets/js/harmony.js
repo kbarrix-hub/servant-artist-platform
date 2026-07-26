@@ -405,6 +405,45 @@ hideDropIndicator() {
 
 },
 
+    createLayout(layout) {
+
+    this.sendCommand(
+        'create_layout',
+        {
+            layout: layout
+        }
+    )
+    .then((response) => {
+
+        if (
+            response.success &&
+            response.data &&
+            response.data.result &&
+            response.data.result.success
+        ) {
+
+            Harmony.replaceCanvas(
+                response.data.result.canvas
+            );
+
+            Harmony.updateInspector(
+                response.data.result.selected
+            );
+
+        }
+
+    })
+    .catch((error) => {
+
+        console.error(
+            'CREATE_LAYOUT failed:',
+            error
+        );
+
+    });
+
+},
+    
     addModule(type) {
 
 	this.sendCommand(
@@ -751,9 +790,20 @@ if (Harmony.dropIndicator) {
 
 		if (card) {
 
-	        HarmonyAPI.addModule(
-		        card.dataset.module
-	        );
+	        const type = card.dataset.module;
+
+if (
+    type === 'single' ||
+    type === 'two-column'
+) {
+
+    HarmonyAPI.createLayout(type);
+
+} else {
+
+    HarmonyAPI.addModule(type);
+
+}
 
 		}
         

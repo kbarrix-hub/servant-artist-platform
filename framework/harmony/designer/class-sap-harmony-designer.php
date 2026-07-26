@@ -423,20 +423,10 @@ public function create_section_layout(): array {
     $collection->add_module( $row );
     $collection->add_module( $column );
 
-    $this->document_store->save( $document );
-
-	$this->renderer->set_document(
-    $document
+    return $this->finalize_layout(
+        $document,
+        $section
     );
-
-    $this->selection->select(
-        $section['id'],
-        $section['name'],
-        $section['type']
-    );
-	
-
-    return $section;
 
 }
 
@@ -451,4 +441,73 @@ public function create_section_layout(): array {
 
     }
 
-}
+	/**
+     * Create a two-column Section layout.
+     *
+     * Section
+     * └── Row
+     *     ├── Column
+     *     └── Column
+     *
+     * @return array<string,mixed>
+     */
+    public function create_two_column_layout(): array {
+
+        $document = $this->document_store->load();
+
+        $collection = $document->collection();
+
+        $section = SAP_Harmony_Module_Factory::create( 'section' );
+        $row     = SAP_Harmony_Module_Factory::create( 'row' );
+
+        $column1 = SAP_Harmony_Module_Factory::create( 'column' );
+        $column2 = SAP_Harmony_Module_Factory::create( 'column' );
+
+        // Row belongs to Section
+        $row['parent'] = $section['id'];
+        $section['children'][] = $row['id'];
+
+        // Column 1
+        $column1['parent'] = $row['id'];
+        $row['children'][] = $column1['id'];
+
+        // Column 2
+        $column2['parent'] = $row['id'];
+        $row['children'][] = $column2['id'];
+
+        $collection->add_module( $section );
+        $collection->add_module( $row );
+        $collection->add_module( $column1 );
+        $collection->add_module( $column2 );
+
+        return $this->finalize_layout(
+            $document,
+            $section
+        );
+
+		}
+
+        private function finalize_layout(
+            SAP_Harmony_Document $document,
+            array $section
+        ): array {
+
+            $this->document_store->save(
+                $document
+            );
+
+            $this->renderer->set_document(
+                $document
+            );
+
+            $this->selection->select(
+                $section['id'],
+                $section['name'],
+                $section['type']
+            );
+
+            return $section;
+
+        }
+
+		}

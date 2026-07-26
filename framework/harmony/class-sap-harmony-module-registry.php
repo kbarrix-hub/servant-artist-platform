@@ -52,10 +52,10 @@ private function register_defaults(): void {
 
 	$this->register(
 		[
-			'type'        => 'section',
-			'name'        => 'Section',
+			'type'        => 'single',
+            'name'        => 'Single Section',
 			'icon'        => '📄',
-			'description' => 'Layout Section',
+			'description' => 'Single Column Layout',
 			'category'    => 'layout',
 			'container'   => 'true',
 		]

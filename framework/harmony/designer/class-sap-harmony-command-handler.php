@@ -52,9 +52,34 @@ final class SAP_Harmony_Command_Handler {
 	) {
 
 		switch ( strtoupper( $command ) ) {
-
+            
 			case 'PING':
 				return 'pong';
+
+				case 'CREATE_LAYOUT':
+
+    $layout = strtolower(
+        (string) ( $payload['layout'] ?? 'single' )
+    );
+
+    switch ( $layout ) {
+
+        case 'two-column':
+            $this->designer->create_two_column_layout();
+            break;
+
+        case 'single':
+        default:
+            $this->designer->create_section_layout();
+            break;
+
+    }
+
+    return [
+        'success'  => true,
+        'selected' => $this->designer->selected(),
+        'canvas'   => $this->designer->render_canvas(),
+    ];
 
 			case 'ADD_MODULE':
 
@@ -62,15 +87,7 @@ final class SAP_Harmony_Command_Handler {
                 (string) ( $payload['type'] ?? 'text' )
             );
 
-            if ( 'section' === $type ) {
-
-                $this->designer->create_section_layout();
-
-            } else {
-
-                $this->designer->add_module( $type );
-
-            }
+            $this->designer->add_module( $type );
 
             return [
                 'success'  => true,
