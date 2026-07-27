@@ -408,6 +408,7 @@ public function create_section_layout(): array {
     $collection = $document->collection();
 
     $section = SAP_Harmony_Module_Factory::create( 'section' );
+	$section['layout'] = 'single';
     $row     = SAP_Harmony_Module_Factory::create( 'row' );
     $column  = SAP_Harmony_Module_Factory::create( 'column' );
 
@@ -458,6 +459,7 @@ public function create_section_layout(): array {
         $collection = $document->collection();
 
         $section = SAP_Harmony_Module_Factory::create( 'section' );
+		$section['layout'] = 'two-column';
         $row     = SAP_Harmony_Module_Factory::create( 'row' );
 
         $column1 = SAP_Harmony_Module_Factory::create( 'column' );
@@ -505,6 +507,7 @@ public function create_section_layout(): array {
             $collection = $document->collection();
 
             $section = SAP_Harmony_Module_Factory::create( 'section' );
+			$section['layout'] = 'three-column';
             $row     = SAP_Harmony_Module_Factory::create( 'row' );
 
             $column1 = SAP_Harmony_Module_Factory::create( 'column' );
@@ -559,6 +562,7 @@ public function create_section_layout(): array {
             $collection = $document->collection();
 
             $section = SAP_Harmony_Module_Factory::create( 'section' );
+			$section['layout'] = 'four-column';
             $row     = SAP_Harmony_Module_Factory::create( 'row' );
 
             $column1 = SAP_Harmony_Module_Factory::create( 'column' );
@@ -617,6 +621,7 @@ public function create_section_layout(): array {
 		$collection = $document->collection();
 
 		$section = SAP_Harmony_Module_Factory::create( 'section' );
+		$section['layout'] = 'sidebar-left';
 		$row     = SAP_Harmony_Module_Factory::create( 'row' );
 
 		$sidebar = SAP_Harmony_Module_Factory::create( 'column' );
@@ -663,6 +668,7 @@ public function create_section_layout(): array {
 		$collection = $document->collection();
 
 		$section = SAP_Harmony_Module_Factory::create( 'section' );
+		$section['layout'] = 'sidebar-right';
 		$row     = SAP_Harmony_Module_Factory::create( 'row' );
 
 		$content = SAP_Harmony_Module_Factory::create( 'column' );

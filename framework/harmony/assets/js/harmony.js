@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             selectedModuleId: null,
 
+            targetColumnId: null,
+
 			drag: {
 		        active: false,
 		        source: null,
@@ -768,21 +770,39 @@ if (Harmony.dropIndicator) {
     
     document.addEventListener('click', function (event) {
 
-		const module = event.target.closest(
-			'.sap-harmony-module'
-		);
+        const placeholder = event.target.closest(
+            '.sap-harmony-empty-column'
+        );
 
-		if (module) {
+        if (placeholder) {
 
-			HarmonyAPI.selectModule(
+            Harmony.targetColumnId =
+                placeholder.dataset.columnId;
+
+            console.log(
+                'Target Column:',
+                Harmony.targetColumnId
+            );
+
+            return;
+
+        }
+
+        const module = event.target.closest(
+            '.sap-harmony-module'
+        );
+
+        if (module) {
+
+            HarmonyAPI.selectModule(
                 module.dataset.moduleId,
                 module.dataset.moduleName,
                 module.dataset.moduleType
-			);
+            );
 
-			return;
+            return;
 
-		}
+        }
 
 		const card = event.target.closest(
 			'.sap-harmony-module-card'
@@ -818,6 +838,14 @@ if (Harmony.dropIndicator) {
 	document.addEventListener(
 	'pointerdown',
 	function (event) {
+
+        const placeholder = event.target.closest(
+            '.sap-harmony-empty-column'
+        );
+
+        if (placeholder) {
+            return;
+        }
 
 		const module = event.target.closest(
 			'.sap-harmony-module'

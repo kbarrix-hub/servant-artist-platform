@@ -536,3 +536,165 @@
 
 }
 
+/* ============================================================
+   SAP-103C
+   Smart Sidebar Layouts
+============================================================ */
+
+.layout-sidebar-left>.sap-harmony-children>.sap-harmony-row>.sap-harmony-children>.sap-harmony-column:first-child {
+
+	flex: 0 0 25%;
+
+}
+
+.layout-sidebar-left>.sap-harmony-children>.sap-harmony-row>.sap-harmony-children>.sap-harmony-column:last-child {
+
+	flex: 0 0 75%;
+
+}
+
+.layout-sidebar-right>.sap-harmony-children>.sap-harmony-row>.sap-harmony-children>.sap-harmony-column:first-child {
+
+	flex: 0 0 75%;
+
+}
+
+.layout-sidebar-right>.sap-harmony-children>.sap-harmony-row>.sap-harmony-children>.sap-harmony-column:last-child {
+
+	flex: 0 0 25%;
+
+}
+
+/* ============================================================
+   SAP-104A
+   Canvas Visual Hierarchy
+============================================================ */
+
+/* Sections */
+
+.sap-harmony-section {
+
+	background: #fbfcff;
+
+	border: 2px solid #dbe8ff;
+
+	border-radius: 14px;
+
+	padding: 24px;
+
+}
+
+/* Rows */
+
+.sap-harmony-row {
+
+	background: #fdfcff;
+
+	border: 2px dashed #d8ccff;
+
+	border-radius: 12px;
+
+	padding: 20px;
+
+}
+
+/* Columns */
+
+.sap-harmony-column {
+
+	background: #ffffff;
+
+	border: 2px dashed #e4e7ec;
+
+	border-radius: 10px;
+
+	min-height: 160px;
+
+	padding: 18px;
+
+}
+
+/* ============================================================
+   SAP-105A
+   Empty Column Placeholder
+============================================================ */
+
+.sap-harmony-empty-column {
+
+	display: flex;
+
+	flex-direction: column;
+
+	justify-content: center;
+
+	align-items: center;
+
+	min-height: 180px;
+
+	border: 2px dashed #d7dce7;
+
+	border-radius: 12px;
+
+	background: #fafbfc;
+
+	color: #64748b;
+
+	transition:
+		border-color .2s ease,
+		background .2s ease;
+
+}
+
+.sap-harmony-empty-column:hover {
+
+	border-color: #7c5cfc;
+
+	background: #f8f6ff;
+
+}
+
+.sap-harmony-empty-icon {
+
+	width: 44px;
+
+	height: 44px;
+
+	display: flex;
+
+	align-items: center;
+
+	justify-content: center;
+
+	border-radius: 50%;
+
+	background: #7c5cfc;
+
+	color: #ffffff;
+
+	font-size: 26px;
+
+	font-weight: 600;
+
+	margin-bottom: 14px;
+
+}
+
+.sap-harmony-empty-title {
+
+	font-size: 15px;
+
+	font-weight: 600;
+
+	color: #1f2937;
+
+}
+
+.sap-harmony-empty-text {
+
+	margin-top: 6px;
+
+	font-size: 13px;
+
+	color: #6b7280;
+
+}

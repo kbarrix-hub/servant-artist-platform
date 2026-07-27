@@ -119,19 +119,29 @@ final class SAP_Harmony_Renderer {
 
 		switch ( $module['type'] ) {
 
-			case 'section':
-				$classes .= ' sap-harmony-section';
-				break;
+            case 'section':
 
-			case 'row':
-				$classes .= ' sap-harmony-row';
-				break;
+                $classes .= ' sap-harmony-section';
 
-			case 'column':
-				$classes .= ' sap-harmony-column';
-				break;
+                if ( ! empty( $module['layout'] ) ) {
 
-		}
+                    $classes .= ' layout-' . sanitize_html_class(
+                    (string) $module['layout']
+                );
+
+            }
+
+            break;
+
+        case 'row':
+            $classes .= ' sap-harmony-row';
+            break;
+
+        case 'column':
+            $classes .= ' sap-harmony-column';
+            break;
+
+        }
 
 		if (
 			isset( $selection['id'] ) &&
@@ -166,14 +176,46 @@ final class SAP_Harmony_Renderer {
                         ->collection()
                         ->get_children( $module['id'] );
 
-                    foreach ( $children as $child ) {
+    /*
+     * Empty column placeholder.
+     */
+    if (
+        'column' === $module['type'] &&
+         empty( $children )
+    ) {
 
-                        $this->render_module(
-                            $child,
-                            $selection
-                        );
+        ?>
 
-                    }
+        <div
+            class="sap-harmony-empty-column"
+            data-column-id="<?php echo esc_attr( $module['id'] ); ?>">
+
+            <div class="sap-harmony-empty-icon">+</div>
+
+            <div class="sap-harmony-empty-title">
+            Add Module
+            </div>
+
+            <div class="sap-harmony-empty-text">
+                Click or drag a module here
+            </div>
+
+        </div>
+
+        <?php
+
+    } else {
+
+        foreach ( $children as $child ) {
+
+            $this->render_module(
+                $child,
+                $selection
+            );
+
+        }
+
+    }
 
                     ?>
 
