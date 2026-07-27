@@ -56,11 +56,20 @@ final class SAP_Harmony_Designer {
 
 }
 
-	public function add_module( string $type ): array {
+	public function add_module(
+        string $type,
+        string $parent = ''
+    ): array {
 
 		$module = SAP_Harmony_Module_Factory::create( $type );
 
-	    $document = $this->document_store->load();
+		if ( '' !== $parent ) {
+
+            $module['parent'] = $parent;
+
+        }
+
+         $document = $this->document_store->load();
 
         $document
             ->collection()

@@ -103,7 +103,14 @@ final class SAP_Harmony_Command_Handler {
                 (string) ( $payload['type'] ?? 'text' )
             );
 
-            $this->designer->add_module( $type );
+            $parent = (string) (
+                $payload['parent'] ?? ''
+            );
+
+            $this->designer->add_module(
+                $type,
+                $parent
+            );
 
             return [
                 'success'  => true,

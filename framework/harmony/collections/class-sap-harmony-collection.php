@@ -94,9 +94,25 @@ final class SAP_Harmony_Collection {
 	 */
 	public function add_module( array $module ): void {
 
-		$this->modules[] = $module;
+    /*
+     * If a parent has been assigned, make sure it exists.
+     * Otherwise treat the module as a root-level module.
+     */
+    if (
+        ! empty( $module['parent'] ) &&
+        $this->has_module( (string) $module['parent'] )
+    ) {
 
-	}
+        $this->modules[] = $module;
+        return;
+
+    }
+
+    $module['parent'] = null;
+
+    $this->modules[] = $module;
+
+}
 
 	/**
 	 * Remove a Harmony module.

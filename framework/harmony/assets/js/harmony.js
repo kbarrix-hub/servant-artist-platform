@@ -451,7 +451,8 @@ hideDropIndicator() {
 	this.sendCommand(
 		'add_module',
 		{
-			type: type
+            type: type,
+            parent: Harmony.targetColumnId
 		}
 	)
 	.then((response) => {
