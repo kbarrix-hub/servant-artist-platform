@@ -14,19 +14,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     	const Harmony = {
 
-            state: {
+			version: 'SAP091-test',
 
-                selectedModuleId: null,
+            selectedModuleId: null,
 
-                targetColumnId: null,
+            targetColumnId: null,
 
-                selectedPlaceholder: null,
+            selectedPlaceholder: null,
 
-                addModuleMode: false
-
-            },
-
-            version: 'SAP112B',
+            addModuleMode: false,
 
             drag: {
                 active: false,
@@ -66,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (
                 module.dataset.moduleId ===
-                this.state.selectedModuleId
+                this.selectedModuleId
             ) {
 
                 module.classList.add(
@@ -447,7 +443,7 @@ hideDropIndicator() {
     
 	beginDrag(sourceId) {
 
-        this.drag.active = true
+        this.drag.active = true;
         this.drag.source = sourceId;
         this.drag.target = null;
         this.drag.position = 'before';
@@ -642,7 +638,7 @@ hideDropIndicator() {
 		'add_module',
 		{
             type: type,
-            parent: Harmony.state.targetColumnId
+            parent: Harmony.targetColumnId
 		}
 	)
 	.then((response) => {
@@ -659,7 +655,7 @@ hideDropIndicator() {
             response.data.result.selected.id
         ) {
 
-            Harmony.state.selectedModuleId =
+            Harmony.selectedModuleId =
                 response.data.result.selected.id;
 
         }
@@ -672,9 +668,9 @@ hideDropIndicator() {
             response.data.result.selected
         );
 
-            Harmony.state.addModuleMode = false;
+            Harmony.addModuleMode = false;
 
-            Harmony.state.selectedPlaceholder = null;
+            Harmony.selectedPlaceholder = null;
 
             document
                 .querySelectorAll('.sap-module-target')
@@ -721,7 +717,7 @@ hideDropIndicator() {
 
             console.log(
                 'Add Module Mode:',
-                Harmony.state.addModuleMode
+                Harmony.addModuleMode
             );
 
 		}
@@ -740,7 +736,7 @@ hideDropIndicator() {
 
     selectModule(id, name, type) {
 
-    Harmony.state.selectedModuleId = id;
+	Harmony.selectedModuleId = id;
 
 	    this.sendCommand(
 		    'select_module',
@@ -894,7 +890,7 @@ hideDropIndicator() {
 						response.data.result.canvas
 					);
 
-                    Harmony.state.selectedModuleId = null;
+					Harmony.selectedModuleId = null;
 
                     Harmony.updateInspector(
                         response.data.result.selected
@@ -928,7 +924,7 @@ hideDropIndicator() {
 		this.sendCommand(
             'delete_module',
             {
-                id: Harmony.state.selectedModuleId
+                id: Harmony.selectedModuleId
             }
         )
 			.then((response) => {
@@ -944,19 +940,16 @@ hideDropIndicator() {
                     response.data.result.canvas
                 );
 
-                    if (
-                        response.data.result.selected &&
-                        response.data.result.selected.id
-                    ) {
+				if (
+                    response.data.result.selected &&
+                    response.data.result.selected.id
+                ) {
 
-                        Harmony.state.selectedModuleId =
-                            response.data.result.selected.id;
+                    Harmony.selectedModuleId =
+                    response.data.result.selected.id;
 
-                    } else {
-
-                        Harmony.state.selectedModuleId = null;
-
-                    }
+                }
+                Harmony.selectedModuleId = null;
 
                 Harmony.updateInspector(
                     response.data.result.selected
@@ -999,7 +992,7 @@ if (Harmony.dropIndicator) {
             'click',
             function () {
 
-                Harmony.state.addModuleMode = true;
+                Harmony.addModuleMode = true;
 
                 addButton.textContent = '✓ Choose a Location';
 
@@ -1009,7 +1002,7 @@ if (Harmony.dropIndicator) {
 
                 console.log(
                     'Add Module Mode:',
-                    Harmony.state.addModuleMode
+                    Harmony.addModuleMode
                 );
 
                 moduleLibrary?.scrollIntoView({
@@ -1064,9 +1057,9 @@ if (Harmony.dropIndicator) {
 
             placeholder.classList.add('sap-module-target');
 
-            Harmony.state.selectedPlaceholder = placeholder;
+            Harmony.selectedPlaceholder = placeholder;
 
-            Harmony.state.targetColumnId =
+            Harmony.targetColumnId =
                 placeholder.dataset.columnId;
 
             const title = document.getElementById(
@@ -1108,7 +1101,7 @@ if (Harmony.dropIndicator) {
 
             console.log(
                 'Target Column:',
-                Harmony.state.targetColumnId
+                Harmony.targetColumnId
             );
 
             return;
@@ -1260,8 +1253,7 @@ document.addEventListener(
             if (!column) {
 
                 Harmony.drag.target = null;
-                
-                Harmony.state.targetColumnId = null;
+                Harmony.targetColumnId = null;
 
                 Harmony.hideDropIndicator();
 
@@ -1272,7 +1264,7 @@ document.addEventListener(
             Harmony.drag.target =
                 column.dataset.columnId;
 
-            Harmony.state.targetColumnId =
+            Harmony.targetColumnId =
                 column.dataset.columnId;
 
             Harmony.drag.position = 'inside';

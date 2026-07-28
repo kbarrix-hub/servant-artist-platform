@@ -31,82 +31,95 @@ final class SAP_Harmony_Module_Factory {
 
 		switch ( strtolower( $type ) ) {
 
-            case 'section':
-                return [
-                    'id'       => $id,
-                    'name'     => 'Section',
-                    'type'     => 'section',
-                    'title'    => 'Section',
-                    'content'  => '',
-                    'parent'   => null,
-                    'children' => [],
-                ];
-
-				case 'row':
-    return [
-        'id'       => $id,
-        'name'     => 'Row',
-        'type'     => 'row',
-        'title'    => 'Row',
-        'content'  => '',
-        'parent'   => null,
-        'children' => [],
+    case 'section':
+        return [
+            'id'       => $id,
+            'name'     => 'Section',
+            'type'     => 'section',
+            'title'    => 'Section',
+            'content'  => '',
+            'parent'   => null,
+            'children' => [],
     ];
 
-case 'column':
-    return [
-        'id'       => $id,
-        'name'     => 'Column',
-        'type'     => 'column',
-        'title'    => 'Column',
-        'content'  => '',
-        'parent'   => null,
-        'children' => [],
+	case 'row':
+        return [
+            'id'       => $id,
+            'name'     => 'Row',
+            'type'     => 'row',
+            'title'    => 'Row',
+            'content'  => '',
+            'parent'   => null,
+            'children' => [],
     ];
 
-			case 'hero':
-				return [
-					'id'      => $id,
-					'name'    => 'Hero',
-					'type'    => 'hero',
-					'title'   => 'New Hero',
-					'content' => 'Hero content...',
-					'parent'   => null,
-                    'children' => [],
-				];
+    case 'column':
+        return [
+            'id'       => $id,
+            'name'     => 'Column',
+            'type'     => 'column',
+            'title'    => 'Column',
+            'content'  => '',
+            'parent'   => null,
+            'children' => [],
+    ];
 
-			case 'text':
-				return [
-					'id'      => $id,
-					'name'    => 'Text',
-					'type'    => 'text',
-					'title'   => 'Text Block',
-					'content' => 'Enter text...',
-					'parent'   => null,
-                    'children' => [],
-				];
+	case 'heading':
+    return [
+        'id'         => $id,
+        'name'       => 'Heading',
+        'type'       => 'heading',
+        'title'      => 'Heading',
+        'content'    => '',
+        'level'      => 'h2',
+        'alignment'  => 'left',
+        'parent'     => null,
+        'children'   => [],
+    ];
 
-			case 'image':
-				return [
-					'id'      => $id,
-					'name'    => 'Image',
-					'type'    => 'image',
-					'title'   => 'Image',
-					'content' => '',
-					'parent'   => null,
-                    'children' => [],
-				];
+	case 'hero':
+		return [
+	        'id'      => $id,
+			'name'    => 'Hero',
+		    'type'    => 'hero',
+			'title'   => 'New Hero',
+			'content' => 'Hero content...',
+			'parent'   => null,
+            'children' => [],
+	];
 
-			default:
-				return [
-					'id'      => $id,
-					'name'    => ucfirst( $type ),
-					'type'    => strtolower( $type ),
-					'title'   => ucfirst( $type ),
-					'content' => '',
-					'parent'   => null,
-                    'children' => [],
-				];
+	case 'text':
+		return [
+			'id'      => $id,
+			'name'    => 'Text',
+			'type'    => 'text',
+			'title'   => 'Text Block',
+			'content' => 'Enter text...',
+			'parent'   => null,
+            'children' => [],
+	];
+
+	case 'image':
+		return [
+			'id'      => $id,
+			'name'    => 'Image',
+			'type'    => 'image',
+			'title'   => 'Image',
+			'content' => '',
+			'parent'   => null,
+            'children' => [],
+	];
+
+	default:
+		return [
+			'id'      => $id,
+			'name'    => ucfirst( $type ),
+			'type'    => strtolower( $type ),
+			'title'   => ucfirst( $type ),
+			'content' => '',
+			'parent'   => null,
+            'children' => [],
+	];
 
 		}
 

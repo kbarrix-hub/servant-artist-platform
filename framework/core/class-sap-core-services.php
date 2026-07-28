@@ -233,11 +233,14 @@ final class SAP_Core_Services {
 
 		$harmony_module_registry = new SAP_Harmony_Module_Registry();
 
+		$harmony_property_registry = new SAP_Harmony_Property_Registry();
+
         $this->harmony_designer = new SAP_Harmony_Designer(
-	        $this->harmony_renderer,
-	        $this->harmony_document_store,
-	        $this->selection_manager,
-			$harmony_module_registry
+            $this->harmony_renderer,
+            $this->harmony_document_store,
+            $this->selection_manager,
+            $harmony_module_registry,
+            $harmony_property_registry
         );
 
 		$this->harmony_command_handler =

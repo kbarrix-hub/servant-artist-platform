@@ -161,9 +161,47 @@ final class SAP_Harmony_Renderer {
             data-module-name="<?php echo esc_attr( $module['name'] ); ?>"
             data-module-type="<?php echo esc_attr( $module['type'] ); ?>">
 
-			<h2><?php echo esc_html( $module['title'] ); ?></h2>
+			<?php
 
-            <p><?php echo esc_html( $module['content'] ); ?></p>
+if ( 'heading' === $module['type'] ) {
+
+    $level = $module['level'] ?? 'h2';
+
+    $allowed = [
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+    ];
+
+    if ( ! in_array( $level, $allowed, true ) ) {
+        $level = 'h2';
+    }
+
+    $alignment = $module['alignment'] ?? 'left';
+
+    printf(
+        '<%1$s style="text-align:%2$s;">%3$s</%1$s>',
+        esc_attr( $level ),
+        esc_attr( $alignment ),
+        esc_html( $module['title'] )
+    );
+
+} else {
+
+    ?>
+
+    <h2><?php echo esc_html( $module['title'] ); ?></h2>
+
+    <p><?php echo esc_html( $module['content'] ); ?></p>
+
+    <?php
+
+}
+
+?>
 
             <?php
 

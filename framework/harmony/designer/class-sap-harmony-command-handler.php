@@ -157,10 +157,11 @@ final class SAP_Harmony_Command_Handler {
 			case 'SAVE_MODULE':
 
 				$this->designer->save_module(
-					(string) ( $payload['id'] ?? '' ),
-					(string) ( $payload['title'] ?? '' ),
-					(string) ( $payload['content'] ?? '' )
-				);
+                    (string) ( $payload['id'] ?? '' ),
+                    (string) ( $payload['title'] ?? '' ),
+                    (string) ( $payload['content'] ?? '' ),
+                    (array) ( $payload['properties'] ?? [] )
+                );
 
 				return [
 					'success'  => true,

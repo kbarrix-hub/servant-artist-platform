@@ -29,6 +29,8 @@ final class SAP_Harmony_Designer {
 
 	private SAP_Harmony_Module_Registry $module_registry;
 
+	private SAP_Harmony_Property_Registry $property_registry;
+
 	/**
 	 * Current drag operation.
 	 *
@@ -45,7 +47,8 @@ final class SAP_Harmony_Designer {
     SAP_Harmony_Renderer $renderer,
     SAP_Harmony_Document_Store $document_store,
     SAP_Selection_Manager $selection,
-    SAP_Harmony_Module_Registry $module_registry
+    SAP_Harmony_Module_Registry $module_registry,
+    SAP_Harmony_Property_Registry $property_registry
 	
 ) {
 
@@ -53,6 +56,7 @@ final class SAP_Harmony_Designer {
     $this->document_store  = $document_store;
     $this->selection       = $selection;
     $this->module_registry = $module_registry;
+	$this->property_registry = $property_registry;
 
 }
 
@@ -237,20 +241,26 @@ final class SAP_Harmony_Designer {
     public function save_module(
 	    string $id,
 	    string $title,
-	    string $content
+	    string $content,
+		array $properties = []
     ): void {
 
 	    $document = $this->document_store->load();
 
-	    $document
-		    ->collection()
-		    ->update_module(
-			    $id,
-			[
-				'title'   => $title,
-				'content' => $content,
-			]
-		);
+	    $updates = array_merge(
+    [
+        'title'   => $title,
+        'content' => $content,
+    ],
+    $properties
+);
+
+$document
+    ->collection()
+    ->update_module(
+        $id,
+        $updates
+    );
 
 	$this->document_store->save(
 		$document
