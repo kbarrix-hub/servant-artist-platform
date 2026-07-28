@@ -698,3 +698,138 @@
 	color: #6b7280;
 
 }
+
+/* ============================================================
+   SAP-106
+   Guided Add Module Mode
+============================================================ */
+
+/* Active toolbar button */
+
+body.sap-add-module-mode .sap-add-module {
+
+	background: #5b4cff !important;
+	color: #ffffff !important;
+	border-color: #5b4cff !important;
+
+	box-shadow:
+		0 0 0 4px rgba(91, 76, 255, .20),
+		0 12px 28px rgba(91, 76, 255, .30);
+
+	transform: translateY(-2px);
+
+}
+
+/* Dim entire canvas */
+
+body.sap-add-module-mode .sap-harmony-page-canvas {
+
+	opacity: .35;
+
+	transition: opacity .25s ease;
+
+}
+
+/* Bring placeholders back to full brightness */
+
+body.sap-add-module-mode .sap-harmony-empty-column {
+
+	position: relative;
+
+	opacity: 1 !important;
+
+	transform: scale(1.03);
+
+	background: #ffffff !important;
+
+	border: 3px solid #7c5cfc !important;
+
+	box-shadow:
+		0 0 0 6px rgba(124, 92, 252, .18),
+		0 12px 30px rgba(124, 92, 252, .25);
+
+	cursor: pointer;
+
+	z-index: 10;
+
+}
+
+/* Make the icon pop */
+
+body.sap-add-module-mode .sap-harmony-empty-icon {
+
+	transform: scale(1.35);
+
+	box-shadow:
+		0 0 20px rgba(124, 92, 252, .45);
+
+}
+
+/* Hover */
+
+body.sap-add-module-mode .sap-harmony-empty-column:hover {
+
+	transform: scale(1.06);
+
+	border-color: #5b4cff !important;
+
+	box-shadow:
+		0 0 0 8px rgba(91, 76, 255, .22),
+		0 18px 36px rgba(91, 76, 255, .30);
+
+}
+
+/* Instruction */
+
+body.sap-add-module-mode .sap-harmony-empty-text {
+
+	font-weight: 700;
+
+	color: #5b4cff;
+
+}
+
+body.sap-add-module-mode .sap-harmony-empty-text::before {
+
+	content: "Click to add here";
+
+}
+
+body.sap-add-module-mode .sap-harmony-empty-text {
+
+	font-size: 0;
+
+}
+
+/* ============================================================
+   SAP-107
+   Selected Module Target
+============================================================ */
+
+.sap-module-target {
+
+	border: 4px solid #5b4cff !important;
+
+	background: #ffffff !important;
+
+	transform: scale(1.05);
+
+	box-shadow:
+		0 0 0 10px rgba(91, 76, 255, .22),
+		0 22px 42px rgba(91, 76, 255, .35);
+
+	z-index: 50;
+
+}
+
+body.sap-add-module-mode .sap-harmony-empty-column:not(.sap-module-target) {
+
+	opacity: .30;
+
+	transform: scale(.96);
+
+	transition:
+		opacity .2s ease,
+		transform .2s ease;
+
+}

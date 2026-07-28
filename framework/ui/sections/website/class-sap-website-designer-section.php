@@ -50,7 +50,9 @@ final class SAP_Website_Designer_Section extends SAP_Abstract_Section {
 
 				<aside class="sap-harmony-library">
 
-    <h3>Modules</h3>
+    <h3 id="sap-harmony-library-title">
+    Modules
+    </h3>
 
     <?php
 

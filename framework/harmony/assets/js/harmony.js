@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             targetColumnId: null,
 
+            selectedPlaceholder: null,
+
             addModuleMode: false,
 
 			drag: {
@@ -486,6 +488,51 @@ hideDropIndicator() {
 
             Harmony.addModuleMode = false;
 
+            Harmony.selectedPlaceholder = null;
+
+            document
+                .querySelectorAll('.sap-module-target')
+                .forEach(column => {
+                    column.classList.remove('sap-module-target');
+                });
+
+            const title = document.getElementById(
+                'sap-harmony-library-title'
+            );
+
+            if (title) {
+                title.textContent = 'Modules';
+            }
+
+            document
+                .querySelectorAll('.sap-harmony-module-group')
+                .forEach(group => {
+
+                    group.style.display = '';
+
+                    let next = group.nextElementSibling;
+
+                    while (
+                        next &&
+                        !next.classList.contains(
+                            'sap-harmony-module-group'
+                        )
+                    ) {
+
+                        next.style.display = '';
+
+                        next = next.nextElementSibling;
+
+                    }
+
+                });
+
+            addButton.textContent = '+ Add Module';
+
+            document.body.classList.remove(
+                'sap-add-module-mode'
+            );
+
             console.log(
                 'Add Module Mode:',
                 Harmony.addModuleMode
@@ -759,6 +806,12 @@ if (Harmony.dropIndicator) {
 
                 Harmony.addModuleMode = true;
 
+                addButton.textContent = '✓ Choose a Location';
+
+                document.body.classList.add(
+                    'sap-add-module-mode'
+                );
+
                 console.log(
                     'Add Module Mode:',
                     Harmony.addModuleMode
@@ -768,24 +821,6 @@ if (Harmony.dropIndicator) {
                     behavior: 'smooth',
                     block: 'start'
                 });
-
-            }
-        );
-
-    }
-
-    if (addButton) {
-
-        addButton.addEventListener(
-            'click',
-            function () {
-
-                Harmony.addModuleMode = true;
-
-                console.log(
-                    'Add Module Mode:',
-                    Harmony.addModuleMode
-                );
 
             }
         );
@@ -826,8 +861,55 @@ if (Harmony.dropIndicator) {
 
         if (placeholder) {
 
+            document
+                .querySelectorAll('.sap-harmony-empty-column')
+                .forEach(column => {
+                    column.classList.remove('sap-module-target');
+                });
+
+            placeholder.classList.add('sap-module-target');
+
+            Harmony.selectedPlaceholder = placeholder;
+
             Harmony.targetColumnId =
                 placeholder.dataset.columnId;
+
+            const title = document.getElementById(
+                'sap-harmony-library-title'
+            );
+
+            if (title) {
+                title.textContent = 'Choose a Module';
+            }
+
+            document
+                .querySelectorAll('.sap-harmony-module-group')
+                .forEach(group => {
+
+                    if (
+                        group.textContent.trim().toUpperCase() === 'LAYOUT'
+                    ) {
+
+                        group.style.display = 'none';
+
+                        let next = group.nextElementSibling;
+
+                        while (
+                            next &&
+                            !next.classList.contains(
+                                'sap-harmony-module-group'
+                            )
+                        ) {
+
+                            next.style.display = 'none';
+
+                            next = next.nextElementSibling;
+
+                        }
+
+                    }
+
+                });
 
             console.log(
                 'Target Column:',
@@ -1055,8 +1137,11 @@ document.addEventListener(
     }
 );
 
+
 	window.HarmonyAPI = HarmonyAPI;
         window.Harmony = Harmony;
 
+        
 
 });
+
