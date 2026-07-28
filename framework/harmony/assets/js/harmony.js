@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             targetColumnId: null,
 
+            addModuleMode: false,
+
 			drag: {
 		        active: false,
 		        source: null,
@@ -482,6 +484,13 @@ hideDropIndicator() {
             response.data.result.selected
         );
 
+            Harmony.addModuleMode = false;
+
+            console.log(
+                'Add Module Mode:',
+                Harmony.addModuleMode
+            );
+
 		}
 
 	})
@@ -742,8 +751,48 @@ if (Harmony.dropIndicator) {
 
 }
 
-    
-    if (newButton) {
+    if (addButton) {
+
+        addButton.addEventListener(
+            'click',
+            function () {
+
+                Harmony.addModuleMode = true;
+
+                console.log(
+                    'Add Module Mode:',
+                    Harmony.addModuleMode
+                );
+
+                moduleLibrary?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+            }
+        );
+
+    }
+
+    if (addButton) {
+
+        addButton.addEventListener(
+            'click',
+            function () {
+
+                Harmony.addModuleMode = true;
+
+                console.log(
+                    'Add Module Mode:',
+                    Harmony.addModuleMode
+                );
+
+            }
+        );
+
+    }
+
+     if (newButton) {
 
 	newButton.addEventListener(
 		'click',

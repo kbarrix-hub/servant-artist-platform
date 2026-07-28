@@ -78,6 +78,9 @@ final class SAP_Harmony_Renderer {
         $modules = $this->document
 	        ->collection()
 	        ->get_modules();
+            error_log(
+    'SAP: Renderer module count = ' . count( $modules )
+);
 
 		ob_start();
 
@@ -241,11 +244,22 @@ final class SAP_Harmony_Renderer {
      * @return bool
      */
     private function is_container(
-        array $module
-    ): bool {
+    array $module
+): bool {
 
-        return isset( $module['children'] );
+    return in_array(
+        strtolower(
+            (string) $module['type']
+        ),
+        [
+            'website',
+            'section',
+            'row',
+            'column',
+        ],
+        true
+    );
 
-    }
+}
 
 }

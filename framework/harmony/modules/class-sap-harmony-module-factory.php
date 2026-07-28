@@ -42,6 +42,28 @@ final class SAP_Harmony_Module_Factory {
                     'children' => [],
                 ];
 
+				case 'row':
+    return [
+        'id'       => $id,
+        'name'     => 'Row',
+        'type'     => 'row',
+        'title'    => 'Row',
+        'content'  => '',
+        'parent'   => null,
+        'children' => [],
+    ];
+
+case 'column':
+    return [
+        'id'       => $id,
+        'name'     => 'Column',
+        'type'     => 'column',
+        'title'    => 'Column',
+        'content'  => '',
+        'parent'   => null,
+        'children' => [],
+    ];
+
 			case 'hero':
 				return [
 					'id'      => $id,

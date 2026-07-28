@@ -57,10 +57,16 @@ final class SAP_Harmony_Document_Store {
     SAP_Harmony_Document $document
 ): void {
 
-        update_option(
-            'sap_harmony_document',
-            $document->to_array()
-        );
+        $data = $document->to_array();
+
+error_log(
+    'SAP: Saving document = ' . wp_json_encode( $data )
+);
+
+update_option(
+    'sap_harmony_document',
+    $data
+);
 
     }
 

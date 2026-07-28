@@ -94,23 +94,25 @@ final class SAP_Harmony_Designer {
 	 */
 	public function new_document(): void {
 
-		$document = new SAP_Harmony_Document(
-			new SAP_Harmony_Collection()
-		);
+    error_log( 'SAP: new_document() started' );
 
-		$this->document_store->save(
-			$document
-		);
+    $document = new SAP_Harmony_Document(
+        new SAP_Harmony_Collection()
+    );
 
-		$this->selection->clear();
+    $this->document_store->save( $document );
 
-		$this->renderer->set_document(
-			$document
-		);
+    $this->renderer->set_document( $document );
 
+    $this->selection->clear();
+
+    $this->create_two_column_layout();
+
+    error_log( 'SAP: new_document() finished' );
+   
 	}
 
-	public function select_module(
+    public function select_module(
 		string $id,
 		string $module,
 		string $type
@@ -463,6 +465,8 @@ public function create_section_layout(): array {
      */
     public function create_two_column_layout(): array {
 
+	    error_log( 'SAP: create_two_column_layout() called' );
+
         $document = $this->document_store->load();
 
         $collection = $document->collection();
@@ -490,6 +494,11 @@ public function create_section_layout(): array {
         $collection->add_module( $row );
         $collection->add_module( $column1 );
         $collection->add_module( $column2 );
+
+		error_log(
+    'SAP: Layout modules = ' .
+    count( $collection->get_modules() )
+);
 
         return $this->finalize_layout(
             $document,
