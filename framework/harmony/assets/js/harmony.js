@@ -91,102 +91,126 @@ this.applySelection();
 
 },
 
-	updateInspector(selection) {
+            updateInspector(selection) {
 
-	const inspector = document.getElementById(
-		'sap-harmony-inspector-content'
-	);
+                const inspector = document.getElementById(
+                    'sap-harmony-inspector-content'
+                );
 
-	if (!inspector) {
-		return;
-	}
+                if (!inspector) {
+                    return;
+                }
 
-	if (
-		!selection ||
-		!selection.id
-	) {
+                if (
+                    !selection ||
+                    !selection.id
+                ) {
+                    return this.renderEmptyInspector();
+                }
 
-		inspector.innerHTML = `
-			<p>Select a module to edit its properties.</p>
-		`;
+                return this.renderGenericInspector(selection);
 
-		return;
+            },
 
-	}
+    renderEmptyInspector() {
 
-	inspector.innerHTML = `
-		<div class="sap-inspector-group">
+        const inspector = document.getElementById(
+            'sap-harmony-inspector-content'
+        );
 
-			<h3>${selection.name ?? 'Module'} Settings</h3>
+        if (!inspector) {
+            return;
+        }
 
-		</div>
+        inspector.innerHTML = `
+            <p>Select a module to edit its properties.</p>
+        `;
 
-		<div class="sap-inspector-group">
+    },
 
-			<label>Heading</label>
+    renderGenericInspector(selection) {
 
-			<input
-				type="text"
-				id="sap-inspector-title"
-				value="${selection.title ?? ''}"
-			>
+    const inspector = document.getElementById(
+        'sap-harmony-inspector-content'
+    );
 
-		</div>
+    if (!inspector) {
+        return;
+    }
 
-		<div class="sap-inspector-group">
+    inspector.innerHTML = `
+        <div class="sap-inspector-group">
 
-			<label>Content</label>
+            <h3>${selection.name ?? 'Module'} Settings</h3>
 
-			<textarea
-				id="sap-inspector-content"
-				rows="6"
-			>${selection.content ?? ''}</textarea>
+        </div>
 
-		</div>
+        <div class="sap-inspector-group">
 
-		<div class="sap-inspector-group">
+            <label>Heading</label>
 
-			<button
-				type="button"
-				id="sap-save-module"
-				class="button button-primary"
-			>
-				Save Module
-			</button>
+            <input
+                type="text"
+                id="sap-inspector-title"
+                value="${selection.title ?? ''}"
+            >
 
-		</div>
-	`;
+        </div>
 
-	const saveButton = document.getElementById(
-		'sap-save-module'
-	);
+        <div class="sap-inspector-group">
 
-	if (!saveButton) {
-		return;
-	}
+            <label>Content</label>
 
-	saveButton.addEventListener(
-		'click',
-		function () {
+            <textarea
+                id="sap-inspector-content"
+                rows="6"
+            >${selection.content ?? ''}</textarea>
 
-			const title = document.getElementById(
-				'sap-inspector-title'
-			).value;
+        </div>
 
-			const content = document.getElementById(
-				'sap-inspector-content'
-			).value;
+        <div class="sap-inspector-group">
 
-			HarmonyAPI.saveModule(
-				selection.id,
-				title,
-				content
-			);	
-    
-		}
-	);    	
+            <button
+                type="button"
+                id="sap-save-module"
+                class="button button-primary"
+            >
+                Save Module
+            </button>
 
-}, 
+        </div>
+    `;
+
+    const saveButton = document.getElementById(
+        'sap-save-module'
+    );
+
+    if (!saveButton) {
+        return;
+    }
+
+    saveButton.addEventListener(
+        'click',
+        function () {
+
+            const title = document.getElementById(
+                'sap-inspector-title'
+            ).value;
+
+            const content = document.getElementById(
+                'sap-inspector-content'
+            ).value;
+
+            HarmonyAPI.saveModule(
+                selection.id,
+                title,
+                content
+            );
+
+        }
+    );
+
+},
 
    showDropIndicator(module) {
 
