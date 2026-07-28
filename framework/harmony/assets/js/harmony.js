@@ -93,22 +93,19 @@ this.applySelection();
 
             updateInspector(selection) {
 
-                const inspector = document.getElementById(
-                    'sap-harmony-inspector-content'
-                );
-
-                if (!inspector) {
-                    return;
-                }
-
-                if (
-                    !selection ||
-                    !selection.id
-                ) {
+                if (!selection || !selection.id) {
                     return this.renderEmptyInspector();
                 }
 
-                return this.renderGenericInspector(selection);
+                switch (selection.type) {
+
+                    case 'heading':
+                        return this.renderHeadingInspector(selection);
+
+                    default:
+                        return this.renderGenericInspector(selection);
+
+                }
 
             },
 
@@ -211,6 +208,108 @@ this.applySelection();
     );
 
 },
+
+            renderHeadingInspector(selection) {
+
+                const inspector = document.getElementById(
+                    'sap-harmony-inspector-content'
+                );
+
+                if (!inspector) {
+                    return;
+                }
+
+                inspector.innerHTML = `
+        <div class="sap-inspector-group">
+
+            <h3>Heading Settings</h3>
+
+        </div>
+
+        <div class="sap-inspector-group">
+
+            <label>Heading</label>
+
+            <input
+                type="text"
+                id="sap-inspector-title"
+                value="${selection.title ?? ''}"
+            >
+
+        </div>
+
+        <div class="sap-inspector-group">
+
+    <label>Heading Level</label>
+
+    <select id="sap-inspector-level">
+
+        <option value="h1">H1</option>
+        <option value="h2" selected>H2</option>
+        <option value="h3">H3</option>
+        <option value="h4">H4</option>
+        <option value="h5">H5</option>
+        <option value="h6">H6</option>
+
+    </select>
+
+</div>
+
+<div class="sap-inspector-group">
+
+    <label>Alignment</label>
+
+    <select id="sap-inspector-alignment">
+
+        <option value="left" selected>Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+
+    </select>
+
+</div>
+
+        <div class="sap-inspector-group">
+
+            <button
+                type="button"
+                id="sap-save-module"
+                class="button button-primary"
+            >
+                Save Heading
+            </button>
+
+        </div>
+    `;
+
+                const saveButton = document.getElementById(
+                    'sap-save-module'
+                );
+
+                if (!saveButton) {
+                    return;
+                }
+
+                saveButton.addEventListener(
+                    'click',
+                    function () {
+
+                        const title = document.getElementById(
+                            'sap-inspector-title'
+                        ).value;
+
+                        const content = '';
+
+                        HarmonyAPI.saveModule(
+                            selection.id,
+                            title,
+                            content
+                        );
+
+                    }
+                );
+
+            },
 
    showDropIndicator(module) {
 
