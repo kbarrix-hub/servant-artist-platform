@@ -1071,6 +1071,11 @@ if (Harmony.dropIndicator) {
             Harmony.state.targetColumnId =
                 placeholder.dataset.columnId;
 
+            console.log(
+                'TARGET COLUMN:',
+                Harmony.state.targetColumnId
+            );
+
             const title = document.getElementById(
                 'sap-harmony-library-title'
             );
@@ -1151,6 +1156,11 @@ if (Harmony.dropIndicator) {
 
             } else {
 
+                console.log(
+                    'ADDING TO:',
+                    Harmony.state.targetColumnId
+                );
+
                 HarmonyAPI.addModule(type);
 
             }
@@ -1224,7 +1234,9 @@ document.addEventListener(
 
                 Harmony.drag.target = null;
 
-                Harmony.state.targetColumnId = null;
+                // Keep the selected target column.
+                // Don't erase it just because the pointer
+                // briefly left the column.
 
                 Harmony.hideDropIndicator();
 
@@ -1255,6 +1267,24 @@ document.addEventListener(
             column &&
             column.dataset.moduleId !== Harmony.drag.source
         ) {
+
+            const sourceModule = document.querySelector(
+                '[data-module-id="' + Harmony.drag.source + '"]'
+            );
+
+            const sourceType = (
+                sourceModule?.dataset.moduleType || ''
+            ).toLowerCase();
+
+            if (sourceType === 'column') {
+
+                Harmony.drag.target = null;
+
+                Harmony.hideDropIndicator();
+
+                return;
+
+            }
 
             Harmony.drag.target =
                 column.dataset.moduleId;

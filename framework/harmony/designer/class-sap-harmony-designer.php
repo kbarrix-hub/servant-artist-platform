@@ -330,28 +330,106 @@ $document
         )
     );
 
+    } 
+
+        $source = $document
+    ->collection()
+    ->get_module( $source_id );
+
+$target = $document
+    ->collection()
+    ->get_module( $target_id );
+
+if ( ! $source || ! $target ) {
+    return false;
 }
 
-        if ( 'inside' === $position ) {
+$source_type = strtolower(
+    (string) $source['type']
+);
 
-	        $moved = $document
-		        ->collection()
-		        ->move_into(
-			        $source_id,
-			        $target_id
-		        );
+$target_type = strtolower(
+    (string) $target['type']
+);
 
-        } else {
+/*
+|--------------------------------------------------------------------------
+| Harmony Hierarchy Protection
+|--------------------------------------------------------------------------
+|
+| Columns are structural layout elements.
+| They must always remain direct children of a Row.
+|
+*/
 
-	        $moved = $document
-		        ->collection()
-		        ->move_module(
-			        $source_id,
-			        $target_id,
-			        $position
-		        );
+if ( 'inside' === $position ) {
 
-        }
+    /*
+    |--------------------------------------------------------------------------
+    | Validate INSIDE moves
+    |--------------------------------------------------------------------------
+    */
+
+    if ( 'column' === $source_type ) {
+
+        error_log(
+            'SAP: Illegal move blocked (Column cannot be moved inside another module).'
+        );
+
+        return false;
+
+    }
+
+    $moved = $document
+        ->collection()
+        ->move_into(
+            $source_id,
+            $target_id
+        );
+
+} else {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate BEFORE / AFTER moves
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        'row' === $source_type &&
+        'column' === $target_type
+    ) {
+
+        error_log(
+            'SAP: Illegal move blocked (Row cannot be moved relative to a Column).'
+        );
+
+        return false;
+
+    }
+
+    if (
+        'section' === $source_type &&
+        'column' === $target_type
+    ) {
+
+        error_log(
+            'SAP: Illegal move blocked (Section cannot be moved relative to a Column).'
+        );
+
+        return false;
+
+    }
+
+    $moved = $document
+        ->collection()
+        ->move_module(
+            $source_id,
+            $target_id,
+            $position
+        );
+
+}
 
 		if ( ! $moved ) {
 			return false;
