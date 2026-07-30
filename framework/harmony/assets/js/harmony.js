@@ -10,8 +10,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-	console.log('Harmony Loaded');
-
     	const Harmony = {
 
             state: {
@@ -435,15 +433,44 @@ hideDropIndicator() {
             '.sap-harmony-module'
         );
 
-        if (module) {
-            return module;
+        if (!module) {
+            continue;
         }
+
+        if (
+            this.drag.active &&
+            module.dataset.moduleId === this.drag.source
+        ) {
+            continue;
+        }
+
+        return module;
 
     }
 
     return null;
 
     },
+
+            getColumnAtPointer(x, y) {
+
+                const elements = document.elementsFromPoint(x, y);
+
+                for (const element of elements) {
+
+                    const column = element.closest?.(
+                        '.sap-harmony-module[data-module-type="column"]'
+                    );
+
+                    if (column) {
+                        return column;
+                    }
+
+                }
+
+                return null;
+
+            },
     
 	beginDrag(sourceId) {
 
@@ -476,11 +503,6 @@ hideDropIndicator() {
 
         this.drag.position = 'inside';
 
-        console.log(
-            'Library Drag:',
-            this.drag
-            );
-
     },
 
     endDrag() {
@@ -508,9 +530,6 @@ hideDropIndicator() {
      },    
 
 	};
-
-	console.log('Harmony Object:', Harmony);
-    console.log('Harmony Keys:', Object.keys(Harmony));
 
     const Transport = {
 
@@ -542,11 +561,6 @@ hideDropIndicator() {
     })
     .then(response => response.json())
     .then(data => {
-
-        console.log(
-            'Harmony Response:',
-            data
-        );
 
 		return data;
 
@@ -717,11 +731,6 @@ hideDropIndicator() {
 
             document.body.classList.remove(
                 'sap-add-module-mode'
-            );
-
-            console.log(
-                'Add Module Mode:',
-                Harmony.state.addModuleMode
             );
 
 		}
@@ -1007,11 +1016,6 @@ if (Harmony.dropIndicator) {
                     'sap-add-module-mode'
                 );
 
-                console.log(
-                    'Add Module Mode:',
-                    Harmony.state.addModuleMode
-                );
-
                 moduleLibrary?.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
@@ -1064,8 +1068,6 @@ if (Harmony.dropIndicator) {
 
             placeholder.classList.add('sap-module-target');
 
-            Harmony.state.selectedPlaceholder = placeholder;
-
             Harmony.state.targetColumnId =
                 placeholder.dataset.columnId;
 
@@ -1105,11 +1107,6 @@ if (Harmony.dropIndicator) {
                     }
 
                 });
-
-            console.log(
-                'Target Column:',
-                Harmony.state.targetColumnId
-            );
 
             return;
 
@@ -1170,16 +1167,6 @@ if (Harmony.dropIndicator) {
             '.sap-harmony-module-card'
         );
 
-        console.log(
-            'Pointer target:',
-            event.target
-        );
-
-        console.log(
-            'Library card:',
-            card
-        );
-
         if (card) {
 
             Harmony.beginLibraryDrag(
@@ -1187,11 +1174,6 @@ if (Harmony.dropIndicator) {
             );
 
             document.body.style.userSelect = 'none';
-
-            console.log(
-                'Library Pointer Down:',
-                Harmony.drag
-            );
 
             return;
 
@@ -1219,11 +1201,6 @@ if (Harmony.dropIndicator) {
 
 		document.body.style.userSelect = 'none';
 
-		console.log(
-			'Pointer Down:',
-			Harmony.drag
-		);
-
 	}
 );
 
@@ -1238,29 +1215,15 @@ document.addEventListener(
 
         if (Harmony.drag.mode === 'create') {
 
-            const elements = document.elementsFromPoint(
+            const column = Harmony.getColumnAtPointer(
                 event.clientX,
                 event.clientY
             );
 
-            let column = null;
-
-            for (const element of elements) {
-
-                column = element.closest?.(
-                    '.sap-harmony-empty-column'
-                );
-
-                if (column) {
-                    break;
-                }
-
-            }
-
             if (!column) {
 
                 Harmony.drag.target = null;
-                
+
                 Harmony.state.targetColumnId = null;
 
                 Harmony.hideDropIndicator();
@@ -1270,10 +1233,31 @@ document.addEventListener(
             }
 
             Harmony.drag.target =
-                column.dataset.columnId;
+                column.dataset.moduleId;
 
             Harmony.state.targetColumnId =
-                column.dataset.columnId;
+                column.dataset.moduleId;
+
+            Harmony.drag.position = 'inside';
+
+            Harmony.showDropIndicator(column);
+
+            return;
+
+        }
+
+        const column = Harmony.getColumnAtPointer(
+            event.clientX,
+            event.clientY
+        );
+
+        if (
+            column &&
+            column.dataset.moduleId !== Harmony.drag.source
+        ) {
+
+            Harmony.drag.target =
+                column.dataset.moduleId;
 
             Harmony.drag.position = 'inside';
 
@@ -1287,17 +1271,19 @@ document.addEventListener(
             event.clientX,
             event.clientY
         );
-
+        
         if (!module) {
+
+            Harmony.drag.target = null;
+
+            Harmony.hideDropIndicator();
+
             return;
+
         }
 
         Harmony.drag.target =
             module.dataset.moduleId;
-			console.log(
-                'Target:',
-                module.dataset.moduleId
-            );
 
         if (
     module.dataset.moduleId ===
@@ -1336,35 +1322,58 @@ if (
 ) {
     return;
 }
+        const targetType = (
+            module.dataset.moduleType || ''
+        ).toLowerCase();
 
-const rect = module.getBoundingClientRect();
+        const containerTypes = [
+            'website',
+            'section',
+            'row',
+            'column'
+        ];
 
-const pointerOffset =
-    event.clientY - rect.top;
+        const targetIsContainer =
+            containerTypes.includes(targetType);
 
-const ratio =
-    pointerOffset / rect.height;
+        const rect = module.getBoundingClientRect();
 
-if (ratio < 0.33) {
+        const pointerOffset =
+            event.clientY - rect.top;
 
-    Harmony.drag.position = 'before';
+        const ratio =
+            pointerOffset / rect.height;
 
-} else if (ratio > 0.66) {
+        if (targetType === 'column') {
 
-    Harmony.drag.position = 'after';
+            Harmony.drag.position = 'inside';
 
-} else {
+        } else if (targetIsContainer) {
 
-    Harmony.drag.position = 'inside';
+            if (ratio < 0.25) {
 
-}
+                Harmony.drag.position = 'before';
+
+            } else if (ratio > 0.75) {
+
+                Harmony.drag.position = 'after';
+
+            } else {
+
+                Harmony.drag.position = 'inside';
+
+            }
+
+        } else {
+
+            Harmony.drag.position =
+                ratio < 0.5
+                    ? 'before'
+                    : 'after';
+
+        }
 
 Harmony.showDropIndicator(module);
-
-console.log(
-    'Pointer Move:',
-    Harmony.drag
-);
 
     }
 );
@@ -1387,11 +1396,13 @@ document.addEventListener(
             Harmony.drag.target &&
             Harmony.drag.source !== Harmony.drag.target
         ) {
-        console.log({
-            source: Harmony.drag.source,
-            target: Harmony.drag.target,
-            position: Harmony.drag.position
-        });
+            
+            console.log(
+                'MOVE',
+                'source =', Harmony.drag.source,
+                'target =', Harmony.drag.target,
+                'position =', Harmony.drag.position
+            );
             HarmonyAPI.moveModule(
                 Harmony.drag.source,
                 Harmony.drag.target,

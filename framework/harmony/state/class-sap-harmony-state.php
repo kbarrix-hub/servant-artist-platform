@@ -131,6 +131,20 @@ class SAP_Harmony_State {
 	}
 
 	/**
+     * Update multiple state values.
+     *
+     * @param array<string, mixed> $updates State updates.
+     * @return void
+     */
+    public function update( array $updates ): void {
+
+        foreach ( $updates as $key => $value ) {
+            $this->state[ $key ] = $value;
+         }
+
+    }
+
+	/**
 	 * Return the complete state.
 	 *
 	 * @return array<string, mixed>

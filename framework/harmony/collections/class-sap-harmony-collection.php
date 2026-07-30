@@ -94,6 +94,28 @@ final class SAP_Harmony_Collection {
 	 */
 	public function add_module( array $module ): void {
 
+    error_log('');
+    error_log('========== SAP ADD ==========');
+    error_log('Module : ' . ($module['type'] ?? 'unknown'));
+    error_log('Parent : ' . ($module['parent'] ?? 'ROOT'));
+    error_log('Count  : ' . count($this->modules));
+
+    if ( ! empty( $module['parent'] ) ) {
+
+    error_log(
+        'Parent Exists: ' .
+        (
+            $this->has_module( (string) $module['parent'] )
+                ? 'YES'
+                : 'NO'
+        )
+    );
+
+}
+
+error_log('=============================');
+error_log('');
+
     /*
      * If a parent has been assigned, make sure it exists.
      * Otherwise treat the module as a root-level module.
@@ -250,6 +272,20 @@ final class SAP_Harmony_Collection {
             $source_id,
             $container_id
         );
+
+		error_log(
+    'SAP: Module order after move = ' .
+    wp_json_encode(
+        array_map(
+            static fn($m) => [
+                'id' => $m['id'],
+                'type' => $m['type'],
+                'parent' => $m['parent'] ?? null,
+            ],
+            $this->modules
+        )
+    )
+);
 
         return true;
 

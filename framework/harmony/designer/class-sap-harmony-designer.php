@@ -31,6 +31,8 @@ final class SAP_Harmony_Designer {
 
 	private SAP_Harmony_Property_Registry $property_registry;
 
+	protected SAP_Harmony_State $state;
+
 	/**
 	 * Current drag operation.
 	 *
@@ -48,7 +50,8 @@ final class SAP_Harmony_Designer {
     SAP_Harmony_Document_Store $document_store,
     SAP_Selection_Manager $selection,
     SAP_Harmony_Module_Registry $module_registry,
-    SAP_Harmony_Property_Registry $property_registry
+    SAP_Harmony_Property_Registry $property_registry,
+    SAP_Harmony_State $state
 	
 ) {
 
@@ -57,6 +60,7 @@ final class SAP_Harmony_Designer {
     $this->selection       = $selection;
     $this->module_registry = $module_registry;
 	$this->property_registry = $property_registry;
+	$this->state = $state;
 
 }
 
@@ -87,6 +91,12 @@ final class SAP_Harmony_Designer {
 			$module['type']
 		);
 
+		$this->state->select(
+            $module['id'],
+            $module['name'],
+            $module['type']
+        );
+
 		return $module;
 
 	}
@@ -110,6 +120,8 @@ final class SAP_Harmony_Designer {
 
     $this->selection->clear();
 
+	$this->state->clear_selection();
+
     $this->create_two_column_layout();
 
     error_log( 'SAP: new_document() finished' );
@@ -128,6 +140,12 @@ final class SAP_Harmony_Designer {
 			$type
 		);
 
+		$this->state->select(
+            $id,
+            $module,
+            $type
+        );
+
 		return $this->selection->selected();
 
 	}
@@ -136,11 +154,13 @@ final class SAP_Harmony_Designer {
 
 		$this->selection->clear();
 
+		$this->state->clear_selection();
+
 	}
 
 	public function selected(): array {
 
-	$selection = $this->selection->selected();
+	$selection = $this->state->selected();
 
 	if (
 		empty( $selection ) ||
@@ -162,7 +182,7 @@ final class SAP_Harmony_Designer {
 
 	public function has_selection(): bool {
 
-		return $this->selection->has_selection();
+		return $this->state->has_selection();
 
 	}
 
@@ -222,6 +242,8 @@ final class SAP_Harmony_Designer {
     );
 
     $this->selection->clear();
+
+	$this->state->clear_selection();
 
     $this->renderer->set_document(
         $document
@@ -291,6 +313,25 @@ $document
 
 		error_log( 'SAP: move position = ' . $position );
 
+        error_log('');
+        error_log('========== SAP MOVE ==========');
+        error_log('Source   : ' . $source_id);
+        error_log('Target   : ' . $target_id);
+        error_log('Position : ' . $position);
+
+        foreach ( $document->collection()->get_modules() as $module ) {
+
+    error_log(
+        sprintf(
+            'BEFORE %-10s %-36s parent=%s',
+            $module['type'],
+            $module['id'],
+            $module['parent'] ?? 'ROOT'
+        )
+    );
+
+}
+
         if ( 'inside' === $position ) {
 
 	        $moved = $document
@@ -316,6 +357,22 @@ $document
 			return false;
 		}
 
+        foreach ( $document->collection()->get_modules() as $module ) {
+
+            error_log(
+                sprintf(
+                    'AFTER  %-10s %-36s parent=%s',
+                    $module['type'],
+                    $module['id'],
+                    $module['parent'] ?? 'ROOT'
+                )
+            );
+
+        }
+
+        error_log('=============================');
+        error_log('');
+
 		$module = $document
             ->collection()
             ->get_module( $source_id );
@@ -323,6 +380,12 @@ $document
        if ( $module ) {
 
             $this->selection->select(
+                (string) $module['id'],
+                (string) $module['name'],
+                (string) $module['type']
+        );
+
+		   $this->state->select(
                 (string) $module['id'],
                 (string) $module['name'],
                 (string) $module['type']
@@ -740,6 +803,12 @@ public function create_section_layout(): array {
             );
 
             $this->selection->select(
+                $section['id'],
+                $section['name'],
+                $section['type']
+            );
+
+			$this->state->select(
                 $section['id'],
                 $section['name'],
                 $section['type']

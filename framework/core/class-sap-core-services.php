@@ -240,7 +240,8 @@ final class SAP_Core_Services {
             $this->harmony_document_store,
             $this->selection_manager,
             $harmony_module_registry,
-            $harmony_property_registry
+            $harmony_property_registry,
+            $this->harmony_state
         );
 
 		$this->harmony_command_handler =
