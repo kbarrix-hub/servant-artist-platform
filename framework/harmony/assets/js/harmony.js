@@ -905,6 +905,8 @@ hideDropIndicator() {
 
                     Harmony.state.selectedModuleId = null;
 
+                    Harmony.applySelection();
+
                     Harmony.updateInspector(
                         response.data.result.selected
 					);

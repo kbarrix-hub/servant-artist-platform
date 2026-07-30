@@ -161,6 +161,52 @@ final class SAP_Harmony_Renderer {
             data-module-name="<?php echo esc_attr( $module['name'] ); ?>"
             data-module-type="<?php echo esc_attr( $module['type'] ); ?>">
 
+        <?php
+
+if (
+    isset( $selection['id'] ) &&
+    $selection['id'] === $module['id']
+) {
+
+?>
+
+<div class="sap-harmony-context-toolbar">
+
+    <button
+        type="button"
+        class="button"
+        data-action="edit">
+
+        ✏ Edit
+
+    </button>
+
+    <button
+        type="button"
+        class="button"
+        data-action="duplicate">
+
+        ⧉ Duplicate
+
+    </button>
+
+    <button
+        type="button"
+        class="button"
+        data-action="delete">
+
+        🗑 Delete
+
+    </button>
+
+</div>
+
+<?php
+
+}
+
+?>    
+
 			<?php
 
 if ( 'heading' === $module['type'] ) {

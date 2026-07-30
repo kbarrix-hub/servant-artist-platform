@@ -833,3 +833,26 @@ body.sap-add-module-mode .sap-harmony-empty-column:not(.sap-module-target) {
 		transform .2s ease;
 
 }
+
+#sap-harmony-module-toolbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	align-items: center;
+	gap: 8px;
+
+	padding: 8px 10px;
+
+	background: #ffffff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+
+	box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+
+	z-index: 10000;
+}
+
+#sap-harmony-module-toolbar.is-visible {
+	display: flex;
+}

@@ -531,6 +531,33 @@ if ( 'inside' === $position ) {
 
 		</div>
 
+        <div
+    id="sap-harmony-module-toolbar"
+    class="sap-harmony-module-toolbar">
+
+    <button
+        type="button"
+        class="button"
+        id="sap-module-edit">
+        ✏ Edit
+    </button>
+
+    <button
+        type="button"
+        class="button"
+        id="sap-module-duplicate">
+        ⧉ Duplicate
+    </button>
+
+    <button
+        type="button"
+        class="button"
+        id="sap-module-delete">
+        🗑 Delete
+    </button>
+
+</div>
+
 		<div class="sap-harmony-live-canvas">
 
             <div class="sap-harmony-overlay">
