@@ -600,16 +600,18 @@ hideDropIndicator() {
      * @param {string} command
      * @param {Object} payload
      */
-    sendCommand(command, payload = {}) {
+        sendCommand(command, payload = {}) {
 
-	const request = {
-		command: command,
-		payload: payload
-	};
+            console.log('SEND COMMAND:', command, payload);
 
-	return Transport.send(request);
+            const request = {
+                command: command,
+                payload: payload
+            };
 
-},
+            return Transport.send(request);
+
+        },
 
     createLayout(layout) {
 
@@ -768,6 +770,16 @@ hideDropIndicator() {
 			response.data.result &&
 			response.data.result.success
 		) {
+
+            if (
+                response.data.result.selected &&
+                response.data.result.selected.id
+            ) {
+
+                Harmony.state.selectedModuleId =
+                    response.data.result.selected.id;
+
+            }
 
 			Harmony.replaceCanvas(
                 response.data.result.canvas
@@ -976,19 +988,72 @@ hideDropIndicator() {
 				}
 
 			})
-			.catch((error) => {
 
-				console.error(
-					'DELETE_MODULE failed:',
-					error
-				);
+                .catch((error) => {
 
-			});
+                    console.error(
+                        'DELETE_MODULE failed:',
+                        error
+                    );
 
-	}
+                });
 
-};
+        },
+    
+        duplicateModule() {
 
+        if (!Harmony.state.selectedModuleId) {
+            return;
+        }
+
+        this.sendCommand(
+            'duplicate_module',
+            {
+                id: Harmony.state.selectedModuleId
+            }
+        )
+            .then((response) => {
+
+                if (
+                    response.success &&
+                    response.data &&
+                    response.data.result &&
+                    response.data.result.success
+                ) {
+
+                    if (
+                        response.data.result.selected &&
+                        response.data.result.selected.id
+                    ) {
+
+                        Harmony.state.selectedModuleId =
+                            response.data.result.selected.id;
+
+                    }
+
+                    Harmony.replaceCanvas(
+                        response.data.result.canvas
+                    );
+
+                    Harmony.updateInspector(
+                        response.data.result.selected
+                    );
+
+                }
+
+            })
+                .catch((error) => {
+
+                    console.error(
+                        'DUPLICATE_MODULE failed:',
+                        error
+                    );
+
+                });
+
+        },
+
+    };
 
 	const addButton = document.querySelector('.sap-add-module');
     const moduleLibrary = document.querySelector('.sap-harmony-library');
@@ -1055,6 +1120,20 @@ if (Harmony.dropIndicator) {
 }
     
     document.addEventListener('click', function (event) {
+
+        const duplicateButton = event.target.closest(
+            '[data-action="duplicate"]'
+        );
+
+        if (duplicateButton) {
+
+            console.log('Duplicate clicked');
+
+            HarmonyAPI.duplicateModule();
+
+            return;
+
+        }
 
         const placeholder = event.target.closest(
             '.sap-harmony-empty-column'

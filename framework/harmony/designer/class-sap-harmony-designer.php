@@ -250,6 +250,66 @@ final class SAP_Harmony_Designer {
 		);
 
 	}
+
+    public function duplicate_module( string $id ): void {
+
+    $document = $this->document_store->load();
+
+    $module = $document
+        ->collection()
+        ->get_module( $id );
+
+    if ( ! $module ) {
+        return;
+    }
+
+    // Only duplicate leaf modules for SAP-105A.
+    if (
+    isset( $module['children'] ) &&
+    ! empty( $module['children'] )
+    ) {
+        return;
+    }
+
+    $copy = $module;
+
+$copy['id'] = wp_generate_uuid4();
+
+error_log( 'SAP DUPLICATE SOURCE: ' . $id );
+error_log( 'SAP DUPLICATE COPY  : ' . $copy['id'] );
+
+$document
+    ->collection()
+    ->add_module( $copy );
+
+$this->document_store->save(
+    $document
+);
+
+error_log(
+    'SAP MODULE COUNT: ' .
+    count(
+        $document->collection()->get_modules()
+    )
+);
+
+$this->renderer->set_document(
+    $document
+);
+
+    $this->selection->select(
+        $copy['id'],
+        $copy['name'],
+        $copy['type']
+    );
+
+    $this->state->select(
+        $copy['id'],
+        $copy['name'],
+        $copy['type']
+    );
+
+    }
 	
     /**
      * Save a Harmony module.
