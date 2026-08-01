@@ -615,6 +615,18 @@
 }
 
 /* ============================================================
+   Harmony Selected Object
+============================================================ */
+
+.sap-harmony-module.sap-harmony-selected {
+
+	border-style: solid !important;
+
+	border-color: #5b4cff !important;
+
+}
+
+/* ============================================================
    SAP-105A
    Empty Column Placeholder
 ============================================================ */

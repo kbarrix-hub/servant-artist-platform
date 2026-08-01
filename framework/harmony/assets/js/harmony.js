@@ -1194,6 +1194,66 @@ if (Harmony.dropIndicator) {
 
         }
 
+        const editButton = event.target.closest(
+            '[data-action="edit"]'
+        );
+
+        if (editButton) {
+
+            const module = editButton.closest(
+                '.sap-harmony-module'
+            );
+
+            if (!module) {
+                return;
+            }
+
+            HarmonyAPI.selectModule(
+                module.dataset.moduleId,
+                module.dataset.moduleName,
+                module.dataset.moduleType
+            );
+
+            const inspector = document.querySelector(
+                '.sap-harmony-inspector'
+            );
+
+            if (inspector) {
+
+                inspector.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+            }
+
+            return;
+
+        } const contextualDeleteButton = event.target.closest(
+            '[data-action="delete"]'
+        );
+
+        if (contextualDeleteButton) {
+
+            const module = contextualDeleteButton.closest(
+                '.sap-harmony-module'
+            );
+
+            if (!module) {
+                return;
+            }
+
+            Harmony.state.selectedModuleId =
+                module.dataset.moduleId;
+
+            Harmony.applySelection();
+
+            HarmonyAPI.deleteModule();
+
+            return;
+
+        }
+
         const placeholder = event.target.closest(
             '.sap-harmony-empty-column'
         );
@@ -1312,6 +1372,14 @@ if (Harmony.dropIndicator) {
 	document.addEventListener(
 	'pointerdown',
 	function (event) {
+
+        const toolbarButton = event.target.closest(
+            '[data-action]'
+        );
+
+        if (toolbarButton) {
+            return;
+        }
 
         const card = event.target.closest(
             '.sap-harmony-module-card'
@@ -1565,7 +1633,7 @@ document.addEventListener(
             );
 
             Harmony.state.suppressClick = true;
-            
+
             HarmonyAPI.moveModule(
                 Harmony.drag.source,
                 Harmony.drag.target,
