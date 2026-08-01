@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 selectedPlaceholder: null,
 
-                addModuleMode: false
+                addModuleMode: false,
+
+                suppressClick: false,
 
             },
 
@@ -414,43 +416,72 @@ hideDropIndicator() {
     }
 
 },
-    getModuleAtPointer(x, y) {
+            getModuleAtPointer(x, y) {
 
-    const elements = document.elementsFromPoint(x, y);
+                const elements = document.elementsFromPoint(x, y);
 
-    for (const element of elements) {
+                const containerTypes = [
+                    'website',
+                    'section',
+                    'row',
+                    'column'
+                ];
 
-        if (
-            element.classList &&
-            element.classList.contains(
-                'sap-harmony-drop-indicator'
-            )
-        ) {
-            continue;
-        }
+                let containerFallback = null;
 
-        const module = element.closest?.(
-            '.sap-harmony-module'
-        );
+                for (const element of elements) {
 
-        if (!module) {
-            continue;
-        }
+                    if (
+                        element.classList &&
+                        element.classList.contains(
+                            'sap-harmony-drop-indicator'
+                        )
+                    ) {
+                        continue;
+                    }
 
-        if (
-            this.drag.active &&
-            module.dataset.moduleId === this.drag.source
-        ) {
-            continue;
-        }
+                    const module = element.closest?.(
+                        '.sap-harmony-module'
+                    );
 
-        return module;
+                    if (!module) {
+                        continue;
+                    }
 
-    }
+                    if (
+                        this.drag.active &&
+                        module.dataset.moduleId === this.drag.source
+                    ) {
+                        continue;
+                    }
 
-    return null;
+                    const moduleType = (
+                        module.dataset.moduleType || ''
+                    ).toLowerCase();
 
-    },
+                    /*
+                     * Content modules always win.
+                     *
+                     * This allows Heading, Text, Image, Button, etc.
+                     * to be detected before their parent Column/Row/Section.
+                     */
+                    if (!containerTypes.includes(moduleType)) {
+                        return module;
+                    }
+
+                    /*
+                     * Remember the first container we encounter in case
+                     * there is no content module under the pointer.
+                     */
+                    if (!containerFallback) {
+                        containerFallback = module;
+                    }
+
+                }
+
+                return containerFallback;
+
+            },
 
             getColumnAtPointer(x, y) {
 
@@ -869,6 +900,21 @@ hideDropIndicator() {
             response.data.result.success
         ) {
 
+            if (
+                response.data.result.selected &&
+                response.data.result.selected.id
+            ) {
+
+                Harmony.state.selectedModuleId =
+                    response.data.result.selected.id;
+
+            }
+
+            console.log(
+                'MOVE CANVAS RESPONSE:',
+                response.data.result.canvas
+            );
+
             Harmony.replaceCanvas(
                 response.data.result.canvas
             );
@@ -1121,6 +1167,19 @@ if (Harmony.dropIndicator) {
     
     document.addEventListener('click', function (event) {
 
+        if (Harmony.state.suppressClick) {
+
+            Harmony.state.suppressClick = false;
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            console.log('Post-drag click suppressed');
+
+            return;
+
+        }
+
         const duplicateButton = event.target.closest(
             '[data-action="duplicate"]'
         );
@@ -1339,49 +1398,63 @@ document.addEventListener(
 
         }
 
-        const column = Harmony.getColumnAtPointer(
+        /*
+ * First look for a content module under the pointer.
+ *
+ * This must happen BEFORE column detection so modules
+ * inside a column can be reordered before/after each other.
+ */
+        const module = Harmony.getModuleAtPointer(
             event.clientX,
             event.clientY
         );
 
-        if (
-            column &&
-            column.dataset.moduleId !== Harmony.drag.source
-        ) {
+        /*
+         * If no sibling/content module was found, fall back
+         * to detecting a column as an INSIDE target.
+         */
+        if (!module) {
 
-            const sourceModule = document.querySelector(
-                '[data-module-id="' + Harmony.drag.source + '"]'
+            const column = Harmony.getColumnAtPointer(
+                event.clientX,
+                event.clientY
             );
 
-            const sourceType = (
-                sourceModule?.dataset.moduleType || ''
-            ).toLowerCase();
+            if (
+                column &&
+                column.dataset.moduleId !== Harmony.drag.source
+            ) {
 
-            if (sourceType === 'column') {
+                const sourceModule = document.querySelector(
+                    '[data-module-id="' + Harmony.drag.source + '"]'
+                );
 
-                Harmony.drag.target = null;
+                const sourceType = (
+                    sourceModule?.dataset.moduleType || ''
+                ).toLowerCase();
 
-                Harmony.hideDropIndicator();
+                if (sourceType === 'column') {
+
+                    Harmony.drag.target = null;
+
+                    Harmony.hideDropIndicator();
+
+                    return;
+
+                }
+
+                Harmony.drag.target =
+                    column.dataset.moduleId;
+
+                Harmony.drag.position = 'inside';
+
+                Harmony.showDropIndicator(column);
 
                 return;
 
             }
 
-            Harmony.drag.target =
-                column.dataset.moduleId;
-
-            Harmony.drag.position = 'inside';
-
-            Harmony.showDropIndicator(column);
-
-            return;
-
         }
-
-        const module = Harmony.getModuleAtPointer(
-            event.clientX,
-            event.clientY
-        );
         
         if (!module) {
 
@@ -1409,30 +1482,6 @@ document.addEventListener(
 
 }
 
-const modules = Array.from(
-    document.querySelectorAll(
-        '.sap-harmony-module'
-    )
-);
-
-const sourceModule = document.querySelector(
-    '[data-module-id="' +
-    Harmony.drag.source +
-    '"]'
-);
-
-const sourceIndex =
-    modules.indexOf(sourceModule);
-
-const targetIndex =
-    modules.indexOf(module);
-
-if (
-    sourceIndex === -1 ||
-    targetIndex === -1
-) {
-    return;
-}
         const targetType = (
             module.dataset.moduleType || ''
         ).toLowerCase();
@@ -1514,6 +1563,9 @@ document.addEventListener(
                 'target =', Harmony.drag.target,
                 'position =', Harmony.drag.position
             );
+
+            Harmony.state.suppressClick = true;
+            
             HarmonyAPI.moveModule(
                 Harmony.drag.source,
                 Harmony.drag.target,

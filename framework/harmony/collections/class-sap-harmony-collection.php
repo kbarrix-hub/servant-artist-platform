@@ -364,7 +364,6 @@ error_log('');
     /*
      * Flat moves always remove the parent relationship.
      */
-    $module['parent'] = null;
 
     array_splice( $this->modules, $source_index, 1 );
 
