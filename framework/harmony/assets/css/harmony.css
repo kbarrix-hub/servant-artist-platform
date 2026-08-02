@@ -594,6 +594,7 @@
 	min-height: 600px;
 }
 
+
 /* ============================================================
    SAP-115
    Row Gap Controls
@@ -771,6 +772,51 @@
 
 	padding: 20px;
 
+}
+
+/* ============================================================
+   SAP-118
+   Row Vertical Padding
+============================================================ */
+
+.sap-harmony-row.sap-row-padding-y-0 {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.sap-harmony-row.sap-row-padding-y-8 {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.sap-harmony-row.sap-row-padding-y-16 {
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+
+.sap-harmony-row.sap-row-padding-y-20 {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.sap-harmony-row.sap-row-padding-y-24 {
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+.sap-harmony-row.sap-row-padding-y-32 {
+	padding-top: 32px;
+	padding-bottom: 32px;
+}
+
+.sap-harmony-row.sap-row-padding-y-48 {
+	padding-top: 48px;
+	padding-bottom: 48px;
+}
+
+.sap-harmony-row.sap-row-padding-y-64 {
+	padding-top: 64px;
+	padding-bottom: 64px;
 }
 
 /* Columns */
