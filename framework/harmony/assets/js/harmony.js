@@ -366,6 +366,8 @@ this.applySelection();
 
                 const gap = selection.gap ?? '24';
 
+                const alignment = selection.row_alignment ?? 'start';
+
                 inspector.innerHTML = `
                     <div class="sap-inspector-group">
 
@@ -403,6 +405,58 @@ this.applySelection();
                                 48px
                             </option>
 
+                                                </select>
+
+                    </div>
+
+                    <div class="sap-inspector-group">
+
+                        <label>Horizontal Alignment</label>
+
+                        <select id="sap-inspector-row-alignment">
+
+                            <option
+                                value="start"
+                                ${alignment === 'start' ? 'selected' : ''}
+                            >
+                                Start
+                            </option>
+
+                            <option
+                                value="center"
+                                ${alignment === 'center' ? 'selected' : ''}
+                            >
+                                Center
+                            </option>
+
+                            <option
+                                value="end"
+                                ${alignment === 'end' ? 'selected' : ''}
+                            >
+                                End
+                            </option>
+
+                            <option
+                                value="space-between"
+                                ${alignment === 'space-between' ? 'selected' : ''}
+                            >
+                                Space Between
+                            </option>
+
+                            <option
+                                value="space-around"
+                                ${alignment === 'space-around' ? 'selected' : ''}
+                            >
+                                Space Around
+                            </option>
+
+                            <option
+                                value="space-evenly"
+                                ${alignment === 'space-evenly' ? 'selected' : ''}
+                            >
+                                Space Evenly
+                            </option>
+
                         </select>
 
                     </div>
@@ -436,12 +490,17 @@ this.applySelection();
                             'sap-inspector-row-gap'
                         ).value;
 
+                        const rowAlignment = document.getElementById(
+                            'sap-inspector-row-alignment'
+                        ).value;
+
                         HarmonyAPI.saveModule(
                             selection.id,
                             '',
                             '',
                             {
-                                gap
+                                gap,
+                                row_alignment: rowAlignment
                             }
                         );
 

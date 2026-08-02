@@ -140,6 +140,9 @@ final class SAP_Harmony_Renderer {
 
     $classes .= ' sap-harmony-row';
 
+    /*
+     * Row column gap.
+     */
     $gap = $module['gap'] ?? '24';
 
     $allowed_gaps = [
@@ -157,6 +160,35 @@ final class SAP_Harmony_Renderer {
 
     $classes .= ' sap-row-gap-' .
         sanitize_html_class( $gap );
+
+
+    /*
+     * Row horizontal alignment.
+     */
+    $row_alignment =
+        $module['row_alignment'] ?? 'start';
+
+    $allowed_row_alignments = [
+        'start',
+        'center',
+        'end',
+        'space-between',
+        'space-around',
+        'space-evenly',
+    ];
+
+    if (
+        ! in_array(
+            $row_alignment,
+            $allowed_row_alignments,
+            true
+        )
+    ) {
+        $row_alignment = 'start';
+    }
+
+    $classes .= ' sap-row-align-' .
+        sanitize_html_class( $row_alignment );
 
     break;
 

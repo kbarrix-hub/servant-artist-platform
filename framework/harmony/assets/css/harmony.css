@@ -536,7 +536,34 @@
 
 }
 
+/* ============================================================
+   SAP-116
+   Row Horizontal Alignment
+============================================================ */
 
+.sap-harmony-row.sap-row-align-start>.sap-harmony-children {
+	justify-content: flex-start;
+}
+
+.sap-harmony-row.sap-row-align-center>.sap-harmony-children {
+	justify-content: center;
+}
+
+.sap-harmony-row.sap-row-align-end>.sap-harmony-children {
+	justify-content: flex-end;
+}
+
+.sap-harmony-row.sap-row-align-space-between>.sap-harmony-children {
+	justify-content: space-between;
+}
+
+.sap-harmony-row.sap-row-align-space-around>.sap-harmony-children {
+	justify-content: space-around;
+}
+
+.sap-harmony-row.sap-row-align-space-evenly>.sap-harmony-children {
+	justify-content: space-evenly;
+}
 
 /* ============================================================
    SAP-115
