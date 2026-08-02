@@ -160,6 +160,36 @@ if (
 $classes .= ' sap-section-width-' .
     sanitize_html_class( $content_width );
 
+    /*
+ * Section vertical padding.
+ */
+$vertical_padding =
+    $module['vertical_padding'] ?? '20';
+
+$allowed_vertical_padding = [
+    '0',
+    '8',
+    '16',
+    '20',
+    '24',
+    '32',
+    '48',
+    '64',
+];
+
+if (
+    ! in_array(
+        $vertical_padding,
+        $allowed_vertical_padding,
+        true
+    )
+) {
+    $vertical_padding = '20';
+}
+
+$classes .= ' sap-section-padding-y-' .
+    sanitize_html_class( $vertical_padding );
+
             break;
 
         case 'row':

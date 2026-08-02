@@ -367,6 +367,9 @@ this.applySelection();
                 const contentWidth =
                     selection.content_width ?? 'standard';
 
+                const verticalPadding =
+                    selection.vertical_padding ?? '20';
+
                 inspector.innerHTML = `
                     <div class="sap-inspector-group">
 
@@ -412,6 +415,72 @@ this.applySelection();
 
                     </div>
 
+                                        <div class="sap-inspector-group">
+
+                        <label>Vertical Padding</label>
+
+                        <select id="sap-inspector-section-vertical-padding">
+
+                            <option
+                                value="0"
+                                ${verticalPadding === '0' ? 'selected' : ''}
+                            >
+                                None
+                            </option>
+
+                            <option
+                                value="8"
+                                ${verticalPadding === '8' ? 'selected' : ''}
+                            >
+                                8px
+                            </option>
+
+                            <option
+                                value="16"
+                                ${verticalPadding === '16' ? 'selected' : ''}
+                            >
+                                16px
+                            </option>
+
+                            <option
+                                value="20"
+                                ${verticalPadding === '20' ? 'selected' : ''}
+                            >
+                                20px
+                            </option>
+
+                            <option
+                                value="24"
+                                ${verticalPadding === '24' ? 'selected' : ''}
+                            >
+                                24px
+                            </option>
+
+                            <option
+                                value="32"
+                                ${verticalPadding === '32' ? 'selected' : ''}
+                            >
+                                32px
+                            </option>
+
+                            <option
+                                value="48"
+                                ${verticalPadding === '48' ? 'selected' : ''}
+                            >
+                                48px
+                            </option>
+
+                            <option
+                                value="64"
+                                ${verticalPadding === '64' ? 'selected' : ''}
+                            >
+                                64px
+                            </option>
+
+                        </select>
+
+                    </div>
+
                     <div class="sap-inspector-group">
 
                         <button
@@ -441,12 +510,17 @@ this.applySelection();
                             'sap-inspector-section-content-width'
                         ).value;
 
+                        const verticalPadding = document.getElementById(
+                            'sap-inspector-section-vertical-padding'
+                        ).value;
+
                         HarmonyAPI.saveModule(
                             selection.id,
                             '',
                             '',
                             {
-                                content_width: contentWidth
+                                content_width: contentWidth,
+                                vertical_padding: verticalPadding
                             }
                         );
 

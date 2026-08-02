@@ -1135,3 +1135,48 @@ body.sap-add-module-mode .sap-harmony-empty-column:not(.sap-module-target) {
 .sap-harmony-section.sap-section-width-narrow>.sap-harmony-children {
 	max-width: 900px;
 }
+
+/* ============================================================
+   SAP-120
+   Section Vertical Padding
+============================================================ */
+
+.sap-harmony-section.sap-section-padding-y-0 {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.sap-harmony-section.sap-section-padding-y-8 {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.sap-harmony-section.sap-section-padding-y-16 {
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+
+.sap-harmony-section.sap-section-padding-y-20 {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.sap-harmony-section.sap-section-padding-y-24 {
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+.sap-harmony-section.sap-section-padding-y-32 {
+	padding-top: 32px;
+	padding-bottom: 32px;
+}
+
+.sap-harmony-section.sap-section-padding-y-48 {
+	padding-top: 48px;
+	padding-bottom: 48px;
+}
+
+.sap-harmony-section.sap-section-padding-y-64 {
+	padding-top: 64px;
+	padding-bottom: 64px;
+}
