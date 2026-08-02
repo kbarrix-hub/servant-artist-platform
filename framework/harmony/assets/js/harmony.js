@@ -124,14 +124,14 @@ this.applySelection();
                     case 'heading':
                         return this.renderHeadingInspector(selection);
 
+                    case 'section':
+                        return this.renderSectionInspector(selection);
+
                     case 'row':
                         return this.renderRowInspector(selection);
 
                     case 'column':
                         return this.renderColumnInspector(selection);
-
-                    default:
-                        return this.renderGenericInspector(selection);
 
                 }
 
@@ -346,6 +346,107 @@ this.applySelection();
                             {
                                 level,
                                 alignment
+                            }
+                        );
+
+                    }
+                );
+
+            },
+
+            renderSectionInspector(selection) {
+
+                const inspector = document.getElementById(
+                    'sap-harmony-inspector-content'
+                );
+
+                if (!inspector) {
+                    return;
+                }
+
+                const contentWidth =
+                    selection.content_width ?? 'standard';
+
+                inspector.innerHTML = `
+                    <div class="sap-inspector-group">
+
+                        <h3>Section Settings</h3>
+
+                    </div>
+
+                    <div class="sap-inspector-group">
+
+                        <label>Content Width</label>
+
+                        <select id="sap-inspector-section-content-width">
+
+                            <option
+                                value="full"
+                                ${contentWidth === 'full' ? 'selected' : ''}
+                            >
+                                Full Width
+                            </option>
+
+                            <option
+                                value="wide"
+                                ${contentWidth === 'wide' ? 'selected' : ''}
+                            >
+                                Wide
+                            </option>
+
+                            <option
+                                value="standard"
+                                ${contentWidth === 'standard' ? 'selected' : ''}
+                            >
+                                Standard
+                            </option>
+
+                            <option
+                                value="narrow"
+                                ${contentWidth === 'narrow' ? 'selected' : ''}
+                            >
+                                Narrow
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="sap-inspector-group">
+
+                        <button
+                            type="button"
+                            id="sap-save-section"
+                            class="button button-primary"
+                        >
+                            Save Section
+                        </button>
+
+                    </div>
+                                `;
+
+                const saveButton = document.getElementById(
+                    'sap-save-section'
+                );
+
+                if (!saveButton) {
+                    return;
+                }
+
+                saveButton.addEventListener(
+                    'click',
+                    function () {
+
+                        const contentWidth = document.getElementById(
+                            'sap-inspector-section-content-width'
+                        ).value;
+
+                        HarmonyAPI.saveModule(
+                            selection.id,
+                            '',
+                            '',
+                            {
+                                content_width: contentWidth
                             }
                         );
 

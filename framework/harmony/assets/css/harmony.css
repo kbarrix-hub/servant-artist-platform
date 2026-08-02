@@ -1091,3 +1091,47 @@ body.sap-add-module-mode .sap-harmony-empty-column:not(.sap-module-target) {
 #sap-harmony-module-toolbar.is-visible {
 	display: flex;
 }
+
+/* ============================================================
+   SAP-119
+   Section Content Width
+============================================================ */
+
+/*
+ * Section remains full width.
+ * The direct children container controls content width.
+ */
+
+.sap-harmony-section>.sap-harmony-children {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+/* Full Width */
+
+.sap-harmony-section.sap-section-width-full>.sap-harmony-children {
+	max-width: none;
+}
+
+
+/* Wide */
+
+.sap-harmony-section.sap-section-width-wide>.sap-harmony-children {
+	max-width: 1400px;
+}
+
+
+/* Standard */
+
+.sap-harmony-section.sap-section-width-standard>.sap-harmony-children {
+	max-width: 1200px;
+}
+
+
+/* Narrow */
+
+.sap-harmony-section.sap-section-width-narrow>.sap-harmony-children {
+	max-width: 900px;
+}

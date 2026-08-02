@@ -134,6 +134,32 @@ final class SAP_Harmony_Renderer {
 
             }
 
+            /*
+ * Section content width.
+ */
+$content_width =
+    $module['content_width'] ?? 'standard';
+
+$allowed_content_widths = [
+    'full',
+    'wide',
+    'standard',
+    'narrow',
+];
+
+if (
+    ! in_array(
+        $content_width,
+        $allowed_content_widths,
+        true
+    )
+) {
+    $content_width = 'standard';
+}
+
+$classes .= ' sap-section-width-' .
+    sanitize_html_class( $content_width );
+
             break;
 
         case 'row':
