@@ -368,6 +368,8 @@ this.applySelection();
 
                 const alignment = selection.row_alignment ?? 'start';
 
+                const minHeight = selection.min_height ?? 'auto';
+
                 inspector.innerHTML = `
                     <div class="sap-inspector-group">
 
@@ -463,6 +465,58 @@ this.applySelection();
 
                     <div class="sap-inspector-group">
 
+                        <label>Minimum Height</label>
+
+                        <select id="sap-inspector-row-min-height">
+
+                            <option
+                                value="auto"
+                                ${minHeight === 'auto' ? 'selected' : ''}
+                            >
+                                Auto
+                            </option>
+
+                            <option
+                                value="200"
+                                ${minHeight === '200' ? 'selected' : ''}
+                            >
+                                200px
+                            </option>
+
+                            <option
+                                value="300"
+                                ${minHeight === '300' ? 'selected' : ''}
+                            >
+                                300px
+                            </option>
+
+                            <option
+                                value="400"
+                                ${minHeight === '400' ? 'selected' : ''}
+                            >
+                                400px
+                            </option>
+
+                            <option
+                                value="500"
+                                ${minHeight === '500' ? 'selected' : ''}
+                            >
+                                500px
+                            </option>
+
+                            <option
+                                value="600"
+                                ${minHeight === '600' ? 'selected' : ''}
+                            >
+                                600px
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="sap-inspector-group">
+
                         <button
                             type="button"
                             id="sap-save-row"
@@ -494,13 +548,18 @@ this.applySelection();
                             'sap-inspector-row-alignment'
                         ).value;
 
+                        const minHeight = document.getElementById(
+                            'sap-inspector-row-min-height'
+                        ).value;
+
                         HarmonyAPI.saveModule(
                             selection.id,
                             '',
                             '',
                             {
                                 gap,
-                                row_alignment: rowAlignment
+                                row_alignment: rowAlignment,
+                                min_height: minHeight
                             }
                         );
 

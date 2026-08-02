@@ -188,9 +188,38 @@ final class SAP_Harmony_Renderer {
     }
 
     $classes .= ' sap-row-align-' .
-        sanitize_html_class( $row_alignment );
+    sanitize_html_class( $row_alignment );
 
-    break;
+
+/*
+ * Row minimum height.
+ */
+$min_height =
+    $module['min_height'] ?? 'auto';
+
+$allowed_min_heights = [
+    'auto',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+];
+
+if (
+    ! in_array(
+        $min_height,
+        $allowed_min_heights,
+        true
+    )
+) {
+    $min_height = 'auto';
+}
+
+$classes .= ' sap-row-min-height-' .
+    sanitize_html_class( $min_height );
+
+break;
 
         case 'column':
 
@@ -358,6 +387,7 @@ if ( 'heading' === $module['type'] ) {
     /*
      * Empty column placeholder.
      */
+
     if (
         'column' === $module['type'] &&
          empty( $children )

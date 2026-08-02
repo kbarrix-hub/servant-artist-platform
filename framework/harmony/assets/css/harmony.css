@@ -566,6 +566,35 @@
 }
 
 /* ============================================================
+   SAP-117
+   Row Minimum Height
+============================================================ */
+
+.sap-harmony-row.sap-row-min-height-auto {
+	min-height: 0;
+}
+
+.sap-harmony-row.sap-row-min-height-200 {
+	min-height: 200px;
+}
+
+.sap-harmony-row.sap-row-min-height-300 {
+	min-height: 300px;
+}
+
+.sap-harmony-row.sap-row-min-height-400 {
+	min-height: 400px;
+}
+
+.sap-harmony-row.sap-row-min-height-500 {
+	min-height: 500px;
+}
+
+.sap-harmony-row.sap-row-min-height-600 {
+	min-height: 600px;
+}
+
+/* ============================================================
    SAP-115
    Row Gap Controls
 ============================================================ */
@@ -646,6 +675,18 @@
    SAP-114B
    Column Vertical Alignment
 ============================================================ */
+
+/* Allow columns to fill the available row height */
+
+.sap-harmony-row>.sap-harmony-children {
+	align-items: stretch;
+	min-height: inherit;
+}
+
+.sap-harmony-column {
+	display: flex;
+	flex-direction: column;
+}
 
 .sap-harmony-column>.sap-harmony-children {
 	display: flex;
