@@ -113,6 +113,8 @@ this.applySelection();
 
             updateInspector(selection) {
 
+                
+
                 if (!selection || !selection.id) {
                     return this.renderEmptyInspector();
                 }
@@ -121,6 +123,9 @@ this.applySelection();
 
                     case 'heading':
                         return this.renderHeadingInspector(selection);
+
+                    case 'column':
+                        return this.renderColumnInspector(selection);
 
                     default:
                         return this.renderGenericInspector(selection);
@@ -344,7 +349,108 @@ this.applySelection();
                     }
                 );
 
+            }, 
+
+            renderColumnInspector(selection) {
+
+                const inspector = document.getElementById(
+                    'sap-harmony-inspector-content'
+                );
+
+                if (!inspector) {
+                    return;
+                }
+
+                const width = selection.width ?? 'auto';
+
+                inspector.innerHTML = `
+        <div class="sap-inspector-group">
+
+            <h3>Column Settings</h3>
+
+        </div>
+
+        <div class="sap-inspector-group">
+
+            <label>Width</label>
+
+            <select id="sap-inspector-column-width">
+
+                <option value="auto" ${width === 'auto' ? 'selected' : ''}>
+                    Auto
+                </option>
+
+                <option value="25" ${width === '25' ? 'selected' : ''}>
+                    25%
+                </option>
+
+                <option value="33" ${width === '33' ? 'selected' : ''}>
+                    33%
+                </option>
+
+                <option value="50" ${width === '50' ? 'selected' : ''}>
+                    50%
+                </option>
+
+                <option value="66" ${width === '66' ? 'selected' : ''}>
+                    66%
+                </option>
+
+                <option value="75" ${width === '75' ? 'selected' : ''}>
+                    75%
+                </option>
+
+                <option value="100" ${width === '100' ? 'selected' : ''}>
+                    100%
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="sap-inspector-group">
+
+            <button
+                type="button"
+                id="sap-save-column"
+                class="button button-primary"
+            >
+                Save Column
+            </button>
+
+                </div>
+    `;
+
+                const saveButton = document.getElementById(
+                    'sap-save-column'
+                );
+
+                if (!saveButton) {
+                    return;
+                }
+
+                saveButton.addEventListener(
+                    'click',
+                    function () {
+
+                        const width = document.getElementById(
+                            'sap-inspector-column-width'
+                        ).value;
+
+                        HarmonyAPI.saveModule(
+                            selection.id,
+                            '',
+                            '',
+                            {
+                                width
+                            }
+                        );
+
+                    }
+                );
+
             },
+
 
    showDropIndicator(module) {
 

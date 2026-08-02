@@ -141,8 +141,33 @@ final class SAP_Harmony_Renderer {
             break;
 
         case 'column':
-            $classes .= ' sap-harmony-column';
-            break;
+
+    $classes .= ' sap-harmony-column';
+
+    $width = $module['width'] ?? 'auto';
+
+    $allowed_widths = [
+        'auto',
+        '25',
+        '33',
+        '50',
+        '66',
+        '75',
+        '100',
+    ];
+
+    if ( ! in_array( $width, $allowed_widths, true ) ) {
+        $width = 'auto';
+    }
+
+    if ( 'auto' !== $width ) {
+
+        $classes .= ' sap-column-width-' .
+            sanitize_html_class( $width );
+
+    }
+
+    break;
 
         }
 
