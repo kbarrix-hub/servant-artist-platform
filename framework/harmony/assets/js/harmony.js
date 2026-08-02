@@ -363,6 +363,8 @@ this.applySelection();
 
                 const width = selection.width ?? 'auto';
 
+                const alignment = selection.alignment ?? 'top';
+
                 inspector.innerHTML = `
         <div class="sap-inspector-group">
 
@@ -410,6 +412,28 @@ this.applySelection();
 
         <div class="sap-inspector-group">
 
+    <label>Vertical Alignment</label>
+
+    <select id="sap-inspector-column-alignment">
+
+        <option value="top" ${alignment === 'top' ? 'selected' : ''}>
+            Top
+        </option>
+
+        <option value="center" ${alignment === 'center' ? 'selected' : ''}>
+            Center
+        </option>
+
+        <option value="bottom" ${alignment === 'bottom' ? 'selected' : ''}>
+            Bottom
+        </option>
+
+    </select>
+
+</div>
+
+        <div class="sap-inspector-group">
+
             <button
                 type="button"
                 id="sap-save-column"
@@ -437,12 +461,17 @@ this.applySelection();
                             'sap-inspector-column-width'
                         ).value;
 
+                        const alignment = document.getElementById(
+                            'sap-inspector-column-alignment'
+                        ).value;
+
                         HarmonyAPI.saveModule(
                             selection.id,
                             '',
                             '',
                             {
-                                width
+                                width,
+                                alignment
                             }
                         );
 

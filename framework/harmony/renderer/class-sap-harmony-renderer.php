@@ -167,6 +167,21 @@ final class SAP_Harmony_Renderer {
 
     }
 
+    $alignment = $module['alignment'] ?? 'top';
+
+$allowed_alignments = [
+    'top',
+    'center',
+    'bottom',
+];
+
+if ( ! in_array( $alignment, $allowed_alignments, true ) ) {
+    $alignment = 'top';
+}
+
+$classes .= ' sap-column-align-' .
+    sanitize_html_class( $alignment );
+
     break;
 
         }
