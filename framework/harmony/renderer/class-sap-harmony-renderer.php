@@ -137,8 +137,28 @@ final class SAP_Harmony_Renderer {
             break;
 
         case 'row':
-            $classes .= ' sap-harmony-row';
-            break;
+
+    $classes .= ' sap-harmony-row';
+
+    $gap = $module['gap'] ?? '24';
+
+    $allowed_gaps = [
+        '0',
+        '8',
+        '16',
+        '24',
+        '32',
+        '48',
+    ];
+
+    if ( ! in_array( $gap, $allowed_gaps, true ) ) {
+        $gap = '24';
+    }
+
+    $classes .= ' sap-row-gap-' .
+        sanitize_html_class( $gap );
+
+    break;
 
         case 'column':
 

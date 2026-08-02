@@ -536,6 +536,45 @@
 
 }
 
+
+
+/* ============================================================
+   SAP-115
+   Row Gap Controls
+============================================================ */
+
+.sap-harmony-row {
+	--sap-row-gap: 24px;
+}
+
+.sap-harmony-row.sap-row-gap-0 {
+	--sap-row-gap: 0px;
+}
+
+.sap-harmony-row.sap-row-gap-8 {
+	--sap-row-gap: 8px;
+}
+
+.sap-harmony-row.sap-row-gap-16 {
+	--sap-row-gap: 16px;
+}
+
+.sap-harmony-row.sap-row-gap-24 {
+	--sap-row-gap: 24px;
+}
+
+.sap-harmony-row.sap-row-gap-32 {
+	--sap-row-gap: 32px;
+}
+
+.sap-harmony-row.sap-row-gap-48 {
+	--sap-row-gap: 48px;
+}
+
+.sap-harmony-row>.sap-harmony-children {
+	gap: var(--sap-row-gap);
+}
+
 /* ============================================================
    SAP-114A
    Column Width Controls
@@ -544,29 +583,29 @@
 /* Two-column percentage layouts */
 
 .sap-harmony-row>.sap-harmony-children:has(> .sap-harmony-column:nth-child(2):last-child)>.sap-harmony-column.sap-column-width-25 {
-	flex: 0 0 calc(25% - 12px);
+	flex: 0 0 calc(25% - (var(--sap-row-gap) / 2));
 }
 
 .sap-harmony-row>.sap-harmony-children:has(> .sap-harmony-column:nth-child(2):last-child)>.sap-harmony-column.sap-column-width-50 {
-	flex: 0 0 calc(50% - 12px);
+	flex: 0 0 calc(50% - (var(--sap-row-gap) / 2));
 }
 
 .sap-harmony-row>.sap-harmony-children:has(> .sap-harmony-column:nth-child(2):last-child)>.sap-harmony-column.sap-column-width-75 {
-	flex: 0 0 calc(75% - 12px);
+	flex: 0 0 calc(75% - (var(--sap-row-gap) / 2));
 }
 
 
 /* Three-column percentage layouts */
 
 .sap-harmony-row>.sap-harmony-children:has(> .sap-harmony-column:nth-child(3):last-child)>.sap-harmony-column.sap-column-width-33 {
-	flex: 0 0 calc(33.3333% - 16px);
+	flex: 0 0 calc(33.3333% - ((var(--sap-row-gap) * 2) / 3));
 }
 
 
 /* Four-column percentage layouts */
 
 .sap-harmony-row>.sap-harmony-children:has(> .sap-harmony-column:nth-child(4):last-child)>.sap-harmony-column.sap-column-width-25 {
-	flex: 0 0 calc(25% - 18px);
+	flex: 0 0 calc(25% - ((var(--sap-row-gap) * 3) / 4));
 }
 
 
@@ -604,27 +643,32 @@
    Smart Sidebar Layouts
 ============================================================ */
 
+/* Sidebar Left — 25% / 75% */
+
 .layout-sidebar-left>.sap-harmony-children>.sap-harmony-row>.sap-harmony-children>.sap-harmony-column:first-child {
 
-	flex: 0 0 25%;
+	flex: 0 0 calc(25% - (var(--sap-row-gap) / 2));
 
 }
 
 .layout-sidebar-left>.sap-harmony-children>.sap-harmony-row>.sap-harmony-children>.sap-harmony-column:last-child {
 
-	flex: 0 0 75%;
+	flex: 0 0 calc(75% - (var(--sap-row-gap) / 2));
 
 }
 
+
+/* Sidebar Right — 75% / 25% */
+
 .layout-sidebar-right>.sap-harmony-children>.sap-harmony-row>.sap-harmony-children>.sap-harmony-column:first-child {
 
-	flex: 0 0 75%;
+	flex: 0 0 calc(75% - (var(--sap-row-gap) / 2));
 
 }
 
 .layout-sidebar-right>.sap-harmony-children>.sap-harmony-row>.sap-harmony-children>.sap-harmony-column:last-child {
 
-	flex: 0 0 25%;
+	flex: 0 0 calc(25% - (var(--sap-row-gap) / 2));
 
 }
 

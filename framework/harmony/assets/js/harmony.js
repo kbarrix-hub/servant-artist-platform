@@ -124,6 +124,9 @@ this.applySelection();
                     case 'heading':
                         return this.renderHeadingInspector(selection);
 
+                    case 'row':
+                        return this.renderRowInspector(selection);
+
                     case 'column':
                         return this.renderColumnInspector(selection);
 
@@ -349,7 +352,103 @@ this.applySelection();
                     }
                 );
 
-            }, 
+            },
+
+            renderRowInspector(selection) {
+
+                const inspector = document.getElementById(
+                    'sap-harmony-inspector-content'
+                );
+
+                if (!inspector) {
+                    return;
+                }
+
+                const gap = selection.gap ?? '24';
+
+                inspector.innerHTML = `
+                    <div class="sap-inspector-group">
+
+                        <h3>Row Settings</h3>
+
+                    </div>
+
+                    <div class="sap-inspector-group">
+
+                        <label>Column Gap</label>
+
+                        <select id="sap-inspector-row-gap">
+
+                            <option value="0" ${gap === '0' ? 'selected' : ''}>
+                                None
+                            </option>
+
+                            <option value="8" ${gap === '8' ? 'selected' : ''}>
+                                8px
+                            </option>
+
+                            <option value="16" ${gap === '16' ? 'selected' : ''}>
+                                16px
+                            </option>
+
+                            <option value="24" ${gap === '24' ? 'selected' : ''}>
+                                24px
+                            </option>
+
+                            <option value="32" ${gap === '32' ? 'selected' : ''}>
+                                32px
+                            </option>
+
+                            <option value="48" ${gap === '48' ? 'selected' : ''}>
+                                48px
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="sap-inspector-group">
+
+                        <button
+                            type="button"
+                            id="sap-save-row"
+                            class="button button-primary"
+                        >
+                            Save Row
+                        </button>
+
+                    </div>
+                               `;
+
+                const saveButton = document.getElementById(
+                    'sap-save-row'
+                );
+
+                if (!saveButton) {
+                    return;
+                }
+
+                saveButton.addEventListener(
+                    'click',
+                    function () {
+
+                        const gap = document.getElementById(
+                            'sap-inspector-row-gap'
+                        ).value;
+
+                        HarmonyAPI.saveModule(
+                            selection.id,
+                            '',
+                            '',
+                            {
+                                gap
+                            }
+                        );
+
+                    }
+                );
+
+            },
 
             renderColumnInspector(selection) {
 
