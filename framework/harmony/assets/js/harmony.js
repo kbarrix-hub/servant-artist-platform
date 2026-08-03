@@ -373,6 +373,9 @@ this.applySelection();
                 const minHeight =
                     selection.min_height ?? 'auto';
 
+                const horizontalPadding =
+                    selection.horizontal_padding ?? '24';
+
                 inspector.innerHTML = `
                     <div class="sap-inspector-group">
 
@@ -536,6 +539,65 @@ this.applySelection();
 
                     </div>
 
+                                        <div class="sap-inspector-group">
+
+                        <label>Horizontal Padding</label>
+
+                        <select id="sap-inspector-section-horizontal-padding">
+
+                            <option
+                                value="0"
+                                ${horizontalPadding === '0' ? 'selected' : ''}
+                            >
+                                None
+                            </option>
+
+                            <option
+                                value="8"
+                                ${horizontalPadding === '8' ? 'selected' : ''}
+                            >
+                                8px
+                            </option>
+
+                            <option
+                                value="16"
+                                ${horizontalPadding === '16' ? 'selected' : ''}
+                            >
+                                16px
+                            </option>
+
+                            <option
+                                value="24"
+                                ${horizontalPadding === '24' ? 'selected' : ''}
+                            >
+                                24px
+                            </option>
+
+                            <option
+                                value="32"
+                                ${horizontalPadding === '32' ? 'selected' : ''}
+                            >
+                                32px
+                            </option>
+
+                            <option
+                                value="48"
+                                ${horizontalPadding === '48' ? 'selected' : ''}
+                            >
+                                48px
+                            </option>
+
+                            <option
+                                value="64"
+                                ${horizontalPadding === '64' ? 'selected' : ''}
+                            >
+                                64px
+                            </option>
+
+                        </select>
+
+                    </div>
+
                     <div class="sap-inspector-group">
 
                         <button
@@ -573,6 +635,10 @@ this.applySelection();
                             'sap-inspector-section-min-height'
                         ).value;
 
+                        const horizontalPadding = document.getElementById(
+                            'sap-inspector-section-horizontal-padding'
+                        ).value;
+
                         HarmonyAPI.saveModule(
                             selection.id,
                             '',
@@ -580,7 +646,8 @@ this.applySelection();
                             {
                                 content_width: contentWidth,
                                 vertical_padding: verticalPadding,
-                                min_height: minHeight
+                                min_height: minHeight,
+                                horizontal_padding: horizontalPadding
                             }
                         );
 

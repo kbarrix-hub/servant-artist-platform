@@ -216,7 +216,36 @@ if (
 }
 
 $classes .= ' sap-section-min-height-' .
-    sanitize_html_class( $min_height );    
+    sanitize_html_class( $min_height );
+    
+    /*
+ * Section horizontal padding.
+ */
+$horizontal_padding =
+    $module['horizontal_padding'] ?? '24';
+
+$allowed_horizontal_padding = [
+    '0',
+    '8',
+    '16',
+    '24',
+    '32',
+    '48',
+    '64',
+];
+
+if (
+    ! in_array(
+        $horizontal_padding,
+        $allowed_horizontal_padding,
+        true
+    )
+) {
+    $horizontal_padding = '24';
+}
+
+$classes .= ' sap-section-padding-x-' .
+    sanitize_html_class( $horizontal_padding );
 
             break;
 

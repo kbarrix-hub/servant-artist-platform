@@ -1209,3 +1209,47 @@ body.sap-add-module-mode .sap-harmony-empty-column:not(.sap-module-target) {
 .sap-harmony-section.sap-section-min-height-600 {
 	min-height: 600px;
 }
+
+/* ============================================================
+   SAP-122
+   Section Horizontal Padding
+============================================================ */
+
+.sap-harmony-section {
+	box-sizing: border-box;
+}
+
+.sap-harmony-section.sap-section-padding-x-0 {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.sap-harmony-section.sap-section-padding-x-8 {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.sap-harmony-section.sap-section-padding-x-16 {
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+.sap-harmony-section.sap-section-padding-x-24 {
+	padding-left: 24px;
+	padding-right: 24px;
+}
+
+.sap-harmony-section.sap-section-padding-x-32 {
+	padding-left: 32px;
+	padding-right: 32px;
+}
+
+.sap-harmony-section.sap-section-padding-x-48 {
+	padding-left: 48px;
+	padding-right: 48px;
+}
+
+.sap-harmony-section.sap-section-padding-x-64 {
+	padding-left: 64px;
+	padding-right: 64px;
+}
