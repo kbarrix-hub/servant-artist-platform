@@ -681,7 +681,6 @@
 
 .sap-harmony-row>.sap-harmony-children {
 	align-items: stretch;
-	min-height: inherit;
 }
 
 .sap-harmony-column {
@@ -771,6 +770,8 @@
 	border-radius: 12px;
 
 	padding: 20px;
+
+	margin-bottom: 0;
 
 }
 
@@ -1252,4 +1253,65 @@ body.sap-add-module-mode .sap-harmony-empty-column:not(.sap-module-target) {
 .sap-harmony-section.sap-section-padding-x-64 {
 	padding-left: 64px;
 	padding-right: 64px;
+}
+
+/* ============================================================
+   SAP-123
+   Section Vertical Alignment
+============================================================ */
+
+/*
+ * The Section becomes a vertical flex container.
+ * Its direct children container occupies the available
+ * Section height so the Row can be positioned vertically.
+ */
+
+.sap-harmony-section {
+	display: flex;
+	flex-direction: column;
+}
+
+
+/* Section content container */
+
+.sap-harmony-section>.sap-harmony-children {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+
+/* Top */
+
+.sap-harmony-section.sap-section-align-top>.sap-harmony-children {
+	justify-content: flex-start;
+}
+
+
+/* Center */
+
+.sap-harmony-section.sap-section-align-center>.sap-harmony-children {
+	justify-content: center;
+}
+
+
+/* Bottom */
+
+.sap-harmony-section.sap-section-align-bottom>.sap-harmony-children {
+	justify-content: flex-end;
+}
+
+/* ============================================================
+   SAP-123A
+   Section Vertical Alignment Renderer Cleanup
+============================================================ */
+
+/*
+ * Section layout modules render empty title/content placeholders.
+ * They must not participate in Section flex geometry.
+ */
+
+.sap-harmony-section>h2:empty,
+.sap-harmony-section>p:empty {
+	display: none;
 }

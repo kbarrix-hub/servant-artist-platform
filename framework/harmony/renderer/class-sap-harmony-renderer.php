@@ -247,6 +247,31 @@ if (
 $classes .= ' sap-section-padding-x-' .
     sanitize_html_class( $horizontal_padding );
 
+    /*
+ * Section vertical alignment.
+ */
+$vertical_alignment =
+    $module['vertical_alignment'] ?? 'top';
+
+$allowed_vertical_alignments = [
+    'top',
+    'center',
+    'bottom',
+];
+
+if (
+    ! in_array(
+        $vertical_alignment,
+        $allowed_vertical_alignments,
+        true
+    )
+) {
+    $vertical_alignment = 'top';
+}
+
+$classes .= ' sap-section-align-' .
+    sanitize_html_class( $vertical_alignment );
+
             break;
 
         case 'row':

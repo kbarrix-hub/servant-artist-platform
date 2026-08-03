@@ -376,6 +376,9 @@ this.applySelection();
                 const horizontalPadding =
                     selection.horizontal_padding ?? '24';
 
+                const verticalAlignment =
+                    selection.vertical_alignment ?? 'top';
+
                 inspector.innerHTML = `
                     <div class="sap-inspector-group">
 
@@ -598,6 +601,37 @@ this.applySelection();
 
                     </div>
 
+                                        <div class="sap-inspector-group">
+
+                        <label>Vertical Alignment</label>
+
+                        <select id="sap-inspector-section-vertical-alignment">
+
+                            <option
+                                value="top"
+                                ${verticalAlignment === 'top' ? 'selected' : ''}
+                            >
+                                Top
+                            </option>
+
+                            <option
+                                value="center"
+                                ${verticalAlignment === 'center' ? 'selected' : ''}
+                            >
+                                Center
+                            </option>
+
+                            <option
+                                value="bottom"
+                                ${verticalAlignment === 'bottom' ? 'selected' : ''}
+                            >
+                                Bottom
+                            </option>
+
+                        </select>
+
+                    </div>
+
                     <div class="sap-inspector-group">
 
                         <button
@@ -639,6 +673,10 @@ this.applySelection();
                             'sap-inspector-section-horizontal-padding'
                         ).value;
 
+                        const verticalAlignment = document.getElementById(
+                            'sap-inspector-section-vertical-alignment'
+                        ).value;
+
                         HarmonyAPI.saveModule(
                             selection.id,
                             '',
@@ -647,7 +685,8 @@ this.applySelection();
                                 content_width: contentWidth,
                                 vertical_padding: verticalPadding,
                                 min_height: minHeight,
-                                horizontal_padding: horizontalPadding
+                                horizontal_padding: horizontalPadding,
+                                vertical_alignment: verticalAlignment
                             }
                         );
 
