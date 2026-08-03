@@ -190,6 +190,34 @@ if (
 $classes .= ' sap-section-padding-y-' .
     sanitize_html_class( $vertical_padding );
 
+/*
+ * Section minimum height.
+ */
+$min_height =
+    $module['min_height'] ?? 'auto';
+
+$allowed_min_heights = [
+    'auto',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+];
+
+if (
+    ! in_array(
+        $min_height,
+        $allowed_min_heights,
+        true
+    )
+) {
+    $min_height = 'auto';
+}
+
+$classes .= ' sap-section-min-height-' .
+    sanitize_html_class( $min_height );    
+
             break;
 
         case 'row':

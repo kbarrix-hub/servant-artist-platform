@@ -1180,3 +1180,32 @@ body.sap-add-module-mode .sap-harmony-empty-column:not(.sap-module-target) {
 	padding-top: 64px;
 	padding-bottom: 64px;
 }
+
+/* ============================================================
+   SAP-121
+   Section Minimum Height
+============================================================ */
+
+.sap-harmony-section.sap-section-min-height-auto {
+	min-height: auto;
+}
+
+.sap-harmony-section.sap-section-min-height-200 {
+	min-height: 200px;
+}
+
+.sap-harmony-section.sap-section-min-height-300 {
+	min-height: 300px;
+}
+
+.sap-harmony-section.sap-section-min-height-400 {
+	min-height: 400px;
+}
+
+.sap-harmony-section.sap-section-min-height-500 {
+	min-height: 500px;
+}
+
+.sap-harmony-section.sap-section-min-height-600 {
+	min-height: 600px;
+}
